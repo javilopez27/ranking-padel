@@ -1,7 +1,8 @@
 import { useModalFocus } from '../hooks/useModalFocus';
 import React from 'react';
-import { X, Trophy, CheckCircle2, Clock, Calendar, ShieldCheck, Zap } from 'lucide-react';
+import { X } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
+import { PlayerAvatar } from './PlayerAvatar';
 
 interface PlayerDetailModalProps {
   player: Player | null;
@@ -41,9 +42,7 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
         {/* Header Strip */}
         <div className="bg-black p-4 sm:p-5 border-b-2 border-[#262c3a] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`w-12 h-12 ${player.avatarColor || 'bg-[#ccff00]'} text-black font-display text-2xl font-black flex items-center justify-center border-2 border-black`}>
-              {player.name.slice(0, 2).toUpperCase()}
-            </div>
+            <PlayerAvatar player={player} size="lg" />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="font-display text-2xl sm:text-3xl font-black text-white leading-none">
@@ -58,9 +57,6 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
                   </span>
                 )}
               </div>
-              <p className="text-xs font-mono-code text-slate-400 mt-1">
-                Lado: <strong className="text-white capitalize">{player.side}</strong>
-              </p>
             </div>
           </div>
 
@@ -77,9 +73,9 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
             <div className="bg-[#12151e] border-2 border-[#ccff00] p-3 text-center">
-              <span className="text-[10px] text-slate-400 uppercase block font-grotesk">PUNTOS TOTALES</span>
+              <span className="text-[10px] text-slate-400 uppercase block font-grotesk">VICTORIAS</span>
               <span className="font-display text-3xl font-black text-[#ccff00] leading-none mt-1 block">
-                {stats?.points || 0}
+                {stats?.matchesWon || 0}
               </span>
             </div>
             <div className="bg-[#12151e] border-2 border-[#262c3a] p-3 text-center">

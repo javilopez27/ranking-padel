@@ -8,7 +8,8 @@
       "nickname": "Javi",
       "side": "reves",
       "paidFee": false,
-      "avatarColor": "bg-emerald-500"
+      "avatarColor": "bg-emerald-500",
+      "imageUrl": "./fotos_ranking/funko_pop_javi.jpg"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "nickname": "Kike",
       "side": "drive",
       "paidFee": false,
-      "avatarColor": "bg-blue-500"
+      "avatarColor": "bg-blue-500",
+      "imageUrl": "./fotos_ranking/funko_pop_muñoz.jpg"
     },
     {
       "id": 3,
@@ -24,7 +26,8 @@
       "nickname": "Alexgapp",
       "side": "reves",
       "paidFee": false,
-      "avatarColor": "bg-amber-500"
+      "avatarColor": "bg-amber-500",
+      "imageUrl": "./fotos_ranking/funko_pop_alexgapp.jpg"
     },
     {
       "id": 4,
@@ -32,7 +35,8 @@
       "nickname": "Paco",
       "side": "drive",
       "paidFee": false,
-      "avatarColor": "bg-indigo-500"
+      "avatarColor": "bg-indigo-500",
+      "imageUrl": "./fotos_ranking/funko_pop_paquele.jpg"
     },
     {
       "id": 5,
@@ -40,7 +44,8 @@
       "nickname": "Juanma",
       "side": "ambos",
       "paidFee": false,
-      "avatarColor": "bg-cyan-500"
+      "avatarColor": "bg-cyan-500",
+      "imageUrl": "./fotos_ranking/funko_pop_juanma.jpg"
     },
     {
       "id": 6,
@@ -48,7 +53,8 @@
       "nickname": "Anegon",
       "side": "reves",
       "paidFee": false,
-      "avatarColor": "bg-rose-500"
+      "avatarColor": "bg-rose-500",
+      "imageUrl": "./fotos_ranking/funko_pop_anegon.jpg"
     },
     {
       "id": 7,
@@ -56,7 +62,8 @@
       "nickname": "Vaquero",
       "side": "drive",
       "paidFee": false,
-      "avatarColor": "bg-purple-500"
+      "avatarColor": "bg-purple-500",
+      "imageUrl": "./fotos_ranking/funko_pop_vaquero.jpg"
     },
     {
       "id": 8,
@@ -64,7 +71,8 @@
       "nickname": "Jacobo",
       "side": "ambos",
       "paidFee": false,
-      "avatarColor": "bg-teal-500"
+      "avatarColor": "bg-teal-500",
+      "imageUrl": "./fotos_ranking/funko_pop_jacobo.jpg"
     },
     {
       "id": 9,
@@ -72,7 +80,8 @@
       "nickname": "Rodri",
       "side": "drive",
       "paidFee": false,
-      "avatarColor": "bg-orange-500"
+      "avatarColor": "bg-orange-500",
+      "imageUrl": "./fotos_ranking/funko_pop_rodri.jpg"
     },
     {
       "id": 10,
@@ -80,7 +89,8 @@
       "nickname": "Borre",
       "side": "reves",
       "paidFee": false,
-      "avatarColor": "bg-pink-500"
+      "avatarColor": "bg-pink-500",
+      "imageUrl": "./fotos_ranking/funko_pop_borre.jpg"
     },
     {
       "id": 11,
@@ -88,7 +98,8 @@
       "nickname": "Alex",
       "side": "drive",
       "paidFee": false,
-      "avatarColor": "bg-yellow-500"
+      "avatarColor": "bg-yellow-500",
+      "imageUrl": "./fotos_ranking/funko_pop_alex_sanchez.jpg"
     },
     {
       "id": 12,
@@ -96,7 +107,8 @@
       "nickname": "Álvaro",
       "side": "ambos",
       "paidFee": false,
-      "avatarColor": "bg-violet-500"
+      "avatarColor": "bg-violet-500",
+      "imageUrl": "./fotos_ranking/funko_pop_alvaro.jpg"
     }
   ],
   "matches": [

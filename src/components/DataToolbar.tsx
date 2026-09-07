@@ -14,7 +14,7 @@ export function DataToolbar({ league }: { league: ReturnType<typeof useLeague> }
           <span className="ml-3">{league.data && new Date(league.data.updatedAt).toLocaleString('es-ES')}</span>
         </div>
         <div className="flex flex-wrap gap-2">
-          {!league.editing ? <button className={button} onClick={league.startEditing}><Settings2 size={14} />Gestionar liga</button> : <>
+          {!league.editing ? <button className={button} onClick={league.startEditing}><Settings2 size={14} />Modo organizador</button> : <>
             <button className={button} onClick={() => league.data && downloadLeague(league.data)}><Download size={14} />Descargar datos</button>
             <button className={button} onClick={() => input.current?.click()}><Upload size={14} />Importar copia</button>
             <button className={button} onClick={league.resetDraft}>Descartar borrador</button>
@@ -25,9 +25,9 @@ export function DataToolbar({ league }: { league: ReturnType<typeof useLeague> }
       {league.editing && <details className="text-xs text-slate-300 leading-relaxed">
         <summary className="cursor-pointer text-[#ccff00]">Cómo publicar los cambios para todos</summary>
         <ol className="list-decimal pl-5 mt-2 space-y-1">
-          <li>Edita los jugadores y los resultados en las pestañas.</li>
-          <li>Pulsa «Descargar datos» para obtener league.json.</li>
-          <li>En el repositorio de GitHub, abre public y usa Add file → Upload files para reemplazar league.json. Confirma con Commit changes.</li>
+          <li>Solo el organizador prepara cambios desde este modo.</li>
+          <li>Edita jugadores y calendario, y pulsa «Descargar datos» para obtener league.json.</li>
+          <li>Sube ese archivo a GitHub reemplazando public/league.json y confirma con Commit changes.</li>
           <li>Espera a que termine Actions y recarga la web. Todos verán la versión publicada.</li>
         </ol>
       </details>}

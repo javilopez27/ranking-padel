@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Filter, Clock, CheckCircle2, AlertCircle, Share2, Plus, Edit3, ShieldAlert, ChevronLeft, ChevronRight, AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Filter } from 'lucide-react';
 import { Player, Match, RoundInfo } from '../types';
 
 interface CalendarioTabProps {
@@ -7,7 +7,6 @@ interface CalendarioTabProps {
   matches: Match[];
   players: Player[];
   onEditMatch: (match: Match) => void;
-  onOpenShareRound: (roundNumber: number) => void;
 }
 
 export const CalendarioTab: React.FC<CalendarioTabProps> = ({
@@ -15,7 +14,6 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
   matches,
   players,
   onEditMatch,
-  onOpenShareRound,
 }) => {
   const [selectedRound, setSelectedRound] = useState<number>(1);
   const [playerFilter, setPlayerFilter] = useState<number | 'all'>('all');
@@ -82,14 +80,9 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             </select>
           </div>
 
-          <button
-            id="btn-share-round-whatsapp"
-            onClick={() => onOpenShareRound(selectedRound)}
-            className="flex items-center gap-1.5 px-3.5 py-2 bg-[#25d366] hover:bg-[#20bd5a] text-black text-xs font-black font-grotesk uppercase border-2 border-black shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 transition-all"
-          >
-            <Share2 className="w-3.5 h-3.5 stroke-[2.5]" />
-            <span>Compartir J{selectedRound}</span>
-          </button>
+          <span className="bg-[#12151e] border-2 border-[#262c3a] px-3.5 py-2 text-xs font-black font-grotesk uppercase text-slate-300">
+            Edicion por archivo del organizador
+          </span>
         </div>
       </div>
 
@@ -242,18 +235,16 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                       </span>
                       {isCompleted && match.winnerTeam === 1 && (
                         <span className="text-[9px] font-black bg-[#ccff00] text-black px-1.5 py-0.2 uppercase">
-                          VICTORIA (+3 PTS)
+                          VICTORIA
                         </span>
                       )}
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs sm:text-sm text-white">{p1?.name}</span>
-                        <span className="text-[10px] font-mono-code text-slate-400 capitalize">{p1?.side}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs sm:text-sm text-white">{p2?.name}</span>
-                        <span className="text-[10px] font-mono-code text-slate-400 capitalize">{p2?.side}</span>
                       </div>
                     </div>
                   </div>
@@ -277,18 +268,16 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                       </span>
                       {isCompleted && match.winnerTeam === 2 && (
                         <span className="text-[9px] font-black bg-[#ccff00] text-black px-1.5 py-0.2 uppercase">
-                          VICTORIA (+3 PTS)
+                          VICTORIA
                         </span>
                       )}
                     </div>
                     <div className="space-y-1">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs sm:text-sm text-white">{p3?.name}</span>
-                        <span className="text-[10px] font-mono-code text-slate-400 capitalize">{p3?.side}</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs sm:text-sm text-white">{p4?.name}</span>
-                        <span className="text-[10px] font-mono-code text-slate-400 capitalize">{p4?.side}</span>
                       </div>
                     </div>
                   </div>

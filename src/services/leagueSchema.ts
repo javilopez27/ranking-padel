@@ -6,7 +6,7 @@ const id = z.number().int().min(1).max(12);
 const text = z.string().max(200);
 const player = z.object({
   id, name: text.trim().min(1), nickname: text.optional(),
-  side: z.enum(['drive', 'reves', 'ambos']), paidFee: z.boolean(), avatarColor: text.optional(),
+  side: z.enum(['drive', 'reves', 'ambos']), paidFee: z.boolean(), avatarColor: text.optional(), imageUrl: text.optional(),
 });
 const score = z.object({ games1: z.number().int().min(0).max(7), games2: z.number().int().min(0).max(7) });
 const result = z.object({

@@ -1,7 +1,7 @@
 import { useModalFocus } from '../hooks/useModalFocus';
 import React, { useState } from 'react';
 import { X } from 'lucide-react';
-import { Player, PlayerSide } from '../types';
+import { Player } from '../types';
 
 interface EditPlayerModalProps {
   player: Player;
@@ -19,7 +19,6 @@ export const EditPlayerModal: React.FC<EditPlayerModalProps> = ({
 
   const [name, setName] = useState(player.name);
   const [nickname, setNickname] = useState(player.nickname || '');
-  const [side, setSide] = useState<PlayerSide>(player.side);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +26,6 @@ export const EditPlayerModal: React.FC<EditPlayerModalProps> = ({
       ...player,
       name: name.trim() || player.name,
       nickname: nickname.trim() || undefined,
-      side,
     });
     onClose();
   };
@@ -80,28 +78,6 @@ export const EditPlayerModal: React.FC<EditPlayerModalProps> = ({
               placeholder="Ej. El Martillo, El Mago"
               className="w-full bg-black border border-[#262c3a] px-3 py-2 text-white text-xs font-mono-code focus:outline-none focus:border-[#ccff00]"
             />
-          </div>
-
-          <div>
-            <label className="text-[10px] font-black uppercase text-slate-400 font-grotesk block mb-1">
-              LADO DE PISTA HABITUAL
-            </label>
-            <div className="grid grid-cols-3 gap-2 font-grotesk">
-              {(['reves', 'drive', 'ambos'] as PlayerSide[]).map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSide(s)}
-                  className={`py-2 text-center text-xs font-black uppercase border-2 transition-all ${
-                    side === s
-                      ? 'bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_0px_#ffffff]'
-                      : 'bg-[#12151e] text-slate-300 border-[#262c3a]'
-                  }`}
-                >
-                  {s}
-                </button>
-              ))}
-            </div>
           </div>
 
           <div className="pt-3 border-t-2 border-[#262c3a] flex items-center justify-end gap-2">

@@ -1,5 +1,5 @@
 ﻿import React, { useState } from 'react';
-import { Trophy, Zap, Edit3 } from 'lucide-react';
+import { Trophy, Euro, Edit3 } from 'lucide-react';
 import type { Match, Player, PlayerStats } from '../types';
 import type { LeagueData } from '../services/leagueSchema';
 import { emptyPlayoffs } from '../services/leagueSchema';
@@ -53,18 +53,18 @@ export function Top8Tab({ stats, players, matches, playoffs, canEdit, onChange }
           <p className="mt-3 text-sm text-slate-300 max-w-2xl">Los cuatro primeros eligen compañero entre los puestos 5º y 8º. Semifinales y gran final para decidir los campeones de la liga.</p>
         </div>
         <div className="bg-[#12151e] border-2 border-[#ccff00] p-4 lg:w-72 shrink-0">
-          <div className="flex justify-between text-[#ccff00] font-grotesk text-xs font-bold">PREMIOS EN METÁLICO <Zap size={16} /></div>
+          <div className="flex justify-between text-[#ccff00] font-grotesk text-xs font-bold">PREMIOS EN METÁLICO <Euro size={16} /></div>
           <div className="font-display text-4xl">120€ TOTAL</div>
           <p className="text-xs text-slate-300 mt-2">🥇 Campeones: 80 € (40 € cada uno)<br />🥈 Subcampeones: 40 € (20 € cada uno)</p>
         </div>
       </div>
     </section>
-    {!finished && <p className="border border-[#ff5500] bg-[#1e1008] p-4 text-sm text-orange-200">Clasificación provisional. Completa los 33 partidos de la liga para fijar las parejas. No hay campeones hasta que se juegue la final.</p>}
+    {!finished && <p className="border border-[#ff5500] bg-[#1e1008] p-4 text-sm text-orange-200">Ranking provisional hasta completar la fase regular.</p>}
     <section className="space-y-4">
       <h2 className="font-display text-2xl border-2 border-[#262c3a] p-3">TABLÓN DE ELECCIÓN // LOS 4 CAPITANES</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {captains.map((captain, i) => <article key={captain.playerId} className="bg-[#0a0c12] border-2 border-[#262c3a] p-4 shadow-[3px_3px_0px_0px_#000]">
-          <span className="text-[#ccff00] text-xs font-mono-code">CAPITÁN {i + 1} // {captain.points} PTS</span>
+          <span className="text-[#ccff00] text-xs font-mono-code">CAPITÁN {i + 1} // {captain.matchesWon} VICTORIAS</span>
           <h3 className="font-display text-2xl mt-2">{name(pairs[i]?.[0] ?? captain.playerId)}</h3>
           {pairs.length ? <p className="mt-3 text-sm text-slate-300">Compañero: <strong>{name(pairs[i][1])}</strong></p> : <>
             <label htmlFor={`pick-${i}`} className="block text-xs text-slate-400 mt-3 mb-2">Compañero</label>

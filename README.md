@@ -1,6 +1,6 @@
-﻿# Liga Pádel 12
+# Ranking Padel
 
-Aplicación para gestionar una liga de 12 amigos, manteniendo el diseño de Google AI Studio: fondo oscuro, verde lima, naranja y tipografía deportiva. React + TypeScript + Vite, lista para GitHub Pages.
+Aplicación para gestionar un ranking de pádel de 12 amigos, manteniendo el diseño de Google AI Studio: fondo oscuro, verde lima, naranja y tipografía deportiva. React + TypeScript + Vite, lista para GitHub Pages.
 
 ## Publicarla en GitHub Pages
 
@@ -45,7 +45,7 @@ Si solo cambias resultados desde la web, pulsa **Descargar datos**, reemplaza `p
 La web abre siempre la **liga publicada**, que es la misma para los 12 jugadores. Se obtiene de `public/league.json`. Recarga la página para consultar una nueva publicación.
 
 1. El organizador pulsa **Gestionar liga**. Se abre un borrador local; si ya existe, se recupera.
-2. En **Jugadores** cambia nombres, apodos y lado de pista. En **Jornadas** registra resultados, pistas, fechas o aplazamientos. La clasificación se recalcula automáticamente.
+2. En **Jugadores** cambia nombres y apodos. En **Jornadas** registra resultados, pistas, fechas o aplazamientos. La clasificación se recalcula automáticamente.
 3. Pulsa **Descargar datos**. Se descarga `league.json`, que también sirve como copia de seguridad.
 4. En GitHub entra en la carpeta **public**, pulsa **Add file → Upload files**, sube el archivo descargado reemplazando `league.json` y confirma con **Commit changes**.
 5. Espera a que termine Actions. Recarga la web: todos verán los cambios.
@@ -59,13 +59,12 @@ GitHub Pages sirve archivos estáticos y no recibe escrituras de los móviles. E
 - Los jugadores ya están cargados con los nombres indicados. Falta confirmar el jugador 12, que queda como `Jugador 12`.
 - Los 33 partidos empiezan pendientes, sin votos ni campeones ficticios.
 - Calendario Whist: 11 jornadas, cada compañero una vez, cada rival dos veces.
-- Victoria: 3 puntos. Desempates: diferencia de sets, diferencia de juegos, sets a favor, juegos a favor y nombre como último criterio estable.
+- El ranking va por victorias. Desempates: diferencia de sets, diferencia de juegos, sets a favor, juegos a favor y nombre como último criterio estable.
 - Partidos al mejor de 3 sets: 6–0 a 6–4, 7–5 o 7–6. No se admite supertiebreak a 10 en esta versión.
 - Premios previstos por pareja: 80 € y 40 €.
 - La fase final usa el draft de capitanes del diseño original. Tras completar la liga, los cuatro primeros eligen compañeros entre los puestos 5º y 8º. Se guardan parejas y resultados de semifinales y final.
 - Cambiar una semifinal borra el resultado de la final, previa confirmación. Cambiar la liga regular con un cuadro fijado reinicia la fase final para no mantener clasificados incorrectos.
 - Las fechas de las jornadas (septiembre–noviembre de 2026) se configuran en `src/data/initialData.ts`. Los nombres y resultados se gestionan desde la web.
-- WhatsApp prepara el mensaje; tú decides enviarlo. No sincroniza los datos de la web.
 
 ## Ejecutarla en tu ordenador
 
@@ -92,7 +91,7 @@ El resultado está en `dist/`. GitHub Actions genera esta carpeta automáticamen
 - `src/hooks/useLeague.ts`: estado, edición y mensajes de guardado.
 - `src/services/leagueRepository.ts`: lectura de datos publicados, almacenamiento local y exportación.
 - `src/services/leagueSchema.ts`: validación de datos importados y publicados.
-- `src/utils/`: clasificación, calendario, resultados y textos de WhatsApp.
+- `src/utils/`: clasificación, calendario y resultados.
 - `public/league.json`: única fuente de datos publicada.
 - `tests/`: pruebas de calendario, resultados, clasificación e importaciones.
 - `.github/workflows/deploy.yml`: comprobación y publicación automática.

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Trophy, Calendar, Users, Award, Home, Share2, Zap } from 'lucide-react';
+import { Trophy, Calendar, Users, Award, Home, Euro } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8';
   setActiveTab: (tab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8') => void;
-  onOpenShare: () => void;
   totalJackpot: number;
   completedMatchesCount: number;
   totalMatchesCount: number;
@@ -13,7 +12,6 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
-  onOpenShare,
   totalJackpot,
   completedMatchesCount,
   totalMatchesCount,
@@ -31,14 +29,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Top Maximalist Running Ticker Tape */}
       <div className="bg-[#ccff00] text-black font-black text-[11px] py-1 px-4 overflow-hidden border-b border-black uppercase tracking-wider font-grotesk select-none">
         <div className="animate-ticker flex items-center whitespace-nowrap gap-6 font-bold">
-          <span>🎾 LIGA PÁDEL 12 • TEMPORADA 2026</span>
+          <span>RANKING PADEL • TEMPORADA 2026</span>
           <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
           <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
           <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
           <span className="bg-black text-white px-1.5 py-0.2 rounded-xs">FASE FINAL: DRAFT DE CAPITANES</span>
-          <span>NO HAY EXCUSAS • CADA JUEGO CUENTA</span>
-          <span>🎾 LIGA PÁDEL 12 • TEMPORADA 2026</span>
+          <span>RANKING CAMPECHOS • TEMPORADA REGULAR Y TOP 8</span>
+          <span>RANKING PADEL • TEMPORADA 2026</span>
           <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
           <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
@@ -60,14 +58,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-display text-xl sm:text-2xl font-black text-white tracking-wider leading-none">
-                  LIGA PÁDEL 12
+                  RANKING PADEL
                 </span>
                 <span className="bg-[#ff5500] text-white text-[10px] font-black px-1.5 py-0.5 uppercase tracking-wider font-grotesk">
                   WHIST
                 </span>
               </div>
               <p className="text-[11px] font-mono-code text-slate-400 hidden sm:block tracking-tight mt-0.5">
-                PADEL CLUB // 11 JORNADAS // 100% FAIR
+                11 JORNADAS // TOP 8 FINAL
               </p>
             </div>
           </div>
@@ -109,22 +107,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-[#12151e] border-2 border-[#ff5500] text-white shadow-[2px_2px_0px_0px_#ff5500]"
               title="Bote de premios de la liga"
             >
-              <Zap className="w-3.5 h-3.5 text-[#ff5500] fill-[#ff5500]" />
+              <Euro className="w-3.5 h-3.5 text-[#ff5500]" />
               <div className="flex items-baseline gap-1.5 leading-none">
                 <span className="text-[10px] text-slate-400 uppercase font-bold font-grotesk hidden xs:inline">BOTE</span>
                 <span className="text-base sm:text-lg font-black font-display text-[#ff5500]">{totalJackpot}€</span>
               </div>
             </div>
 
-            <button
-              id="btn-whatsapp-share-nav"
-              onClick={onOpenShare}
-              className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 bg-[#25d366] hover:bg-[#20bd5a] text-black border-2 border-black font-black font-grotesk text-xs uppercase shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 transition-all"
-              title="Compartir resumen en WhatsApp"
-            >
-              <Share2 className="w-3.5 h-3.5 stroke-[2.5]" />
-              <span className="hidden sm:inline">WHATSAPP</span>
-            </button>
           </div>
         </div>
       </div>

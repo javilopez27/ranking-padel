@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trophy, Calendar, Sparkles, Clock, CheckCircle2, ChevronRight, AlertCircle, ArrowUpRight, ShieldCheck, Flame, Zap, Award, Target } from 'lucide-react';
+import { Trophy, Calendar, ChevronRight, ArrowUpRight, Euro, Award } from 'lucide-react';
 import { Player, Match, RoundInfo, PlayerStats } from '../types';
 
 interface InicioTabProps {
@@ -52,10 +52,10 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             {/* Athletic Stickers / Tags */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="bg-[#ccff00] text-black font-black text-xs px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black shadow-[2px_2px_0px_0px_#000]">
-                ⚡ EDICIÓN 2026
+                Ranking Padel 2026
               </span>
               <span className="bg-[#ff5500] text-white font-black text-xs px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black shadow-[2px_2px_0px_0px_#000]">
-                120€ CASH PRIZE
+                120 € en premios
               </span>
               <span className="bg-white text-black font-black text-xs px-2 py-0.5 uppercase tracking-wider font-mono-code border border-black hidden sm:inline-block">
                 SYSTEM: WH12
@@ -64,12 +64,11 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
             {/* Massive Display Title */}
             <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-wide uppercase leading-none mt-2">
-              12 AMIGOS. <span className="text-[#ccff00] bg-black px-2 inline-block -rotate-1 border border-[#ccff00]">11 JORNADAS.</span><br />
-              <span className="text-white">CADA JUEGO CUENTA.</span>
+              Ranking <span className="text-[#ccff00] bg-black px-2 inline-block -rotate-1 border border-[#ccff00]">Campechos.</span>
             </h1>
 
             <p className="mt-4 text-slate-300 text-sm sm:text-base font-medium max-w-xl leading-relaxed">
-              Torneo individual de rotación perfecta matemática. Cada jugador disputa 11 partidos, compartiendo pista <strong className="text-white underline decoration-[#ccff00] decoration-2">1 sola vez</strong> como compañero y <strong className="text-white underline decoration-[#ff5500] decoration-2">2 veces</strong> como rival con cada uno de los 11 amigos.
+              Ranking individual entre 12 amigos. Cada jugador disputa 11 partidos y cada victoria cuenta para subir en la clasificación.
             </p>
 
             {/* CTA Buttons */}
@@ -106,10 +105,10 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             <div className="bg-[#0f1118] border-2 border-[#ff5500] p-3.5 shadow-[4px_4px_0px_0px_#ff5500]">
               <div className="flex items-center justify-between text-[11px] font-black uppercase text-[#ff5500] font-grotesk">
                 <span>BOTE EN METÁLICO</span>
-                <Zap className="w-3.5 h-3.5 fill-[#ff5500]" />
+                <Euro className="w-3.5 h-3.5" />
               </div>
               <div className="font-display text-4xl font-black text-white leading-none mt-1">
-                120 <span className="text-xl text-[#ff5500]">EUR</span>
+                120 <span className="text-xl text-[#ff5500]">€</span>
               </div>
               <div className="mt-2 pt-2 border-t border-slate-800 text-[11px] font-mono-code text-slate-300 flex justify-between">
                 <span>🥇 1º: <strong className="text-white">80€</strong></span>
@@ -372,10 +371,10 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
                 <div className="text-right">
                   <span className="font-display text-3xl font-black text-[#ccff00] leading-none block">
-                    {top1.points}
+                    {top1.matchesWon}
                   </span>
                   <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
-                    PUNTOS
+                    VICTORIAS
                   </span>
                 </div>
               </div>
@@ -403,10 +402,10 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
                 <div className="text-right">
                   <span className="font-display text-3xl font-black text-white leading-none block">
-                    {top2.points}
+                    {top2.matchesWon}
                   </span>
                   <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
-                    PUNTOS
+                    VICTORIAS
                   </span>
                 </div>
               </div>
@@ -434,41 +433,14 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
                 <div className="text-right">
                   <span className="font-display text-3xl font-black text-[#ff5500] leading-none block">
-                    {top3.points}
+                    {top3.matchesWon}
                   </span>
                   <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
-                    PUNTOS
+                    VICTORIAS
                   </span>
                 </div>
               </div>
             )}
-          </div>
-
-          {/* Equidad Matemática Whist Box */}
-          <div className="bg-[#12151e] border-2 border-[#262c3a] p-4">
-            <div className="flex items-center gap-2 mb-2">
-              <ShieldCheck className="w-4 h-4 text-[#ccff00]" />
-              <h4 className="font-display text-base font-black text-white uppercase tracking-wider">
-                CERTIFICACIÓN DE EQUIDAD WHIST
-              </h4>
-            </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              El calendario Whist garantiza sin excepción que no hay parejas repetidas ni favoritismos en las 11 jornadas.
-            </p>
-            <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-[#262c3a] text-center font-mono-code text-[11px]">
-              <div className="bg-black p-2 border border-[#262c3a]">
-                <span className="font-bold text-[#ccff00] block text-base font-display">11</span>
-                <span className="text-slate-400 text-[10px]">Compañeros</span>
-              </div>
-              <div className="bg-black p-2 border border-[#262c3a]">
-                <span className="font-bold text-[#ff5500] block text-base font-display">22</span>
-                <span className="text-slate-400 text-[10px]">Rivales</span>
-              </div>
-              <div className="bg-black p-2 border border-[#262c3a]">
-                <span className="font-bold text-white block text-base font-display">33</span>
-                <span className="text-slate-400 text-[10px]">Partidos</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

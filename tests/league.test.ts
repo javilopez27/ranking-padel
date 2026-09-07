@@ -26,7 +26,7 @@ test('marcadores: rechaza empates, decimales, sets incompletos y un tercer set d
   for (const sets of [[score(6,6),score(6,4)], [score(6,4),score(4,6)], [score(6,5),score(6,0)], [score(6,4),score(6,4),score(0,6)], [score(6.5,4),score(6,4)], [score(0,0)]]) assert.equal(getMatchWinner(sets), undefined);
 });
 
-test('guardar y deshacer un resultado actualiza clasificación y puntos de los cuatro jugadores', () => {
+test('guardar y deshacer un resultado actualiza clasificación y victorias de los cuatro jugadores', () => {
   const data = fixture();
   data.matches = data.matches.map(m => ({ ...m, status: 'pending', sets: [], winnerTeam: undefined }));
   const m = data.matches[0];
@@ -34,7 +34,7 @@ test('guardar y deshacer un resultado actualiza clasificación y puntos de los c
   const stats = calculatePlayerStats(data.players, data.matches);
   for (const id of m.team1) {
     const s = stats.find(s => s.playerId === id)!;
-    assert.equal(s.points, 3); assert.equal(s.setsDiff, 2); assert.equal(s.gamesDiff, 6);
+    assert.equal(s.points, 1); assert.equal(s.matchesWon, 1); assert.equal(s.setsDiff, 2); assert.equal(s.gamesDiff, 6);
   }
   assert.equal(stats.reduce((sum,s) => sum+s.matchesPlayed,0),4);
   assert.equal(stats.find(s => s.playerId === m.team2[0])!.matchesLost,1);

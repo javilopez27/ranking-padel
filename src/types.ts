@@ -7,6 +7,7 @@ export interface Player {
   side: PlayerSide;
   paidFee: boolean; // 10 € quota
   avatarColor?: string;
+  imageUrl?: string;
 }
 
 export interface SetScore {
@@ -50,7 +51,7 @@ export interface PlayerStats {
   gamesWon: number;
   gamesLost: number;
   gamesDiff: number;
-  points: number; // 3 pts per win or 1 pt per win
+  points: number; // legacy name used internally; equals victories
   winRate: number;
   streak: ('W' | 'L')[];
 }

@@ -3,7 +3,7 @@ import { Player, Match, PlayerStats, SetScore } from '../types';
 /**
  * Calculates individual statistics for each player based on completed matches.
  * Tiebreaker order as requested:
- * 1. Points / Victorias (3 pts per win, or direct wins)
+ * 1. Victorias
  * 2. Diferencia de Sets (setsWon - setsLost)
  * 3. Diferencia de Juegos (gamesWon - gamesLost)
  * 4. Sets a favor (setsWon)
@@ -64,7 +64,7 @@ export function calculatePlayerStats(players: Player[], matches: Match[]): Playe
         stat.matchesPlayed += 1;
         if (team1Won) {
           stat.matchesWon += 1;
-          stat.points += 3; // 3 points per win
+          stat.points += 1;
           stat.streak.push('W');
         } else {
           stat.matchesLost += 1;
@@ -83,7 +83,7 @@ export function calculatePlayerStats(players: Player[], matches: Match[]): Playe
         stat.matchesPlayed += 1;
         if (!team1Won) {
           stat.matchesWon += 1;
-          stat.points += 3;
+          stat.points += 1;
           stat.streak.push('W');
         } else {
           stat.matchesLost += 1;
@@ -107,7 +107,7 @@ export function calculatePlayerStats(players: Player[], matches: Match[]): Playe
   });
 
   // Sort with explicit user tie-break rules:
-  // 1. Points
+  // 1. Victorias
   // 2. Sets Difference
   // 3. Games Difference
   // 4. Sets Won
@@ -177,55 +177,4 @@ export function getPairingMatrix(players: Player[], matches: Match[]) {
   });
 
   return { partnerMatrix, opponentMatrix };
-}
-
-/**
- * Formats a clean WhatsApp message for sharing standings or round results.
- */
-export function generateWhatsAppStandings(stats: PlayerStats[], currentRound: number): string {
-  let msg = `🎾 *LIGA PÁDEL 12 - CLASIFICACIÓN (Jornada ${currentRound})*\n`;
-  msg += `💰 *Bote Total:* 120 € (80 € Campeón / 40 € Subcampeón)\n`;
-  msg += `─────────────────────────\n`;
-
-  stats.forEach((s, idx) => {
-    const pos = idx + 1;
-    const medal = pos === 1 ? '🥇' : pos === 2 ? '🥈' : pos === 3 ? '🥉' : pos <= 8 ? '🟢' : '⚪';
-    const diffSign = s.setsDiff > 0 ? `+${s.setsDiff}` : `${s.setsDiff}`;
-    msg += `${medal} *${pos}º* ${s.player.name} — *${s.points} pts* (${s.matchesWon}V-${s.matchesLost}D | Dif Sets: ${diffSign} | Dif Juegos: ${s.gamesDiff > 0 ? '+' : ''}${s.gamesDiff})\n`;
-  });
-
-  msg += `─────────────────────────\n`;
-  msg += `*Top 8:* Puestos 1º al 8º clasificarán a la fase final.\n`;
-  msg += `*Desempate:* Dif. Sets > Dif. Juegos > Sets Favor > Juegos Favor.`;
-  return msg;
-}
-
-export function generateWhatsAppRound(matches: Match[], roundNumber: number, players: Player[]): string {
-  const pMap = new Map(players.map((p) => [p.id, p]));
-  let msg = `🎾 *LIGA PÁDEL 12 - JORNADA ${roundNumber}*\n`;
-  msg += `📅 *Semana de competición*\n`;
-  msg += `─────────────────────────\n`;
-
-  matches
-    .filter((m) => m.roundNumber === roundNumber)
-    .forEach((m, idx) => {
-      const p1 = pMap.get(m.team1[0])?.name || `J${m.team1[0]}`;
-      const p2 = pMap.get(m.team1[1])?.name || `J${m.team1[1]}`;
-      const p3 = pMap.get(m.team2[0])?.name || `J${m.team2[0]}`;
-      const p4 = pMap.get(m.team2[1])?.name || `J${m.team2[1]}`;
-
-      msg += `*Partido ${idx + 1}:*\n`;
-      msg += `🎾 ${p1} & ${p2}\n     🆚\n🎾 ${p3} & ${p4}\n`;
-
-      if (m.status === 'completed' && m.sets.length > 0) {
-        const scoreStr = m.sets.map((s) => `${s.games1}-${s.games2}`).join(' / ');
-        msg += `🏆 *Resultado:* ${scoreStr}\n\n`;
-      } else if (m.status === 'postponed') {
-        msg += `⏳ *Aplazado para diciembre:* ${m.postponedNote || 'Sin fecha'}\n\n`;
-      } else {
-        msg += `⏳ *Estado:* Pendiente de disputar\n\n`;
-      }
-    });
-
-  return msg;
 }
