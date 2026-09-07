@@ -92,8 +92,8 @@
     },
     {
       "id": 12,
-      "name": "Jugador 12",
-      "nickname": "Jugador 12",
+      "name": "Álvaro",
+      "nickname": "Álvaro",
       "side": "ambos",
       "paidFee": false,
       "avatarColor": "bg-violet-500"
