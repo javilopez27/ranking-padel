@@ -13,7 +13,7 @@ export function useLeague() {
         if (active) setData(league);
       })
       .catch(() => {
-        if (active) setError('No se ha podido cargar el ranking publicado. Comprueba el archivo league.json.');
+        if (active) setError('No se ha podido cargar el ranking. Inténtalo de nuevo en unos minutos.');
       });
 
     return () => {

@@ -39,7 +39,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
               Fase final Top 8
             </h1>
             <p className="mt-3 text-sm text-slate-300 max-w-2xl">
-              Los ocho primeros del ranking entran en la fase final. Las parejas y resultados se publican desde el archivo de datos.
+              Los ocho primeros del ranking entran en la fase final para decidir los campeones.
             </p>
           </div>
           <div className="bg-[#12151e] border-2 border-[#ccff00] p-4 lg:w-72 shrink-0">

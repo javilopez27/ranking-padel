@@ -45,7 +45,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
         </div>
         <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff5500]/10 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-6">
+        <div className="relative z-10 flex flex-col lg:flex-row lg:items-stretch justify-between gap-6">
           <div className="max-w-2xl">
             {/* Athletic Stickers / Tags */}
             <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -97,8 +97,16 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             </div>
           </div>
 
+          <div className="w-full lg:w-80 xl:w-96 shrink-0 bg-black border-2 border-[#262c3a] shadow-[4px_4px_0px_0px_#ff5500] overflow-hidden">
+            <img
+              src="./fotos_ranking/funko_liga.jpg"
+              alt="Ranking Campechos"
+              className="h-full min-h-72 w-full object-cover"
+            />
+          </div>
+
           {/* Athletic Data Box Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-3 w-full lg:w-72 shrink-0">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-3 w-full lg:w-64 shrink-0">
             {/* Cash Pot Ticket */}
             <div className="bg-[#0f1118] border-2 border-[#ff5500] p-3.5 shadow-[4px_4px_0px_0px_#ff5500]">
               <div className="flex items-center justify-between text-[11px] font-black uppercase text-[#ff5500] font-grotesk">
@@ -163,7 +171,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 mt-0.5 font-medium">
-                Los 8 primeros clasificados disputan la fase final. Las parejas y resultados se publican desde el archivo de datos del repositorio.
+                Los 8 primeros clasificados disputan la fase final para decidir los campeones del ranking.
               </p>
             </div>
           </div>
