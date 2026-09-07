@@ -3,7 +3,8 @@ build/
 dist/
 coverage/
 artifacts/
-fotos_ranking/
+/fotos_ranking/
+!public/fotos_ranking/
 public/players/
 .DS_Store
 *.log

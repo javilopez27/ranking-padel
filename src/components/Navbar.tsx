@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Trophy, Calendar, Users, Award, Home, Euro } from 'lucide-react';
+import { PhotoModal } from './PhotoModal';
+import type { Player } from '../types';
 
 interface NavbarProps {
   activeTab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8';
@@ -16,6 +18,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   completedMatchesCount,
   totalMatchesCount,
 }) => {
+  const [showLeaguePhoto, setShowLeaguePhoto] = useState(false);
+  const leaguePhoto: Player = {
+    id: 0,
+    name: 'Ranking Campechos',
+    side: 'ambos',
+    paidFee: false,
+    imageUrl: './fotos_ranking/funko_liga.jpg',
+  };
   const tabs = [
     { id: 'inicio', label: 'INICIO', icon: Home },
     { id: 'clasificacion', label: 'TABLA', icon: Trophy },
@@ -47,14 +57,22 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
           {/* Logo & Athletic Club Identity */}
-          <div 
+          <div
             id="brand-logo"
             onClick={() => setActiveTab('inicio')}
             className="flex items-center gap-3 cursor-pointer group select-none"
           >
-            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display text-2xl font-black shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all">
-              12
-            </div>
+            <button
+              type="button"
+              onClick={(event) => {
+                event.stopPropagation();
+                setShowLeaguePhoto(true);
+              }}
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-black border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#ccff00] cursor-zoom-in"
+              title="Ampliar foto de la liga"
+            >
+              <img src="./fotos_ranking/funko_liga.jpg" alt="Ranking Campechos" className="w-full h-full object-cover" />
+            </button>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-display text-xl sm:text-2xl font-black text-white tracking-wider leading-none">
@@ -139,6 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </div>
       </div>
+      {showLeaguePhoto && <PhotoModal player={leaguePhoto} onClose={() => setShowLeaguePhoto(false)} />}
     </header>
   );
 };
