@@ -1,0 +1,6 @@
+{
+  "name": "Liga Pádel 12",
+  "description": "Gestor y seguimiento de liga de pádel individual para 12 jugadores con calendario Whist equilibrado, clasificación en tiempo real y fase final Top 8.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

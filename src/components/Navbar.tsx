@@ -1,0 +1,158 @@
+import React from 'react';
+import { Trophy, Calendar, Users, Award, Home, Share2, Zap } from 'lucide-react';
+
+interface NavbarProps {
+  activeTab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8';
+  setActiveTab: (tab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8') => void;
+  onOpenShare: () => void;
+  totalJackpot: number;
+  completedMatchesCount: number;
+  totalMatchesCount: number;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  activeTab,
+  setActiveTab,
+  onOpenShare,
+  totalJackpot,
+  completedMatchesCount,
+  totalMatchesCount,
+}) => {
+  const tabs = [
+    { id: 'inicio', label: 'INICIO', icon: Home },
+    { id: 'clasificacion', label: 'TABLA', icon: Trophy },
+    { id: 'calendario', label: 'JORNADAS', icon: Calendar },
+    { id: 'jugadores', label: 'JUGADORES', icon: Users },
+    { id: 'top8', label: 'DRAFT TOP 8', icon: Award, tag: '80€' },
+  ] as const;
+
+  return (
+    <header className="sticky top-0 z-40 bg-[#060709] border-b-2 border-[#1e222d]">
+      {/* Top Maximalist Running Ticker Tape */}
+      <div className="bg-[#ccff00] text-black font-black text-[11px] py-1 px-4 overflow-hidden border-b border-black uppercase tracking-wider font-grotesk select-none">
+        <div className="animate-ticker flex items-center whitespace-nowrap gap-6 font-bold">
+          <span>🎾 LIGA PÁDEL 12 • TEMPORADA 2026</span>
+          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
+          <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
+          <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
+          <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
+          <span className="bg-black text-white px-1.5 py-0.2 rounded-xs">FASE FINAL: DRAFT DE CAPITANES</span>
+          <span>NO HAY EXCUSAS • CADA JUEGO CUENTA</span>
+          <span>🎾 LIGA PÁDEL 12 • TEMPORADA 2026</span>
+          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
+          <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
+          <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
+          <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
+          {/* Logo & Athletic Club Identity */}
+          <div 
+            id="brand-logo"
+            onClick={() => setActiveTab('inicio')}
+            className="flex items-center gap-3 cursor-pointer group select-none"
+          >
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#ccff00] text-black border-2 border-black flex items-center justify-center font-display text-2xl font-black shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all">
+              12
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-display text-xl sm:text-2xl font-black text-white tracking-wider leading-none">
+                  LIGA PÁDEL 12
+                </span>
+                <span className="bg-[#ff5500] text-white text-[10px] font-black px-1.5 py-0.5 uppercase tracking-wider font-grotesk">
+                  WHIST
+                </span>
+              </div>
+              <p className="text-[11px] font-mono-code text-slate-400 hidden sm:block tracking-tight mt-0.5">
+                PADEL CLUB // 11 JORNADAS // 100% FAIR
+              </p>
+            </div>
+          </div>
+
+          {/* Center Navigation Tabs (Desktop) */}
+          <nav className="hidden md:flex items-center gap-1.5 bg-[#0f1117] p-1.5 border-2 border-[#262c3a]">
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  id={`nav-tab-${tab.id}`}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-3.5 py-2 text-xs font-black uppercase font-grotesk tracking-wider transition-all duration-100 ${
+                    isActive
+                      ? 'bg-[#ccff00] text-black border border-black shadow-[2px_2px_0px_0px_#ffffff]'
+                      : 'text-slate-300 hover:text-white hover:bg-[#1b202c]'
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-slate-400'}`} />
+                  {tab.label}
+                  {'tag' in tab && (
+                    <span className={`text-[9px] px-1 py-0.2 font-black ${
+                      isActive ? 'bg-black text-[#ccff00]' : 'bg-[#ccff00] text-black'
+                    }`}>
+                      {tab.tag}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Right Action & Cash Jackpot Badge */}
+          <div className="flex items-center gap-2">
+            <div 
+              id="jackpot-pill"
+              className="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-[#12151e] border-2 border-[#ff5500] text-white shadow-[2px_2px_0px_0px_#ff5500]"
+              title="Bote de premios de la liga"
+            >
+              <Zap className="w-3.5 h-3.5 text-[#ff5500] fill-[#ff5500]" />
+              <div className="flex items-baseline gap-1.5 leading-none">
+                <span className="text-[10px] text-slate-400 uppercase font-bold font-grotesk hidden xs:inline">BOTE</span>
+                <span className="text-base sm:text-lg font-black font-display text-[#ff5500]">{totalJackpot}€</span>
+              </div>
+            </div>
+
+            <button
+              id="btn-whatsapp-share-nav"
+              onClick={onOpenShare}
+              className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 bg-[#25d366] hover:bg-[#20bd5a] text-black border-2 border-black font-black font-grotesk text-xs uppercase shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+              title="Compartir resumen en WhatsApp"
+            >
+              <Share2 className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span className="hidden sm:inline">WHATSAPP</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Bottom Navigation Bar */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060709] border-t-2 border-[#262c3a] py-1 px-2">
+        <div className="grid grid-cols-5 gap-1">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                id={`mobile-nav-tab-${tab.id}`}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex flex-col items-center justify-center py-1.5 px-1 font-grotesk uppercase transition-all ${
+                  isActive
+                    ? 'text-black bg-[#ccff00] font-black border border-black'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                <Icon className={`w-4 h-4 mb-0.5 ${isActive ? 'text-black' : 'text-slate-400'}`} />
+                <span className="text-[9px] tracking-tight font-bold">{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </header>
+  );
+};
