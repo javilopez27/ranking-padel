@@ -5,7 +5,6 @@ coverage/
 artifacts/
 fotos_ranking/
 public/players/
-({alt
 .DS_Store
 *.log
 .env*

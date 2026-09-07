@@ -8,9 +8,10 @@ interface ClasificacionTabProps {
   matches: Match[];
   players: Player[];
   onSelectPlayer: (player: Player) => void;
+  onOpenPhoto: (player: Player) => void;
 }
 
-export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSelectPlayer }) => {
+export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSelectPlayer, onOpenPhoto }) => {
   const [showTiebreakExplainer, setShowTiebreakExplainer] = useState(false);
 
   return (
@@ -119,7 +120,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSel
 
                       <td className="py-3 px-3 sm:px-4">
                         <div className="flex items-center gap-2.5">
-                          <PlayerAvatar player={row.player} size="sm" />
+                          <PlayerAvatar player={row.player} size="sm" onClick={() => onOpenPhoto(row.player)} />
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <span className="font-bold text-white font-grotesk text-sm">
                               {row.player.name}

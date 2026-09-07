@@ -52,7 +52,7 @@ export const leagueSchema = z.object({
     count(partners, m.team1[0], m.team1[1]); count(partners, m.team2[0], m.team2[1]);
     m.team1.forEach(a => m.team2.forEach(b => count(opponents, a, b)));
   }
-  if (partners.size !== 66 || [...partners.values()].some(n => n !== 1) || opponents.size !== 66 || [...opponents.values()].some(n => n !== 2)) fail('El calendario debe conservar el equilibrio Whist: cada pareja una vez y cada rival dos veces.');
+  if (partners.size !== 66 || [...partners.values()].some(n => n !== 1) || opponents.size !== 66 || [...opponents.values()].some(n => n !== 2)) fail('El calendario debe conservar la estructura original de emparejamientos.');
   const p = data.playoffs;
   if (p.pairs.length && new Set(p.pairs.flat()).size !== 8) fail('Las cuatro parejas finales deben tener ocho jugadores distintos.');
   if (p.pairs.length) {

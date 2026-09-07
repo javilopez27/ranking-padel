@@ -6,14 +6,12 @@ interface CalendarioTabProps {
   roundInfos: RoundInfo[];
   matches: Match[];
   players: Player[];
-  onEditMatch: (match: Match) => void;
 }
 
 export const CalendarioTab: React.FC<CalendarioTabProps> = ({
   roundInfos,
   matches,
   players,
-  onEditMatch,
 }) => {
   const [selectedRound, setSelectedRound] = useState<number>(1);
   const [playerFilter, setPlayerFilter] = useState<number | 'all'>('all');
@@ -56,7 +54,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             CALENDARIO DE JORNADAS
           </h1>
           <p className="text-xs sm:text-sm font-mono-code text-slate-400 mt-1">
-            SISTEMA WHIST: 11 JORNADAS // 3 PISTAS SIMULTÁNEAS SEMANALES
+            11 jornadas // 3 partidos por jornada
           </p>
         </div>
 
@@ -309,12 +307,6 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                     </span>
                   )}
 
-                  <button
-                    onClick={() => onEditMatch(match)}
-                    className="bg-[#ccff00] hover:bg-[#d8ff33] text-black font-black font-grotesk text-xs uppercase px-4 py-2 border-2 border-black shadow-[2px_2px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 transition-all"
-                  >
-                    {isCompleted ? 'MODIFICAR MARCADOR' : 'ANOTAR RESULTADO'}
-                  </button>
                 </div>
               </div>
             );

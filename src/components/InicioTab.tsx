@@ -8,7 +8,6 @@ interface InicioTabProps {
   roundInfos: RoundInfo[];
   stats: PlayerStats[];
   onNavigate: (tab: 'clasificacion' | 'calendario' | 'jugadores' | 'top8') => void;
-  onEditMatch: (match: Match) => void;
 }
 
 export const InicioTab: React.FC<InicioTabProps> = ({
@@ -17,7 +16,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
   roundInfos,
   stats,
   onNavigate,
-  onEditMatch,
 }) => {
   // Find current round (first round with pending matches, or round 1)
   const currentRoundNumber = roundInfos.find((r) =>
@@ -58,7 +56,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                 120 € en premios
               </span>
               <span className="bg-white text-black font-black text-xs px-2 py-0.5 uppercase tracking-wider font-mono-code border border-black hidden sm:inline-block">
-                SYSTEM: WH12
+                Temporada regular
               </span>
             </div>
 
@@ -141,7 +139,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                 TOP 8 <span className="text-sm font-sans font-bold text-white uppercase">DRAFT</span>
               </div>
               <div className="mt-2 pt-2 border-t border-slate-800 text-[11px] font-mono-code text-slate-300">
-                4 Capitanes eligen pareja manual
+                Clasificacion final de diciembre
               </div>
             </div>
           </div>
@@ -158,14 +156,14 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="font-display text-lg sm:text-xl font-black text-white uppercase tracking-wider">
-                  FORMATO OFICIAL TOP 8: DRAFT DE CAPITANES
+                  FASE FINAL TOP 8
                 </span>
                 <span className="bg-[#ccff00] text-black text-[10px] font-black uppercase px-2 py-0.2 font-grotesk">
-                  SELECCIÓN MANUAL
+                  DICIEMBRE
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-300 mt-0.5 font-medium">
-                Se ha elegido el estilo <strong className="text-white">Draft</strong>: los 4 primeros clasificados (capitanes) elegirán a su compañero de entre los puestos 5º al 8º para disputar las Semifinales y la Gran Final.
+                Los 8 primeros clasificados disputan la fase final. Las parejas y resultados se publican desde el archivo de datos del repositorio.
               </p>
             </div>
           </div>
@@ -174,7 +172,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             onClick={() => onNavigate('top8')}
             className="bg-[#ccff00] hover:bg-[#d8ff33] text-black font-black font-grotesk uppercase text-xs px-4 py-2.5 border-2 border-black shadow-[2px_2px_0px_0px_#ffffff] shrink-0 active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5"
           >
-            <span>Configurar Parejas en el Draft</span>
+            <span>Ver Top 8</span>
             <ChevronRight className="w-4 h-4 stroke-[3]" />
           </button>
         </div>
@@ -307,12 +305,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                       </span>
                     )}
 
-                    <button
-                      onClick={() => onEditMatch(match)}
-                      className="bg-white hover:bg-[#ccff00] text-black font-black font-grotesk text-xs uppercase px-3 py-1.5 border border-black transition-colors"
-                    >
-                      {isCompleted ? 'EDITAR MARCADOR' : 'ANOTAR RESULTADO'}
-                    </button>
                   </div>
                 </div>
               );

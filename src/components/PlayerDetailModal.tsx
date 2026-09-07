@@ -11,7 +11,7 @@ interface PlayerDetailModalProps {
   matches: Match[];
   position: number;
   onClose: () => void;
-  onEditMatch: (match: Match) => void;
+  onOpenPhoto: (player: Player) => void;
 }
 
 export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
@@ -21,7 +21,7 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
   matches,
   position,
   onClose,
-  onEditMatch,
+  onOpenPhoto,
 }) => {
   const modalRef = useModalFocus(onClose);
   if (!player) return null;
@@ -42,7 +42,7 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
         {/* Header Strip */}
         <div className="bg-black p-4 sm:p-5 border-b-2 border-[#262c3a] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <PlayerAvatar player={player} size="lg" />
+            <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
                 <h2 className="font-display text-2xl sm:text-3xl font-black text-white leading-none">
@@ -181,12 +181,6 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
                         </span>
                       )}
 
-                      <button
-                        onClick={() => onEditMatch(m)}
-                        className="px-2 py-1 bg-white hover:bg-[#ccff00] text-black font-black font-grotesk text-[10px] uppercase transition-colors"
-                      >
-                        ACTA
-                      </button>
                     </div>
                   </div>
                 );

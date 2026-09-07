@@ -30,15 +30,15 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="bg-[#ccff00] text-black font-black text-[11px] py-1 px-4 overflow-hidden border-b border-black uppercase tracking-wider font-grotesk select-none">
         <div className="animate-ticker flex items-center whitespace-nowrap gap-6 font-bold">
           <span>RANKING PADEL • TEMPORADA 2026</span>
-          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
-          <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
+          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
+          <span>11 JORNADAS REGULARES • 12 AMIGOS</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
           <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
           <span className="bg-black text-white px-1.5 py-0.2 rounded-xs">FASE FINAL: DRAFT DE CAPITANES</span>
           <span>RANKING CAMPECHOS • TEMPORADA REGULAR Y TOP 8</span>
           <span>RANKING PADEL • TEMPORADA 2026</span>
-          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">SISTEMA WHIST</span>
-          <span>11 JORNADAS REGULARES • 12 AMIGOS • 100% EQUITATIVO</span>
+          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
+          <span>11 JORNADAS REGULARES • 12 AMIGOS</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
           <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
         </div>
@@ -59,9 +59,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="flex items-center gap-2">
                 <span className="font-display text-xl sm:text-2xl font-black text-white tracking-wider leading-none">
                   RANKING PADEL
-                </span>
-                <span className="bg-[#ff5500] text-white text-[10px] font-black px-1.5 py-0.5 uppercase tracking-wider font-grotesk">
-                  WHIST
                 </span>
               </div>
               <p className="text-[11px] font-mono-code text-slate-400 hidden sm:block tracking-tight mt-0.5">

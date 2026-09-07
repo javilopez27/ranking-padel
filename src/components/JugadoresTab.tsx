@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Edit3, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 
@@ -7,10 +7,10 @@ interface JugadoresTabProps {
   players: Player[];
   matches: Match[];
   stats: PlayerStats[];
-  onEditPlayer: (player: Player) => void;
+  onOpenPhoto: (player: Player) => void;
 }
 
-export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, stats, onEditPlayer }) => {
+export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, stats, onOpenPhoto }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const statsMap = new Map<number, PlayerStats>(stats.map((stat) => [stat.playerId, stat]));
   const normalizedSearch = searchTerm.toLowerCase();
@@ -62,7 +62,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, stats, onEd
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3 min-w-0">
-                  <PlayerAvatar player={player} size="lg" />
+                  <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
                   <div className="min-w-0">
                     <h3 className="font-display text-2xl font-black text-white leading-none truncate">
                       {player.name}
@@ -74,14 +74,6 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, stats, onEd
                     )}
                   </div>
                 </div>
-
-                <button
-                  onClick={() => onEditPlayer(player)}
-                  className="p-1.5 bg-[#12151e] hover:bg-[#ccff00] hover:text-black text-slate-400 border border-[#262c3a] transition-colors shrink-0"
-                  title="Editar jugador"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                </button>
               </div>
 
               <div className="grid grid-cols-3 gap-2 bg-black p-2.5 border border-[#262c3a] text-center font-mono-code">
