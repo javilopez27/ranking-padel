@@ -223,7 +223,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                       </span>
                       <span className="text-slate-600">/</span>
                       <span className="font-grotesk font-bold text-slate-300">
-                        {match.court || 'Pista 1 Central'}
+                        {match.court || 'Pista 1'}
                       </span>
                     </div>
 

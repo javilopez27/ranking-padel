@@ -195,7 +195,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                       JORNADA {match.roundNumber} · PARTIDO 0{match.matchNumberInRound}
                     </span>
                     <span className="text-slate-400">
-                      {match.court || 'Pista 1 Central'}
+                      {match.court || 'Pista 1'}
                     </span>
                     {match.playedDate && (
                       <span className="text-[#ccff00]">({match.playedDate})</span>
