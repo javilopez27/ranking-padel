@@ -19,6 +19,13 @@ export interface FameRecord {
   accent: 'lime' | 'orange' | 'white';
 }
 
+export interface PlayerRecordCard {
+  title: string;
+  value: string;
+  detail: string;
+  accent: 'lime' | 'orange' | 'white';
+}
+
 const completedMatches = (matches: Match[]) =>
   matches
     .filter((match) => match.status === 'completed' && match.sets.length > 0 && match.winnerTeam)
@@ -61,6 +68,70 @@ export function simulateMatchWinner(match: Match, winnerTeam: 1 | 2): Match {
       ? [{ games1: 6, games2: 4 }, { games1: 6, games2: 4 }]
       : [{ games1: 4, games2: 6 }, { games1: 4, games2: 6 }],
   };
+}
+
+export function getPlayerRecords(
+  players: Player[],
+  matches: Match[],
+  playerId: number,
+  stats?: PlayerStats
+): PlayerRecordCard[] {
+  const history = getPlayerPositionHistory(players, matches, playerId).points;
+  const positions = history.map((point) => point.position);
+  const bestPosition = positions.length ? Math.min(...positions) : undefined;
+  const worstPosition = positions.length ? Math.max(...positions) : undefined;
+  const biggestClimb = history.reduce((best, point) => Math.max(best, point.delta), 0);
+
+  let currentStreak = 0;
+  let bestStreak = 0;
+
+  completedMatches(matches)
+    .filter((match) => match.team1.includes(playerId) || match.team2.includes(playerId))
+    .forEach((match) => {
+      const isTeam1 = match.team1.includes(playerId);
+      const won = (isTeam1 && match.winnerTeam === 1) || (!isTeam1 && match.winnerTeam === 2);
+      if (won) {
+        currentStreak += 1;
+        bestStreak = Math.max(bestStreak, currentStreak);
+      } else {
+        currentStreak = 0;
+      }
+    });
+
+  const record = stats ? `${stats.matchesWon}-${stats.matchesLost}` : '0-0';
+
+  return [
+    {
+      title: 'Mejor posición',
+      value: bestPosition ? `#${bestPosition}` : '—',
+      detail: 'Su techo en la tabla.',
+      accent: 'lime',
+    },
+    {
+      title: 'Peor posición',
+      value: worstPosition ? `#${worstPosition}` : '—',
+      detail: 'El barro también cuenta.',
+      accent: 'orange',
+    },
+    {
+      title: 'Mayor subida',
+      value: biggestClimb > 0 ? `+${biggestClimb}` : '—',
+      detail: 'Mayor salto tras una jornada.',
+      accent: 'lime',
+    },
+    {
+      title: 'Mejor racha',
+      value: bestStreak > 0 ? `${bestStreak}V` : '—',
+      detail: 'Victorias seguidas.',
+      accent: 'white',
+    },
+    {
+      title: 'Récord',
+      value: record,
+      detail: 'Victorias-derrotas.',
+      accent: 'orange',
+    },
+  ];
 }
 
 export function getHallOfFame(players: Player[], matches: Match[]): FameRecord[] {

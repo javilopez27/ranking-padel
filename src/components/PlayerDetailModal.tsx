@@ -4,7 +4,8 @@ import { X } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerEvolution } from './PlayerEvolution';
-import { getPlayerPositionHistory } from '../utils/rankingInsights';
+import { PlayerRecords } from './PlayerRecords';
+import { getPlayerPositionHistory, getPlayerRecords } from '../utils/rankingInsights';
 
 interface PlayerDetailModalProps {
   player: Player | null;
@@ -38,6 +39,7 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
   const isTop8 = position <= 8;
   const isCaptain = position <= 4;
   const positionHistory = getPlayerPositionHistory(players, matches, player.id);
+  const playerRecords = getPlayerRecords(players, matches, player.id, stats);
 
   return (
     <div ref={modalRef} className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-150">
@@ -105,7 +107,10 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
             </div>
           </div>
 
-          <PlayerEvolution history={positionHistory.points} totalPlayers={players.length} />
+          <div className="space-y-3">
+            <PlayerEvolution history={positionHistory.points} totalPlayers={players.length} />
+            <PlayerRecords records={playerRecords} />
+          </div>
 
           {/* 11 Matches Breakdown List */}
           <div>

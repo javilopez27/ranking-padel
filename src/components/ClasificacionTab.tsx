@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HelpCircle } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
+import { PlayerComparePanel } from './PlayerComparePanel';
 
 interface ClasificacionTabProps {
   stats: PlayerStats[];
@@ -11,8 +12,24 @@ interface ClasificacionTabProps {
   onOpenPhoto: (player: Player) => void;
 }
 
-export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSelectPlayer, onOpenPhoto }) => {
+export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
+  stats,
+  matches,
+  players,
+  onSelectPlayer,
+  onOpenPhoto,
+}) => {
   const [showTiebreakExplainer, setShowTiebreakExplainer] = useState(false);
+  const [compareMode, setCompareMode] = useState(false);
+  const [compareIds, setCompareIds] = useState<number[]>([]);
+
+  const toggleComparePlayer = (playerId: number) => {
+    setCompareIds((current) => {
+      if (current.includes(playerId)) return current.filter((id) => id !== playerId);
+      if (current.length >= 2) return [current[1], playerId];
+      return [...current, playerId];
+    });
+  };
 
   return (
     <div className="space-y-6 pb-12">
@@ -34,14 +51,30 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSel
           </p>
         </div>
 
-        <button
-          id="btn-tiebreak-info"
-          onClick={() => setShowTiebreakExplainer((value) => !value)}
-          className="flex items-center gap-1.5 px-3 py-2 bg-[#12151e] hover:bg-[#1a1f2c] border-2 border-[#262c3a] text-white text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
-        >
-          <HelpCircle className="w-3.5 h-3.5 text-[#ccff00]" />
-          <span>Desempates</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            id="btn-compare-players"
+            onClick={() => {
+              setCompareMode((value) => !value);
+              setCompareIds([]);
+            }}
+            className={`px-3 py-2 border-2 text-xs font-black font-grotesk uppercase transition-all shrink-0 ${
+              compareMode
+                ? 'bg-[#ccff00] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
+                : 'bg-[#12151e] hover:bg-[#1a1f2c] border-[#ff5500] text-white'
+            }`}
+          >
+            Comparar
+          </button>
+          <button
+            id="btn-tiebreak-info"
+            onClick={() => setShowTiebreakExplainer((value) => !value)}
+            className="flex items-center gap-1.5 px-3 py-2 bg-[#12151e] hover:bg-[#1a1f2c] border-2 border-[#262c3a] text-white text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-[#ccff00]" />
+            <span>Desempates</span>
+          </button>
+        </div>
       </div>
 
       {showTiebreakExplainer && (
@@ -71,9 +104,21 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSel
         </div>
 
         <span className="text-slate-400 text-[11px]">
-          Pulsa sobre cualquier jugador para abrir su ficha completa y resultados.
+          {compareMode
+            ? `Modo comparar activo: selecciona dos jugadores (${compareIds.length}/2).`
+            : 'Pulsa sobre cualquier jugador para abrir su ficha completa y resultados.'}
         </span>
       </div>
+
+      {compareMode && (
+        <PlayerComparePanel
+          players={players}
+          matches={matches}
+          stats={stats}
+          selectedIds={compareIds}
+          onClear={() => setCompareIds([])}
+        />
+      )}
 
       <div className="bg-[#0a0c12] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
         <div className="overflow-x-auto">
@@ -99,11 +144,12 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSel
                 const isTop8 = pos <= 8;
                 const isCaptain = pos <= 4;
                 const isCutoff = pos === 8;
+                const isCompared = compareIds.includes(row.playerId);
 
                 return (
                   <React.Fragment key={row.playerId}>
                     <tr
-                      onClick={() => onSelectPlayer(row.player)}
+                      onClick={() => compareMode ? toggleComparePlayer(row.playerId) : onSelectPlayer(row.player)}
                       className={`hover:bg-[#151822] cursor-pointer transition-colors ${
                         pos === 1
                           ? 'bg-[#ccff00]/5 font-bold'
@@ -179,15 +225,31 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({ stats, onSel
                         </div>
                       </td>
                       <td className="py-3 px-3 sm:px-4 text-right">
-                        <button
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            onSelectPlayer(row.player);
-                          }}
-                          className="px-2.5 py-1 bg-[#1e222d] hover:bg-[#ccff00] hover:text-black text-slate-200 text-[10px] font-black font-grotesk uppercase border border-[#262c3a] transition-colors"
-                        >
-                          Ver
-                        </button>
+                        {compareMode ? (
+                          <button
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              toggleComparePlayer(row.playerId);
+                            }}
+                            className={`px-2.5 py-1 text-[10px] font-black font-grotesk uppercase border transition-colors ${
+                              isCompared
+                                ? 'bg-[#ccff00] text-black border-black'
+                                : 'bg-[#1e222d] hover:bg-[#ff5500] hover:text-white text-slate-200 border-[#262c3a]'
+                            }`}
+                          >
+                            {isCompared ? 'Elegido' : 'Elegir'}
+                          </button>
+                        ) : (
+                          <button
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              onSelectPlayer(row.player);
+                            }}
+                            className="px-2.5 py-1 bg-[#1e222d] hover:bg-[#ccff00] hover:text-black text-slate-200 text-[10px] font-black font-grotesk uppercase border border-[#262c3a] transition-colors"
+                          >
+                            Ver
+                          </button>
+                        )}
                       </td>
                     </tr>
 
