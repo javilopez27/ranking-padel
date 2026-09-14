@@ -3,6 +3,7 @@ import { HelpCircle } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerComparePanel } from './PlayerComparePanel';
+import { getRankingMovement } from '../utils/rankingInsights';
 
 interface ClasificacionTabProps {
   stats: PlayerStats[];
@@ -22,6 +23,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
   const [showTiebreakExplainer, setShowTiebreakExplainer] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const [compareIds, setCompareIds] = useState<number[]>([]);
+  const movementMap = getRankingMovement(players, matches);
 
   const toggleComparePlayer = (playerId: number) => {
     setCompareIds((current) => {
@@ -145,6 +147,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                 const isCaptain = pos <= 4;
                 const isCutoff = pos === 8;
                 const isCompared = compareIds.includes(row.playerId);
+                const movement = movementMap.get(row.playerId)?.delta || 0;
 
                 return (
                   <React.Fragment key={row.playerId}>
@@ -159,9 +162,16 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                       }`}
                     >
                       <td className="py-3 px-3 sm:px-4 text-center">
-                        <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[#ccff00]' : isTop8 ? 'text-slate-200' : 'text-slate-600'}`}>
-                          {pos < 10 ? `0${pos}` : pos}
-                        </span>
+                        <div className="flex items-center justify-center gap-1.5">
+                          <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[#ccff00]' : isTop8 ? 'text-slate-200' : 'text-slate-600'}`}>
+                            {pos < 10 ? `0${pos}` : pos}
+                          </span>
+                          <span className={`text-[10px] font-black font-grotesk min-w-6 ${
+                            movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-500'
+                          }`}>
+                            {movement > 0 ? `↑${movement}` : movement < 0 ? `↓${Math.abs(movement)}` : '='}
+                          </span>
+                        </div>
                       </td>
 
                       <td className="py-3 px-3 sm:px-4">

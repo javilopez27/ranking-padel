@@ -69,7 +69,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             </h1>
 
             <p className="mt-4 text-slate-300 text-sm sm:text-base font-medium max-w-xl leading-relaxed">
-              Ranking individual entre 12 amigos. Cada jugador disputa 11 partidos y cada victoria cuenta para subir en la clasificación.
+              Ranking individual entre los chavales. Cada jugador disputa 11 partidos y cada victoria cuenta para subir en la clasificación.
             </p>
 
             {/* CTA Buttons */}

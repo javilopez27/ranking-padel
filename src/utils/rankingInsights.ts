@@ -26,6 +26,11 @@ export interface PlayerRecordCard {
   accent: 'lime' | 'orange' | 'white';
 }
 
+export interface RankingMovement {
+  playerId: number;
+  delta: number;
+}
+
 const completedMatches = (matches: Match[]) =>
   matches
     .filter((match) => match.status === 'completed' && match.sets.length > 0 && match.winnerTeam)
@@ -57,6 +62,45 @@ export function getPlayerPositionHistory(players: Player[], matches: Match[], pl
     .filter((point): point is PositionPoint => point !== null);
 
   return { playerId, points };
+}
+
+export function getRankingMovement(players: Player[], matches: Match[]): Map<number, RankingMovement> {
+  const completedRounds = Array.from(
+    new Set(
+      matches
+        .filter((match) => match.status === 'completed' && match.sets.length > 0)
+        .map((match) => match.roundNumber)
+    )
+  ).sort((a, b) => a - b);
+
+  const latestRound = completedRounds.at(-1);
+  const previousRound = completedRounds.at(-2);
+  const movement = new Map<number, RankingMovement>();
+
+  players.forEach((player) => movement.set(player.id, { playerId: player.id, delta: 0 }));
+  if (!latestRound || !previousRound) return movement;
+
+  const latestRanking = calculatePlayerStats(
+    players,
+    matches.filter((match) => match.roundNumber <= latestRound && match.status === 'completed' && match.sets.length > 0)
+  );
+  const previousRanking = calculatePlayerStats(
+    players,
+    matches.filter((match) => match.roundNumber <= previousRound && match.status === 'completed' && match.sets.length > 0)
+  );
+  const latestMap = rankMap(latestRanking);
+  const previousMap = rankMap(previousRanking);
+
+  players.forEach((player) => {
+    const latest = latestMap.get(player.id);
+    const previous = previousMap.get(player.id);
+    movement.set(player.id, {
+      playerId: player.id,
+      delta: latest && previous ? previous - latest : 0,
+    });
+  });
+
+  return movement;
 }
 
 export function simulateMatchWinner(match: Match, winnerTeam: 1 | 2): Match {
