@@ -1,6 +1,8 @@
 import React from 'react';
 import { Trophy, Calendar, ChevronRight, ArrowUpRight, Euro, Award } from 'lucide-react';
 import { Player, Match, RoundInfo, PlayerStats } from '../types';
+import { HallOfFame } from './HallOfFame';
+import { getHallOfFame } from '../utils/rankingInsights';
 
 interface InicioTabProps {
   players: Player[];
@@ -34,6 +36,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
   const top1 = stats[0];
   const top2 = stats[1];
   const top3 = stats[2];
+  const hallOfFame = getHallOfFame(players, matches);
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-12">
@@ -177,6 +180,8 @@ export const InicioTab: React.FC<InicioTabProps> = ({
           </button>
         </div>
       </section>
+
+      <HallOfFame records={hallOfFame} />
 
       {/* Main Grid: Current Round Matches & Live Podium */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

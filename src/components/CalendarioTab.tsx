@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertTriangle, Filter } from 'lucide-react';
 import { Player, Match, RoundInfo } from '../types';
+import { RoundSimulator } from './RoundSimulator';
 
 interface CalendarioTabProps {
   roundInfos: RoundInfo[];
@@ -313,6 +314,14 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
           })
         )}
       </div>
+
+      {!showPostponedView && (
+        <RoundSimulator
+          selectedRound={selectedRound}
+          matches={matches}
+          players={players}
+        />
+      )}
     </div>
   );
 };
