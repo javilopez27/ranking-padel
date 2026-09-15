@@ -61,7 +61,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
           </h1>
 
           <p className="campechos-hero-copy campechos-enter text-sm sm:text-base text-slate-300 leading-relaxed" style={{ animationDelay: '240ms' }}>
-            {players.length} amigos. 11 jornadas.<br />
+            {players.length} jugadores. 11 jornadas.<br />
             {matches.length} partidos. Todo por decidir.
           </p>
 
