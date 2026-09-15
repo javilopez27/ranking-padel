@@ -124,9 +124,19 @@
         2,
         6
       ],
-      "sets": [],
-      "status": "pending",
-      "court": "Pista 1"
+      "sets": [
+        {
+          "games1": 4,
+          "games2": 6
+        },
+        {
+          "games1": 5,
+          "games2": 7
+        }
+      ],
+      "status": "completed",
+      "court": "Pista 1",
+      "winnerTeam": 2
     },
     {
       "id": "m_1_2",
