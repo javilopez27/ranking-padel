@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Trophy, Calendar, Users, Award, Home, Euro } from 'lucide-react';
 import { PhotoModal } from './PhotoModal';
-import type { Player } from '../types';
+import { AdminResultsModal } from './AdminResultsModal';
+import type { Match, Player } from '../types';
 
 interface NavbarProps {
   activeTab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8';
   setActiveTab: (tab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8') => void;
   totalJackpot: number;
-  completedMatchesCount: number;
-  totalMatchesCount: number;
+  players: Player[];
+  matches: Match[];
+  onSaveMatch: (match: Match) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
   totalJackpot,
-  completedMatchesCount,
-  totalMatchesCount,
+  players,
+  matches,
+  onSaveMatch,
 }) => {
   const [showLeaguePhoto, setShowLeaguePhoto] = useState(false);
+  const [showAdminResults, setShowAdminResults] = useState(false);
+  const jackpotClickRef = useRef({ count: 0, lastClick: 0 });
   const leaguePhoto: Player = {
     id: 0,
     name: 'Ranking Campechos',
@@ -33,6 +38,17 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'jugadores', label: 'JUGADORES', icon: Users },
     { id: 'top8', label: 'DRAFT TOP 8', icon: Award, tag: '80€' },
   ] as const;
+
+  const handleJackpotClick = () => {
+    const now = Date.now();
+    const nextCount = now - jackpotClickRef.current.lastClick < 1200 ? jackpotClickRef.current.count + 1 : 1;
+    jackpotClickRef.current = { count: nextCount, lastClick: now };
+
+    if (nextCount >= 3) {
+      jackpotClickRef.current = { count: 0, lastClick: 0 };
+      setShowAdminResults(true);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-40 bg-[#060709] border-b-2 border-[#1e222d]">
@@ -119,6 +135,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2">
             <div 
               id="jackpot-pill"
+              onClick={handleJackpotClick}
               className="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-[#12151e] border-2 border-[#ff5500] text-white shadow-[2px_2px_0px_0px_#ff5500]"
               title="Bote de premios de la liga"
             >
@@ -158,6 +175,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
       {showLeaguePhoto && <PhotoModal player={leaguePhoto} onClose={() => setShowLeaguePhoto(false)} />}
+      {showAdminResults && (
+        <AdminResultsModal
+          players={players}
+          matches={matches}
+          onSaveMatch={onSaveMatch}
+          onClose={() => setShowAdminResults(false)}
+        />
+      )}
     </header>
   );
 };

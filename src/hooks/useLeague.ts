@@ -21,5 +21,5 @@ export function useLeague() {
     };
   }, []);
 
-  return { data, error };
+  return { data, error, setData };
 }

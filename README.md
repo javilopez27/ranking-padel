@@ -6,72 +6,58 @@ Aplicacion estatica para publicar el ranking de padel del grupo en GitHub Pages.
 
 Solo puede cambiar la liga quien tenga permiso de escritura en el repositorio de GitHub.
 
-1. Edita `public/league.json` en tu ordenador.
-2. Valida los datos:
+1. Edita `data/resultados.csv` desde GitHub, el movil o tu ordenador.
+2. Sube el cambio:
 
 ```sh
-npm run validate:data
-```
-
-3. Sube el cambio:
-
-```sh
-git add public/league.json
+git add data/resultados.csv
 git commit -m "Actualiza resultados"
 git push
 ```
 
-GitHub Actions compila y publica la web automaticamente en GitHub Pages.
+GitHub Actions genera `public/league.json`, comprueba los datos y publica la web automaticamente en GitHub Pages.
 
-## Escribir resultados en league.json
+Si quieres comprobarlo antes de subir:
+
+```sh
+npm run apply:results
+npm run validate:data
+```
+
+## Escribir resultados en resultados.csv
+
+Cada fila es un partido. Lo normal es tocar solo estas columnas:
+
+- `status`: `pending`, `completed` o `postponed`.
+- `winnerTeam`: `1` si gana la pareja izquierda, `2` si gana la derecha.
+- `sets`: formato corto, por ejemplo `6-4 7-5`.
+- `postponedNote`: solo si esta aplazado.
 
 Partido pendiente:
 
-```json
-{
-  "sets": [],
-  "status": "pending"
-}
+```csv
+m_1_2,pending,,,,,Pista 2
 ```
 
 Gana la pareja 1 por 6-4 y 6-3:
 
-```json
-{
-  "sets": [
-    { "games1": 6, "games2": 4 },
-    { "games1": 6, "games2": 3 }
-  ],
-  "status": "completed",
-  "winnerTeam": 1
-}
+```csv
+m_1_2,completed,1,"6-4 6-3",,,Pista 2
 ```
 
 Gana la pareja 2 en tres sets:
 
-```json
-{
-  "sets": [
-    { "games1": 6, "games2": 4 },
-    { "games1": 3, "games2": 6 },
-    { "games1": 4, "games2": 6 }
-  ],
-  "status": "completed",
-  "winnerTeam": 2
-}
+```csv
+m_1_2,completed,2,"6-4 3-6 4-6",,,Pista 2
 ```
 
 Partido aplazado:
 
-```json
-{
-  "sets": [],
-  "status": "postponed",
-  "postponedNote": "Pendiente de nueva fecha"
-}
+```csv
+m_1_2,postponed,,,,Pendiente de nueva fecha,Pista 2
 ```
 
-Mantén intactos `id`, `roundNumber`, `matchNumberInRound`, `team1` y `team2`, salvo que quieras cambiar el calendario completo.
+No cambies los `id`: son el enlace entre tu tabla y el calendario final.
 
 ## Publicacion inicial
 
@@ -104,7 +90,8 @@ npm run build
 
 ## Estructura
 
-- `public/league.json`: datos publicados del ranking.
+- `data/resultados.csv`: tabla comoda para actualizar resultados.
+- `public/league.json`: datos publicados del ranking, generados desde el CSV.
 - `public/fotos_ranking/`: avatares publicados.
 - `src/components/`: interfaz de consulta.
 - `src/services/leagueSchema.ts`: validacion del archivo de datos.

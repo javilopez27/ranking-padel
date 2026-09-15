@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "npm run lint && npm run validate:data && vite build",
+    "build": "npm run lint && npm run apply:results && npm run validate:data && vite build",
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "test": "tsx --test tests/*.test.ts",
+    "apply:results": "tsx scripts/apply-results.ts",
     "validate:data": "tsx scripts/validate-data.ts"
   },
   "dependencies": {

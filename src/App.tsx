@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useLeague } from './hooks/useLeague';
-import { DataToolbar } from './components/DataToolbar';
-import { Player } from './types';
+import { Match, Player } from './types';
 import { ROUND_INFOS } from './data/initialData';
 import { calculatePlayerStats } from './utils/leagueCalculations';
 import { Navbar } from './components/Navbar';
@@ -33,7 +32,6 @@ export default function App() {
 
   const { players, matches } = league.data;
   const stats = calculatePlayerStats(players, matches);
-  const completedMatchesCount = matches.filter((match) => match.status === 'completed').length;
 
   return (
     <div className="min-h-screen bg-[#060709] text-slate-100 flex flex-col selection:bg-[#ccff00] selection:text-black font-sans bg-athletic-grid">
@@ -41,11 +39,16 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         totalJackpot={120}
-        completedMatchesCount={completedMatchesCount}
-        totalMatchesCount={matches.length}
+        players={players}
+        matches={matches}
+        onSaveMatch={(updatedMatch: Match) => {
+          league.setData((current) => current ? {
+            ...current,
+            updatedAt: new Date().toISOString(),
+            matches: current.matches.map((match) => match.id === updatedMatch.id ? updatedMatch : match),
+          } : current);
+        }}
       />
-
-      <DataToolbar league={league} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-5 pb-24 md:pb-12">
         {activeTab === 'inicio' && (
@@ -89,7 +92,6 @@ export default function App() {
           <Top8Tab
             stats={stats}
             players={players}
-            matches={matches}
             playoffs={league.data.playoffs}
           />
         )}

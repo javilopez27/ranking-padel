@@ -1,5 +1,5 @@
 import { Trophy, Euro } from 'lucide-react';
-import type { Match, Player, PlayerStats } from '../types';
+import type { Player, PlayerStats } from '../types';
 import type { LeagueData } from '../services/leagueSchema';
 
 type Playoffs = LeagueData['playoffs'];
@@ -8,12 +8,10 @@ type Stage = 'semi1' | 'semi2' | 'final';
 interface Top8TabProps {
   stats: PlayerStats[];
   players: Player[];
-  matches: Match[];
   playoffs: Playoffs;
 }
 
-export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
-  const finished = matches.every((match) => match.status === 'completed');
+export function Top8Tab({ stats, players, playoffs }: Top8TabProps) {
   const captains = stats.slice(0, 4);
   const name = (id: number) => players.find((player) => player.id === id)?.name ?? 'Por decidir';
   const pairName = (pair?: [number, number]) => pair ? pair.map(name).join(' / ') : 'Por decidir';
@@ -52,14 +50,8 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
         </div>
       </section>
 
-      {!finished && (
-        <p className="border border-[#ff5500] bg-[#1e1008] p-4 text-sm text-orange-200">
-          Ranking provisional.
-        </p>
-      )}
-
       <section className="space-y-4">
-        <h2 className="font-display text-2xl border-2 border-[#262c3a] p-3">Top 4 provisional</h2>
+        <h2 className="font-display text-2xl border-2 border-[#262c3a] p-3">Top 4 actual</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {captains.map((captain, index) => (
             <article key={captain.playerId} className="bg-[#0a0c12] border-2 border-[#262c3a] p-4 shadow-[3px_3px_0px_0px_#000]">
