@@ -1,5 +1,6 @@
 import React from 'react';
-import { Trophy, Calendar, ChevronRight, ArrowUpRight, Euro, Award } from 'lucide-react';
+import heroVideo from '/raquet-padel-balls.mp4';
+import { Trophy, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { Player, Match, RoundInfo, PlayerStats } from '../types';
 import { HallOfFame } from './HallOfFame';
 import { getHallOfFame } from '../utils/rankingInsights';
@@ -40,112 +41,66 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-12">
-      {/* Hero Maximalist Athletic Poster */}
-      <section className="relative overflow-hidden bg-[#0a0c12] border-2 border-black p-5 sm:p-8 lg:p-10 shadow-[6px_6px_0px_0px_#ccff00]">
-        {/* Background Graphic Lines / Watermark */}
-        <div className="absolute -right-8 -bottom-8 select-none pointer-events-none opacity-5 font-display text-[140px] sm:text-[220px] font-black leading-none text-white">
-          PADEL
+      {/* Editorial league hero */}
+      <section className="campechos-hero" aria-labelledby="campechos-title">
+        <div className="campechos-hero-media" aria-hidden="true">
+          <video autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1}>
+            <source src={heroVideo} type="video/mp4" />
+          </video>
         </div>
-        <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff5500]/10 blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-          <div className="max-w-2xl">
-            {/* Athletic Stickers / Tags */}
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="bg-[#ccff00] text-black font-black text-xs px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black shadow-[2px_2px_0px_0px_#000]">
-                Ranking Padel 2026
-              </span>
-              <span className="bg-[#ff5500] text-white font-black text-xs px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black shadow-[2px_2px_0px_0px_#000]">
-                120 € en premios
-              </span>
-              <span className="bg-white text-black font-black text-xs px-2 py-0.5 uppercase tracking-wider font-mono-code border border-black hidden sm:inline-block">
-                Temporada regular
-              </span>
-            </div>
-
-            {/* Massive Display Title */}
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-wide uppercase leading-none mt-2">
-              Ranking <span className="text-[#ccff00] bg-black px-2 inline-block -rotate-1 border border-[#ccff00]">Campechos.</span>
-            </h1>
-
-            <p className="mt-4 text-slate-300 text-sm sm:text-base font-medium max-w-xl leading-relaxed">
-              Ranking individual entre los chavales. Cada jugador disputa 11 partidos y cada victoria cuenta para subir en la clasificación.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap items-center gap-3 mt-6">
-              <button
-                onClick={() => onNavigate('calendario')}
-                className="bg-[#ccff00] hover:bg-[#d8ff33] text-black font-black font-grotesk uppercase px-5 py-2.5 text-xs sm:text-sm border-2 border-black shadow-[3px_3px_0px_0px_#ffffff] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-2"
-              >
-                <Calendar className="w-4 h-4 stroke-[2.5]" />
-                Ver Jornada {currentRoundNumber}
-              </button>
-
-              <button
-                onClick={() => onNavigate('clasificacion')}
-                className="bg-[#12151e] hover:bg-[#1a1f2c] text-white font-black font-grotesk uppercase px-5 py-2.5 text-xs sm:text-sm border-2 border-white shadow-[3px_3px_0px_0px_#ccff00] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-2"
-              >
-                <Trophy className="w-4 h-4 text-[#ccff00]" />
-                Tabla Completa
-              </button>
-
-              <button
-                onClick={() => onNavigate('top8')}
-                className="bg-[#ff5500] hover:bg-[#ff6a1e] text-white font-black font-grotesk uppercase px-4 py-2.5 text-xs sm:text-sm border-2 border-black shadow-[3px_3px_0px_0px_#000000] active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center gap-2"
-              >
-                <Award className="w-4 h-4" />
-                Draft Top 8
-              </button>
-            </div>
+        <div className="campechos-hero-content">
+          <div className="campechos-enter flex flex-wrap items-center gap-2">
+            <span className="campechos-badge bg-[#ccff00] text-black">Ranking Padel 2026</span>
+            <span className="campechos-badge bg-[#ff5500] text-black">120 € en premios</span>
+            <span className="campechos-badge hidden lg:inline-block bg-[#0a0c12] text-slate-300">Temporada regular</span>
           </div>
 
-          {/* Athletic Data Box Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-1 gap-3 w-full lg:w-72 shrink-0">
-            {/* Cash Pot Ticket */}
-            <div className="bg-[#0f1118] border-2 border-[#ff5500] p-3.5 shadow-[4px_4px_0px_0px_#ff5500]">
-              <div className="flex items-center justify-between text-[11px] font-black uppercase text-[#ff5500] font-grotesk">
-                <span>BOTE EN METÁLICO</span>
-                <Euro className="w-3.5 h-3.5" />
-              </div>
-              <div className="font-display text-4xl font-black text-white leading-none mt-1">
-                120 <span className="text-xl text-[#ff5500]">€</span>
-              </div>
-              <div className="mt-2 pt-2 border-t border-slate-800 text-[11px] font-mono-code text-slate-300 flex justify-between">
-                <span>🥇 1º: <strong className="text-white">80€</strong></span>
-                <span>🥈 2º: <strong className="text-white">40€</strong></span>
-              </div>
-            </div>
+          <h1 id="campechos-title" className="campechos-hero-title campechos-enter font-display" style={{ animationDelay: '120ms' }}>
+            <span className="block text-white">Ranking</span>
+            <span className="block text-[#ccff00]">Campechos.</span>
+          </h1>
 
-            {/* Current Round */}
-            <div className="bg-[#0f1118] border-2 border-[#ccff00] p-3.5 shadow-[4px_4px_0px_0px_#ccff00]">
-              <div className="flex items-center justify-between text-[11px] font-black uppercase text-[#ccff00] font-grotesk">
-                <span>JORNADA EN CURSO</span>
-                <span className="bg-[#ccff00] text-black px-1 text-[9px] font-black">ACTIVA</span>
-              </div>
-              <div className="font-display text-4xl font-black text-white leading-none mt-1">
-                #{currentRoundNumber} <span className="text-sm font-sans font-normal text-slate-400">/ 11</span>
-              </div>
-              <div className="mt-2 pt-2 border-t border-slate-800 text-[11px] font-mono-code text-slate-300 flex justify-between">
-                <span>{currentRoundInfo.startDate}</span>
-                <span className="text-[#ccff00] font-bold">{completedMatches.length}/{matches.length} Jugados</span>
-              </div>
-            </div>
+          <p className="campechos-hero-copy campechos-enter text-sm sm:text-base text-slate-300 leading-relaxed" style={{ animationDelay: '240ms' }}>
+            {players.length} amigos. 11 jornadas.<br />
+            {matches.length} partidos. Todo por decidir.
+          </p>
 
-            {/* Top 8 Cutoff Ticket */}
-            <div className="col-span-2 sm:col-span-1 lg:col-span-1 bg-[#0f1118] border-2 border-white p-3.5 shadow-[4px_4px_0px_0px_#ffffff]">
-              <div className="flex items-center justify-between text-[11px] font-black uppercase text-white font-grotesk">
-                <span>FASE FINAL DICIEMBRE</span>
-                <Award className="w-3.5 h-3.5 text-[#ccff00]" />
-              </div>
-              <div className="font-display text-4xl font-black text-[#ccff00] leading-none mt-1">
-                TOP 8 <span className="text-sm font-sans font-bold text-white uppercase">DRAFT</span>
-              </div>
-              <div className="mt-2 pt-2 border-t border-slate-800 text-[11px] font-mono-code text-slate-300">
-                Clasificacion final de diciembre
-              </div>
-            </div>
+          <div className="campechos-hero-actions campechos-enter" style={{ animationDelay: '360ms' }}>
+            <button type="button" onClick={() => onNavigate('calendario')} className="campechos-cta campechos-cta-primary">
+              Ver jornada {String(currentRoundNumber).padStart(2, '0')}
+              <ArrowUpRight aria-hidden="true" className="w-5 h-5" />
+            </button>
+            <button type="button" onClick={() => onNavigate('clasificacion')} className="campechos-cta campechos-cta-secondary">
+              Clasificación
+              <Trophy aria-hidden="true" className="w-4 h-4 text-[#ccff00]" />
+            </button>
+            <button type="button" onClick={() => onNavigate('top8')} className="campechos-top8 font-grotesk">
+              Ver Top 8 <ChevronRight aria-hidden="true" className="w-4 h-4" />
+            </button>
           </div>
+
+          <dl className="campechos-scoreboard campechos-enter" style={{ animationDelay: '480ms' }}>
+            <div>
+              <dt>Jornada</dt>
+              <dd className="font-display text-[#ccff00]">{String(currentRoundNumber).padStart(2, '0')} <span>/ 11</span></dd>
+              <dd className="campechos-score-note">{completedMatches.length === matches.length ? 'Completada' : 'En curso'}</dd>
+            </div>
+            <div>
+              <dt>Progreso</dt>
+              <dd className="font-display text-white">{completedMatches.length} <span>/ {matches.length}</span></dd>
+              <dd className="campechos-score-note">Jugados</dd>
+            </div>
+            <div>
+              <dt>Bote</dt>
+              <dd className="font-display text-[#ff5500]">120 €</dd>
+              <dd className="campechos-score-note">Premios</dd>
+            </div>
+            <div>
+              <dt>Fase final</dt>
+              <dd className="font-display text-white">Top 8</dd>
+              <dd className="campechos-score-note">Diciembre</dd>
+            </div>
+          </dl>
         </div>
       </section>
 

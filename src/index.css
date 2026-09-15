@@ -84,3 +84,162 @@
   font-family: 'Bebas Neue', sans-serif;
   letter-spacing: 0.08em;
 }
+
+/* Inicio: editorial video and a single sports scoreboard. */
+.campechos-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: #060709;
+  border: 1px solid #262c3a;
+  box-shadow: 4px 4px 0 #ccff00;
+}
+
+.campechos-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.campechos-hero-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.campechos-hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #060709 2%, transparent 65%),
+    linear-gradient(90deg, rgb(6 7 9 / 75%), rgb(6 7 9 / 15%)),
+    rgb(0 0 0 / 20%);
+}
+
+.campechos-hero-content {
+  min-height: 70svh;
+  padding: 24px 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.campechos-badge {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  padding: 5px 8px;
+  border: 1px solid #000;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.campechos-hero-title {
+  font-size: clamp(3.5rem, 14.5vw, 8rem);
+  line-height: .88;
+  letter-spacing: .005em;
+  text-transform: uppercase;
+  margin: 40px 0 22px;
+}
+
+.campechos-hero-copy { font-family: 'Plus Jakarta Sans', sans-serif; }
+.campechos-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 28px 0 36px;
+}
+
+.campechos-cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 10px 16px;
+  font: 800 12px 'Space Grotesk', sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 150ms, transform 150ms;
+}
+
+.campechos-cta-primary { background: #ccff00; color: #000; border: 2px solid #000; box-shadow: 3px 3px 0 #fff; }
+.campechos-cta-primary:hover { background: #d8ff33; }
+.campechos-cta-secondary { background: #0a0c12; color: #fff; border: 1px solid #aab0bc; }
+.campechos-cta-secondary:hover { border-color: #ccff00; background: #12151e; }
+.campechos-cta:active { transform: translate(2px, 2px); }
+.campechos-top8 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  color: #ccff00;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.campechos-top8:hover { text-decoration: underline; text-underline-offset: 5px; }
+.campechos-hero button:focus-visible { outline: 2px solid #ccff00; outline-offset: 5px; }
+
+.campechos-scoreboard {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: 100%;
+  margin-top: auto;
+  border-top: 1px solid #59606a;
+}
+.campechos-scoreboard > div { padding: 18px 0; }
+.campechos-scoreboard > div:nth-child(even) { padding-left: 20px; border-left: 1px solid #262c3a; }
+.campechos-scoreboard > div:nth-child(n+3) { border-top: 1px solid #262c3a; }
+.campechos-scoreboard dt, .campechos-score-note {
+  font: 700 10px 'Space Grotesk', sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #a8b0bf;
+}
+.campechos-scoreboard .font-display { font-size: 38px; line-height: 1.15; margin: 5px 0; }
+.campechos-scoreboard .font-display span { color: #a8b0bf; font-size: .65em; }
+
+@keyframes campechos-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.campechos-enter { animation: campechos-fade-up 750ms both; }
+
+@media (min-width: 640px) {
+  .campechos-hero-content { min-height: 72svh; padding: 32px 32px 0; }
+  .campechos-hero-title { font-size: clamp(5rem, 12vw, 8rem); }
+  .campechos-badge { font-size: 11px; }
+  .campechos-scoreboard { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .campechos-scoreboard > div { padding: 22px 0; }
+  .campechos-scoreboard > div + div { padding-left: 24px; border-left: 1px solid #262c3a; }
+  .campechos-scoreboard > div:nth-child(n+3) { border-top: 0; }
+}
+
+@media (min-width: 1024px) {
+  .campechos-hero-content { min-height: 76svh; padding: 36px 40px 0; }
+  .campechos-hero-media { left: 42%; }
+  .campechos-hero-media::after {
+    background: linear-gradient(90deg, #060709, rgb(6 7 9 / 70%) 12%, transparent 55%),
+      linear-gradient(0deg, #060709 0%, transparent 45%), rgb(0 0 0 / 15%);
+  }
+  .campechos-hero-title { font-size: clamp(6rem, 9.7vw, 9rem); margin-top: 54px; }
+  .campechos-hero-actions { max-width: 550px; }
+  .campechos-scoreboard .font-display { font-size: 46px; }
+}
+
+@media (min-width: 1280px) {
+  .campechos-hero-content { min-height: 78svh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campechos-enter { animation: none; }
+  .campechos-hero .campechos-cta { transition: none; }
+  .campechos-hero-media { display: none; }
+}
