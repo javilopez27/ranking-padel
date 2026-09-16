@@ -70,7 +70,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
               onChange={(e) => setPlayerFilter(e.target.value === 'all' ? 'all' : Number(e.target.value))}
               className="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer"
             >
-              <option value="all" className="bg-black text-white">TODOS LOS AMIGOS</option>
+              <option value="all" className="bg-black text-white">TODOS LOS JUGADORES</option>
               {players.map((p) => (
                 <option key={p.id} value={p.id} className="bg-black text-white">
                   Solo {p.name}

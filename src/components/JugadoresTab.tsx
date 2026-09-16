@@ -28,7 +28,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, stats, onOp
               Jugadores
             </span>
             <span className="bg-white text-black font-black text-[10px] px-2 py-0.5 uppercase font-mono-code border border-black">
-              12 amigos
+              12 jugadores
             </span>
           </div>
           <h1 className="font-display text-3xl sm:text-5xl font-black text-white tracking-wide uppercase leading-none">

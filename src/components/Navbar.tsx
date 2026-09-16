@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     name: 'Ranking Campechos',
     side: 'ambos',
     paidFee: false,
-    imageUrl: './fotos_ranking/funko_liga.jpg',
+    imageUrl: './logo.png',
   };
   const tabs = [
     { id: 'inicio', label: 'INICIO', icon: Home },
@@ -57,14 +57,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="animate-ticker flex items-center whitespace-nowrap gap-6 font-bold">
           <span>RANKING PADEL • TEMPORADA 2026</span>
           <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
-          <span>11 JORNADAS REGULARES • 12 AMIGOS</span>
+          <span>11 JORNADAS REGULARES • 12 JUGADORES</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
           <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
           <span className="bg-black text-white px-1.5 py-0.2 rounded-xs">FASE FINAL: DRAFT DE CAPITANES</span>
           <span>RANKING CAMPECHOS • TEMPORADA REGULAR Y TOP 8</span>
           <span>RANKING PADEL • TEMPORADA 2026</span>
           <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
-          <span>11 JORNADAS REGULARES • 12 AMIGOS</span>
+          <span>11 JORNADAS REGULARES • 12 JUGADORES</span>
           <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
           <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
         </div>
@@ -85,9 +85,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setShowLeaguePhoto(true);
               }}
               className="w-10 h-10 sm:w-12 sm:h-12 bg-black border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#ccff00] cursor-zoom-in"
-              title="Ampliar foto de la liga"
+              title="Ampliar logo"
             >
-              <img src="./fotos_ranking/funko_liga.jpg" alt="Ranking Campechos" className="w-full h-full object-cover" />
+              <img src="./logo.png" alt="Ranking Campechos" className="w-full h-full object-cover" />
             </button>
             <div>
               <div className="flex items-center gap-2">
