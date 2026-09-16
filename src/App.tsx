@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLeague } from './hooks/useLeague';
-import { Match, Player } from './types';
+import { Player } from './types';
 import { ROUND_INFOS } from './data/initialData';
 import { calculatePlayerStats } from './utils/leagueCalculations';
 import { Navbar } from './components/Navbar';
@@ -39,15 +39,6 @@ export default function App() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         totalJackpot={120}
-        players={players}
-        matches={matches}
-        onSaveMatch={(updatedMatch: Match) => {
-          league.setData((current) => current ? {
-            ...current,
-            updatedAt: new Date().toISOString(),
-            matches: current.matches.map((match) => match.id === updatedMatch.id ? updatedMatch : match),
-          } : current);
-        }}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-5 pb-24 md:pb-12">
