@@ -59,6 +59,39 @@ m_1_2,postponed,,,,Pendiente de nueva fecha,Pista 2
 
 No cambies los `id`: son el enlace entre tu tabla y el calendario final.
 
+## Actualizar desde el movil
+
+Puedes publicar un resultado sin ordenador desde GitHub:
+
+1. Abre el repositorio en la app o web de GitHub.
+2. Entra en **Actions**.
+3. Abre **Actualizar resultado**.
+4. Pulsa **Run workflow**.
+5. Rellena los campos:
+
+```text
+match_id: m_1_2
+status: completed
+winner_team: 1
+sets: 6-4 7-5
+played_date:
+postponed_note:
+court: Pista 2
+```
+
+Para aplazar un partido:
+
+```text
+match_id: m_4_2
+status: postponed
+winner_team:
+sets:
+postponed_note: Pendiente de fecha
+court:
+```
+
+GitHub actualiza `data/resultados.csv`, genera `public/league.json`, valida los datos y publica la web.
+
 ## Publicacion inicial
 
 ```sh

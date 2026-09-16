@@ -1,0 +1,83 @@
+name: Actualizar resultado
+
+on:
+  workflow_dispatch:
+    inputs:
+      match_id:
+        description: 'Partido: m_1_1, m_1_2 ... m_11_3'
+        required: true
+        type: string
+      status:
+        description: 'completed, pending o postponed'
+        required: true
+        default: completed
+        type: choice
+        options:
+          - completed
+          - pending
+          - postponed
+      winner_team:
+        description: '1 si gana la pareja izquierda, 2 si gana la derecha. Vacio para pending/postponed.'
+        required: false
+        type: string
+      sets:
+        description: 'Ejemplo: 6-4 7-5. Vacio para pending/postponed.'
+        required: false
+        type: string
+      played_date:
+        description: 'Opcional. Ejemplo: 16/09'
+        required: false
+        type: string
+      postponed_note:
+        description: 'Opcional. Solo para aplazados.'
+        required: false
+        type: string
+      court:
+        description: 'Opcional. Ejemplo: Pista 2'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update-result:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Actualizar CSV
+        run: npm run set:result
+        env:
+          INPUT_MATCH_ID: ${{ inputs.match_id }}
+          INPUT_STATUS: ${{ inputs.status }}
+          INPUT_WINNER_TEAM: ${{ inputs.winner_team }}
+          INPUT_SETS: ${{ inputs.sets }}
+          INPUT_PLAYED_DATE: ${{ inputs.played_date }}
+          INPUT_POSTPONED_NOTE: ${{ inputs.postponed_note }}
+          INPUT_COURT: ${{ inputs.court }}
+
+      - run: npm run apply:results
+      - run: npm run validate:data
+      - run: npm test
+
+      - name: Guardar cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/resultados.csv public/league.json
+          if git diff --cached --quiet; then
+            echo "No hay cambios que publicar."
+          else
+            git commit -m "Actualiza resultado ${{ inputs.match_id }}"
+            git push
+          fi
