@@ -1,7 +1,7 @@
 id,status,winnerTeam,sets,playedDate,postponedNote,court
 m_1_1,completed,2,"4-6 5-7",,,"Pista 1"
 m_1_2,completed,2,"3-6 2-6",,,
-m_1_3,pending,,,,,"Pista 3"
+m_1_3,completed,1,"6-2 6-3",,,
 m_2_1,pending,,,,,"Pista 1"
 m_2_2,pending,,,,,"Pista 2"
 m_2_3,pending,,,,,"Pista 3"
