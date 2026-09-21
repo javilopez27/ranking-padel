@@ -104,38 +104,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
         </div>
       </section>
 
-      {/* Official Top 8 Format Confirmation Banner */}
-      <section className="bg-[#12151e] border-2 border-[#ff5500] p-4 sm:p-5 shadow-[4px_4px_0px_0px_#000]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-start sm:items-center gap-3">
-            <div className="w-10 h-10 bg-[#ff5500] text-white flex items-center justify-center font-display text-2xl font-black shrink-0 border border-black">
-              ★
-            </div>
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="font-display text-lg sm:text-xl font-black text-white uppercase tracking-wider">
-                  FASE FINAL TOP 8
-                </span>
-                <span className="bg-[#ccff00] text-black text-[10px] font-black uppercase px-2 py-0.2 font-grotesk">
-                  DICIEMBRE
-                </span>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-300 mt-0.5 font-medium">
-                Los 8 primeros clasificados disputan la fase final para decidir los campeones del ranking.
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={() => onNavigate('top8')}
-            className="bg-[#ccff00] hover:bg-[#d8ff33] text-black font-black font-grotesk uppercase text-xs px-4 py-2.5 border-2 border-black shadow-[2px_2px_0px_0px_#ffffff] shrink-0 active:translate-x-0.5 active:translate-y-0.5 transition-all flex items-center justify-center gap-1.5"
-          >
-            <span>Ver Top 8</span>
-            <ChevronRight className="w-4 h-4 stroke-[3]" />
-          </button>
-        </div>
-      </section>
-
       <HallOfFame records={hallOfFame} />
 
       {/* Main Grid: Current Round Matches & Live Podium */}
