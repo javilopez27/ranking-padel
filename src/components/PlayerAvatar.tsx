@@ -22,7 +22,15 @@ export function PlayerAvatar({ player, size = 'md', onClick }: PlayerAvatarProps
 
   if (onClick) {
     return (
-      <button type="button" className={className} onClick={onClick} title={`Ampliar foto de ${player.name}`}>
+      <button
+        type="button"
+        className={className}
+        onClick={(event) => {
+          event.stopPropagation();
+          onClick();
+        }}
+        title={`Ampliar foto de ${player.name}`}
+      >
         {content}
       </button>
     );

@@ -75,6 +75,7 @@ export default function App() {
             players={players}
             matches={matches}
             stats={stats}
+            onSelectPlayer={(player) => setDetailPlayer(player)}
             onOpenPhoto={(player) => setPhotoPlayer(player)}
           />
         )}
