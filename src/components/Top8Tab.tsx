@@ -1,4 +1,4 @@
-import { Euro, Trophy } from 'lucide-react';
+import { Trophy } from 'lucide-react';
 import type { Match, Player, PlayerStats } from '../types';
 import type { LeagueData } from '../services/leagueSchema';
 import { PlayerAvatar } from './PlayerAvatar';
@@ -151,13 +151,6 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
               Los 4 primeros mandan. Los puestos #5–#8 entran en el pool y la pelea real está en la línea de corte.
             </p>
           </div>
-          <div className="bg-[#12151e] border-2 border-[#ccff00] p-4 lg:w-72 shrink-0">
-            <div className="flex justify-between text-[#ccff00] font-grotesk text-xs font-bold">
-              PREMIOS EN METÁLICO <Euro size={16} />
-            </div>
-            <div className="font-display text-4xl">120 € TOTAL</div>
-            <p className="text-xs text-slate-300 mt-2">Campeones: 80 €<br />Subcampeones: 40 €</p>
-          </div>
         </div>
       </section>
 
@@ -166,7 +159,6 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
           <div>
             <div className="flex items-center justify-between gap-3 mb-3">
               <h2 className="font-display text-4xl text-[#ccff00] font-black uppercase leading-none">Capitanes</h2>
-              <span className="bg-[#ccff00] text-black border border-black px-2 py-1 text-[10px] font-black uppercase font-grotesk">Color lima</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {captains.map((captain, index) => (
