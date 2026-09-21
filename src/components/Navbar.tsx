@@ -32,24 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-[#060709] border-b-2 border-[#1e222d]">
-      {/* Top Maximalist Running Ticker Tape */}
-      <div className="bg-[#ccff00] text-black font-black text-[11px] py-1 px-4 overflow-hidden border-b border-black uppercase tracking-wider font-grotesk select-none">
-        <div className="animate-ticker flex items-center whitespace-nowrap gap-6 font-bold">
-          <span>RANKING PADEL • TEMPORADA 2026</span>
-          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
-          <span>11 JORNADAS REGULARES • 12 JUGADORES</span>
-          <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
-          <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
-          <span className="bg-black text-white px-1.5 py-0.2 rounded-xs">FASE FINAL: DRAFT DE CAPITANES</span>
-          <span>RANKING CAMPECHOS • TEMPORADA REGULAR Y TOP 8</span>
-          <span>RANKING PADEL • TEMPORADA 2026</span>
-          <span className="bg-black text-[#ccff00] px-1.5 py-0.2 rounded-xs font-black">RANKING CAMPECHOS</span>
-          <span>11 JORNADAS REGULARES • 12 JUGADORES</span>
-          <span className="bg-[#ff5500] text-white px-1.5 py-0.2 rounded-xs font-black">BOTE 120€ CASH</span>
-          <span>🏆 80€ CAMPEÓN • 🥈 40€ SUBCAMPEÓN</span>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
           {/* Logo & Athletic Club Identity */}
