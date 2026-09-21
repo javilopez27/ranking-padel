@@ -38,7 +38,6 @@ export default function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        totalJackpot={120}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-5 pb-[calc(8rem+env(safe-area-inset-bottom))] md:pb-12">

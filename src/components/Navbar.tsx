@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { Trophy, Calendar, Users, Award, Home, Euro } from 'lucide-react';
+import { Trophy, Calendar, Users, Award, Home } from 'lucide-react';
 import { PhotoModal } from './PhotoModal';
 import type { Player } from '../types';
 
 interface NavbarProps {
   activeTab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8';
   setActiveTab: (tab: 'inicio' | 'clasificacion' | 'calendario' | 'jugadores' | 'top8') => void;
-  totalJackpot: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
-  totalJackpot,
 }) => {
   const [showLeaguePhoto, setShowLeaguePhoto] = useState(false);
   const leaguePhoto: Player = {
@@ -93,21 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Action & Cash Jackpot Badge */}
-          <div className="flex items-center gap-2">
-            <div 
-              id="jackpot-pill"
-              className="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-[#12151e] border-2 border-[#ff5500] text-white shadow-[2px_2px_0px_0px_#ff5500]"
-              title="Bote de premios de la liga"
-            >
-              <Euro className="w-3.5 h-3.5 text-[#ff5500]" />
-              <div className="flex items-baseline gap-1.5 leading-none">
-                <span className="text-[10px] text-slate-400 uppercase font-bold font-grotesk hidden xs:inline">BOTE</span>
-                <span className="text-base sm:text-lg font-black font-display text-[#ff5500]">{totalJackpot}€</span>
-              </div>
-            </div>
-
-          </div>
+          <div className="hidden sm:block" />
         </div>
       </div>
 
