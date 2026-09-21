@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerComparePanel } from './PlayerComparePanel';
+import { calculatePlayerStats } from '../utils/leagueCalculations';
 import { getRankingMovement } from '../utils/rankingInsights';
 
 interface ClasificacionTabProps {
@@ -14,6 +15,9 @@ interface ClasificacionTabProps {
 }
 
 const formatSigned = (value: number) => value > 0 ? `+${value}` : `${value}`;
+type RankingView = 'current' | number;
+
+const formatRound = (round: number) => `J${round.toString().padStart(2, '0')}`;
 
 export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
   stats,
@@ -25,7 +29,24 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
   const [showTiebreakExplainer, setShowTiebreakExplainer] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
   const [compareIds, setCompareIds] = useState<number[]>([]);
-  const movementMap = getRankingMovement(players, matches);
+  const [rankingView, setRankingView] = useState<RankingView>('current');
+  const [showHistoryMenu, setShowHistoryMenu] = useState(false);
+
+  const completedRounds = Array.from(
+    new Set(
+      matches
+        .filter((match) => match.status === 'completed' && match.sets.length > 0)
+        .map((match) => match.roundNumber)
+    )
+  ).sort((a, b) => a - b);
+
+  const visibleMatches = rankingView === 'current'
+    ? matches
+    : matches.filter((match) => match.roundNumber <= rankingView);
+  const visibleStats = rankingView === 'current' ? stats : calculatePlayerStats(players, visibleMatches);
+  const movementMap = getRankingMovement(players, visibleMatches);
+  const viewLabel = rankingView === 'current' ? 'Actual' : `Tras ${formatRound(rankingView)}`;
+  const playedMatchesInView = visibleMatches.filter((match) => match.status === 'completed' && match.sets.length > 0).length;
 
   const toggleComparePlayer = (playerId: number) => {
     setCompareIds((current) => {
@@ -48,14 +69,72 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
             </span>
           </div>
           <h1 className="font-display text-3xl sm:text-5xl font-black text-white tracking-wide uppercase leading-none">
-            Ranking
+            Clasificación
           </h1>
           <p className="text-xs sm:text-sm font-mono-code text-slate-400 mt-1">
-            Orden: victorias, diferencia de sets, diferencia de juegos, sets a favor y juegos a favor.
+            {rankingView === 'current'
+              ? 'Orden: victorias, diferencia de sets, diferencia de juegos, sets a favor y juegos a favor.'
+              : `${viewLabel}: ${playedMatchesInView} partidos computados hasta ese corte.`}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          <div className="relative">
+            <button
+              id="ranking-history-menu"
+              onClick={() => setShowHistoryMenu((value) => !value)}
+              className="min-w-36 flex items-center justify-between gap-3 px-3 py-2 bg-black text-[#ccff00] border-2 border-[#ccff00] shadow-[3px_3px_0px_0px_#000] text-xs font-black font-grotesk uppercase transition-all hover:bg-[#ccff00] hover:text-black"
+              aria-expanded={showHistoryMenu}
+              aria-haspopup="listbox"
+            >
+              <span>{viewLabel}</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${showHistoryMenu ? 'rotate-180' : ''}`} />
+            </button>
+
+            {showHistoryMenu && (
+              <div
+                role="listbox"
+                aria-label="Seleccionar clasificación histórica"
+                className="absolute right-0 z-30 mt-2 w-44 bg-[#060709] border-2 border-[#ccff00] shadow-[5px_5px_0px_0px_#000] p-1 font-grotesk uppercase"
+              >
+                <button
+                  role="option"
+                  aria-selected={rankingView === 'current'}
+                  onClick={() => {
+                    setRankingView('current');
+                    setShowHistoryMenu(false);
+                  }}
+                  className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
+                    rankingView === 'current'
+                      ? 'bg-[#ccff00] text-black border-black'
+                      : 'bg-transparent text-white border-transparent hover:border-[#262c3a] hover:bg-[#12151e]'
+                  }`}
+                >
+                  Actual
+                </button>
+
+                {completedRounds.map((round) => (
+                  <button
+                    key={round}
+                    role="option"
+                    aria-selected={rankingView === round}
+                    onClick={() => {
+                      setRankingView(round);
+                      setShowHistoryMenu(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
+                      rankingView === round
+                        ? 'bg-[#ccff00] text-black border-black'
+                        : 'bg-transparent text-slate-200 border-transparent hover:border-[#262c3a] hover:bg-[#12151e]'
+                    }`}
+                  >
+                    Tras {formatRound(round)}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             id="btn-compare-players"
             onClick={() => {
@@ -117,15 +196,15 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
       {compareMode && (
         <PlayerComparePanel
           players={players}
-          matches={matches}
-          stats={stats}
+          matches={visibleMatches}
+          stats={visibleStats}
           selectedIds={compareIds}
           onClear={() => setCompareIds([])}
         />
       )}
 
       <div className="md:hidden space-y-3">
-        {stats.map((row, index) => {
+        {visibleStats.map((row, index) => {
           const pos = index + 1;
           const isTop8 = pos <= 8;
           const isCaptain = pos <= 4;
@@ -253,7 +332,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
               </tr>
             </thead>
             <tbody className="divide-y divide-[#1e222d] font-mono-code">
-              {stats.map((row, index) => {
+              {visibleStats.map((row, index) => {
                 const pos = index + 1;
                 const isTop8 = pos <= 8;
                 const isCaptain = pos <= 4;
