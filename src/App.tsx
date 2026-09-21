@@ -84,6 +84,7 @@ export default function App() {
           <Top8Tab
             stats={stats}
             players={players}
+            matches={matches}
             playoffs={league.data.playoffs}
           />
         )}
