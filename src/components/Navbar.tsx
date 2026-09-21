@@ -130,7 +130,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060709] border-t-2 border-[#262c3a] py-1 px-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060709] border-t-2 border-[#262c3a] pt-1 pb-[calc(0.35rem+env(safe-area-inset-bottom))] px-2">
         <div className="grid grid-cols-5 gap-1">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -140,14 +140,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                 key={tab.id}
                 id={`mobile-nav-tab-${tab.id}`}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex flex-col items-center justify-center py-1.5 px-1 font-grotesk uppercase transition-all ${
+                className={`min-h-14 flex flex-col items-center justify-center py-1.5 px-0.5 font-grotesk uppercase transition-all ${
                   isActive
                     ? 'text-black bg-[#ccff00] font-black border border-black'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >
                 <Icon className={`w-4 h-4 mb-0.5 ${isActive ? 'text-black' : 'text-slate-400'}`} />
-                <span className="text-[9px] tracking-tight font-bold">{tab.label}</span>
+                <span className="text-[8px] min-[390px]:text-[9px] tracking-tight font-bold leading-none text-center">{tab.label}</span>
               </button>
             );
           })}

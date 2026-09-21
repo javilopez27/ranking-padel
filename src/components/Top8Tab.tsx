@@ -66,7 +66,7 @@ function RankCard({ row, position, movement, variant }: RankCardProps) {
     }`}>
       {isCaptain && <div className="absolute -right-6 -top-8 font-display text-[96px] leading-none text-[#ccff00]/10 font-black">C</div>}
 
-      <div className="relative flex items-start justify-between gap-3">
+      <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-3 min-w-0">
           <PlayerAvatar player={row.player} size="lg" />
           <div className="min-w-0">
@@ -157,7 +157,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
       <section className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6">
         <div className="space-y-5">
           <div>
-            <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 mb-3">
               <h2 className="font-display text-4xl text-[#ccff00] font-black uppercase leading-none">Capitanes</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -174,7 +174,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
           </div>
 
           <div>
-            <div className="flex items-center justify-between gap-3 mb-3">
+            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 mb-3">
               <h2 className="font-display text-4xl text-white font-black uppercase leading-none">Draft pool</h2>
               <span className="bg-[#12151e] text-slate-300 border border-[#262c3a] px-2 py-1 text-[10px] font-black uppercase font-grotesk">Puestos #5–#8</span>
             </div>
@@ -198,17 +198,22 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
             <h2 className="font-display text-3xl sm:text-4xl text-white font-black uppercase leading-none mt-2">Línea de corte</h2>
 
             {cutoff && hunter && (
-              <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
-                {[cutoff, hunter].map((row, index) => (
-                  <article key={row.playerId} className={`border-2 p-3 ${index === 0 ? 'border-[#ccff00] bg-[#ccff00]/10' : 'border-[#ff5500] bg-[#ff5500]/10'}`}>
-                    <span className={`font-display text-3xl font-black ${index === 0 ? 'text-[#ccff00]' : 'text-[#ff5500]'}`}>#{index === 0 ? 8 : 9}</span>
-                    <h3 className="font-display text-2xl text-white uppercase leading-none truncate">{row.player.name}</h3>
-                    <p className="mt-2 text-xs font-mono-code text-slate-300">
-                      <strong className="text-white">{row.matchesWon}V</strong> · {formatSigned(row.setsDiff)} sets · {formatSigned(row.gamesDiff)} juegos
-                    </p>
-                  </article>
-                ))}
-                <span className="font-display text-3xl text-slate-500 font-black">VS</span>
+              <div className="mt-5 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+                <article className="border-2 border-[#ccff00] bg-[#ccff00]/10 p-3">
+                  <span className="font-display text-3xl font-black text-[#ccff00]">#8</span>
+                  <h3 className="font-display text-2xl text-white uppercase leading-none truncate">{cutoff.player.name}</h3>
+                  <p className="mt-2 text-xs font-mono-code text-slate-300">
+                    <strong className="text-white">{cutoff.matchesWon}V</strong> · {formatSigned(cutoff.setsDiff)} sets · {formatSigned(cutoff.gamesDiff)} juegos
+                  </p>
+                </article>
+                <span className="font-display text-3xl text-slate-500 font-black text-center self-center">VS</span>
+                <article className="border-2 border-[#ff5500] bg-[#ff5500]/10 p-3">
+                  <span className="font-display text-3xl font-black text-[#ff5500]">#9</span>
+                  <h3 className="font-display text-2xl text-white uppercase leading-none truncate">{hunter.player.name}</h3>
+                  <p className="mt-2 text-xs font-mono-code text-slate-300">
+                    <strong className="text-white">{hunter.matchesWon}V</strong> · {formatSigned(hunter.setsDiff)} sets · {formatSigned(hunter.gamesDiff)} juegos
+                  </p>
+                </article>
               </div>
             )}
 
@@ -250,9 +255,9 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
 
       <section className="bg-[#0a0c12] border-2 border-black p-5 shadow-[5px_5px_0px_0px_#000]">
         <h2 className="font-display text-4xl text-white font-black uppercase leading-none mb-5">Cómo funciona</h2>
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {flow.map((step, index) => (
-            <article key={step} className="bg-black border-2 border-[#262c3a] p-4 min-h-32 flex flex-col justify-between">
+            <article key={step} className="bg-black border-2 border-[#262c3a] p-4 min-h-28 sm:min-h-32 flex flex-col justify-between">
               <span className="font-display text-5xl text-[#ccff00] font-black leading-none">{index + 1}</span>
               <p className="mt-4 text-sm text-white font-black font-grotesk uppercase leading-tight">{step}</p>
             </article>

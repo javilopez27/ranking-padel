@@ -41,7 +41,7 @@ export default function App() {
         totalJackpot={120}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-5 pb-24 md:pb-12">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-5 pb-[calc(8rem+env(safe-area-inset-bottom))] md:pb-12">
         {activeTab === 'inicio' && (
           <InicioTab
             players={players}
@@ -90,7 +90,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="border-t-2 border-[#1e222d] bg-[#060709] py-6 text-xs text-slate-400 font-mono-code">
+      <footer className="border-t-2 border-[#1e222d] bg-[#060709] pt-6 pb-[calc(6rem+env(safe-area-inset-bottom))] md:py-6 text-xs text-slate-400 font-mono-code">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-2">
           <span className="bg-[#ccff00] text-black font-black text-[10px] px-1.5 py-0.2 font-grotesk uppercase">
             Ranking Padel
