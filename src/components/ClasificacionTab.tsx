@@ -13,6 +13,8 @@ interface ClasificacionTabProps {
   onOpenPhoto: (player: Player) => void;
 }
 
+const formatSigned = (value: number) => value > 0 ? `+${value}` : `${value}`;
+
 export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
   stats,
   matches,
@@ -122,7 +124,117 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
         />
       )}
 
-      <div className="bg-[#0a0c12] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
+      <div className="md:hidden space-y-3">
+        {stats.map((row, index) => {
+          const pos = index + 1;
+          const isTop8 = pos <= 8;
+          const isCaptain = pos <= 4;
+          const isCutoff = pos === 8;
+          const isCompared = compareIds.includes(row.playerId);
+          const movement = movementMap.get(row.playerId)?.delta || 0;
+          const movementClass = movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-500';
+          const openOrCompare = () => compareMode ? toggleComparePlayer(row.playerId) : onSelectPlayer(row.player);
+
+          return (
+            <React.Fragment key={row.playerId}>
+              <article
+                role="button"
+                tabIndex={0}
+                onClick={openOrCompare}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openOrCompare();
+                  }
+                }}
+                className={`border-2 p-3.5 transition-all cursor-pointer shadow-[4px_4px_0px_0px_#000] ${
+                  isCompared
+                    ? 'bg-[#ccff00]/10 border-[#ccff00]'
+                    : pos === 1
+                      ? 'bg-[#ccff00]/5 border-[#ccff00]'
+                      : isTop8
+                        ? 'bg-[#0a0c12] border-[#262c3a]'
+                        : 'bg-[#060709] border-[#1e222d] opacity-85'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className={`font-display text-2xl leading-none font-black ${pos <= 3 ? 'text-[#ccff00]' : isTop8 ? 'text-white' : 'text-slate-500'}`}>
+                        {pos < 10 ? `0${pos}` : pos}
+                      </span>
+                      <span className={`min-w-7 text-xs font-black font-grotesk ${movementClass}`}>
+                        {movement > 0 ? `↑${movement}` : movement < 0 ? `↓${Math.abs(movement)}` : '='}
+                      </span>
+                      <h2 className="truncate font-display text-2xl font-black uppercase leading-none text-white">
+                        {row.player.name}
+                      </h2>
+                    </div>
+
+                    <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-black font-mono-code text-slate-300">
+                      <span className="text-[#ccff00]">{row.matchesWon}V</span>
+                      <span className="text-slate-600">·</span>
+                      <span className={row.setsDiff > 0 ? 'text-emerald-400' : row.setsDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                        {formatSigned(row.setsDiff)} sets
+                      </span>
+                      <span className="text-slate-600">·</span>
+                      <span className={row.gamesDiff > 0 ? 'text-emerald-400' : row.gamesDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                        {formatSigned(row.gamesDiff)} juegos
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex shrink-0 flex-col items-end gap-2">
+                    <PlayerAvatar player={row.player} size="sm" />
+                    {compareMode && (
+                      <span className={`border px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk ${
+                        isCompared ? 'bg-[#ccff00] text-black border-black' : 'bg-[#1e222d] text-slate-300 border-[#262c3a]'
+                      }`}>
+                        {isCompared ? 'Elegido' : 'Elegir'}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5">
+                    {row.streak.length > 0 ? (
+                      row.streak.map((result, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className={`w-6 h-6 text-[11px] font-black flex items-center justify-center border border-black ${
+                            result === 'W' ? 'bg-emerald-500 text-black' : 'bg-rose-500 text-white'
+                          }`}
+                        >
+                          {result}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-[11px] font-mono-code text-slate-600">Sin racha</span>
+                    )}
+                  </div>
+
+                  {(isCaptain || (isTop8 && !isCaptain)) && (
+                    <span className={`shrink-0 px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk border ${
+                      isCaptain ? 'bg-[#ccff00] text-black border-black' : 'bg-[#1e222d] text-slate-300 border-[#262c3a]'
+                    }`}>
+                      {isCaptain ? 'Capitan' : 'Draft pool'}
+                    </span>
+                  )}
+                </div>
+              </article>
+
+              {isCutoff && (
+                <div className="border-2 border-black bg-[#ccff00] px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-black font-grotesk shadow-[4px_4px_0px_0px_#000]">
+                  Corte Top 8 · draft de diciembre
+                </div>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </div>
+
+      <div className="hidden md:block bg-[#0a0c12] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
@@ -202,12 +314,12 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                       <td className="py-3 px-2 sm:px-3 text-center text-rose-400 font-bold">{row.matchesLost}</td>
                       <td className="py-3 px-2 sm:px-3 text-center font-bold">
                         <span className={row.setsDiff > 0 ? 'text-emerald-400' : row.setsDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
-                          {row.setsDiff > 0 ? `+${row.setsDiff}` : row.setsDiff}
+                          {formatSigned(row.setsDiff)}
                         </span>
                       </td>
                       <td className="py-3 px-2 sm:px-3 text-center font-bold">
                         <span className={row.gamesDiff > 0 ? 'text-emerald-400' : row.gamesDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
-                          {row.gamesDiff > 0 ? `+${row.gamesDiff}` : row.gamesDiff}
+                          {formatSigned(row.gamesDiff)}
                         </span>
                       </td>
                       <td className="py-3 px-2 sm:px-3 text-center text-slate-400 hidden md:table-cell text-[11px]">
