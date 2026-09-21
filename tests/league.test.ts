@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs';
 import { parseLeagueData } from '../src/services/leagueSchema';
 import { calculatePlayerStats, getPairingMatrix } from '../src/utils/leagueCalculations';
 import { getMatchWinner } from '../src/utils/scoreValidation';
+import { getHallOfFame } from '../src/utils/rankingInsights';
 
 const fixture = () => parseLeagueData(JSON.parse(readFileSync(new URL('../public/league.json', import.meta.url), 'utf8')));
 
@@ -59,4 +60,29 @@ test('no permite final sin semifinales ni jugadores duplicados en parejas', () =
   assert.throws(() => parseLeagueData(data));
   data.playoffs.final = {sets:[]}; data.playoffs.pairs[1][0] = 1;
   assert.throws(() => parseLeagueData(data));
+});
+
+test('hall of fame: Mr. Tie Break solo cuenta sets 7-6 o 6-7', () => {
+  const data = fixture();
+  const base = data.matches[0];
+  const sevenFive = {
+    ...base,
+    id: 'test_7_5',
+    sets: [{ games1: 7, games2: 5 }, { games1: 6, games2: 4 }],
+    status: 'completed' as const,
+    winnerTeam: 1 as const,
+  };
+  const sevenSix = {
+    ...base,
+    id: 'test_7_6',
+    sets: [{ games1: 7, games2: 6 }, { games1: 6, games2: 4 }],
+    status: 'completed' as const,
+    winnerTeam: 1 as const,
+  };
+
+  const withoutTieBreak = getHallOfFame(data.players, [sevenFive]).find((record) => record.title === 'Mr. Tie Break');
+  assert.equal(withoutTieBreak?.value, 'Por estrenar');
+
+  const withTieBreak = getHallOfFame(data.players, [sevenSix]).find((record) => record.title === 'Mr. Tie Break');
+  assert.match(withTieBreak?.value || '', /1 ganados$/);
 });

@@ -248,7 +248,7 @@ export function getHallOfFame(players: Player[], matches: Match[]): FameRecord[]
     }
 
     match.sets.forEach((set) => {
-      if (set.games1 !== 7 && set.games2 !== 7) return;
+      if (Math.max(set.games1, set.games2) !== 7 || Math.min(set.games1, set.games2) !== 6) return;
       const setWinnerTeam = set.games1 > set.games2 ? 1 : 2;
       const winners = setWinnerTeam === 1 ? match.team1 : match.team2;
       winners.forEach((id) => tieBreaks.set(id, (tieBreaks.get(id) || 0) + 1));
