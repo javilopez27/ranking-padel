@@ -128,52 +128,86 @@ export function getPlayerRecords(
 
   let currentStreak = 0;
   let bestStreak = 0;
+  let thirdSetWins = 0;
+  let thirdSetLosses = 0;
+  let tieBreakWins = 0;
+  let tieBreakLosses = 0;
 
   completedMatches(matches)
     .filter((match) => match.team1.includes(playerId) || match.team2.includes(playerId))
     .forEach((match) => {
       const isTeam1 = match.team1.includes(playerId);
-      const won = (isTeam1 && match.winnerTeam === 1) || (!isTeam1 && match.winnerTeam === 2);
+      const playerTeam = isTeam1 ? 1 : 2;
+      const won = match.winnerTeam === playerTeam;
+
       if (won) {
         currentStreak += 1;
         bestStreak = Math.max(bestStreak, currentStreak);
       } else {
         currentStreak = 0;
       }
+
+      if (match.sets.length === 3) {
+        if (won) thirdSetWins += 1;
+        else thirdSetLosses += 1;
+      }
+
+      match.sets.forEach((set) => {
+        const isTieBreak = Math.max(set.games1, set.games2) === 7 && Math.min(set.games1, set.games2) === 6;
+        if (!isTieBreak) return;
+
+        const setWinnerTeam = set.games1 > set.games2 ? 1 : 2;
+        if (setWinnerTeam === playerTeam) tieBreakWins += 1;
+        else tieBreakLosses += 1;
+      });
     });
 
   const record = stats ? `${stats.matchesWon}-${stats.matchesLost}` : '0-0';
+  const thirdSetRecord = `${thirdSetWins}-${thirdSetLosses}`;
+  const tieBreakRecord = `${tieBreakWins}-${tieBreakLosses}`;
 
   return [
     {
-      title: 'Mejor posición',
-      value: bestPosition ? `#${bestPosition}` : '—',
+      title: 'Mejor posici\u00f3n',
+      value: bestPosition ? `#${bestPosition}` : '\u2014',
       detail: 'Su techo en la tabla.',
       accent: 'lime',
     },
     {
-      title: 'Peor posición',
-      value: worstPosition ? `#${worstPosition}` : '—',
-      detail: 'El barro también cuenta.',
+      title: 'Peor posici\u00f3n',
+      value: worstPosition ? `#${worstPosition}` : '\u2014',
+      detail: 'El barro tambi\u00e9n cuenta.',
       accent: 'orange',
     },
     {
       title: 'Mayor subida',
-      value: biggestClimb > 0 ? `+${biggestClimb}` : '—',
+      value: biggestClimb > 0 ? `+${biggestClimb}` : '\u2014',
       detail: 'Mayor salto tras una jornada.',
       accent: 'lime',
     },
     {
       title: 'Mejor racha',
-      value: bestStreak > 0 ? `${bestStreak}V` : '—',
+      value: bestStreak > 0 ? `${bestStreak}V` : '\u2014',
       detail: 'Victorias seguidas.',
       accent: 'white',
     },
     {
-      title: 'Récord',
+      title: 'R\u00e9cord',
       value: record,
       detail: 'Victorias-derrotas.',
       accent: 'orange',
+    },
+    {
+      title: 'Terceros sets',
+      value: thirdSetRecord,
+      detail: 'Balance en partidos a tres sets.',
+      accent: 'lime',
+    },
+    {
+      title: 'Tie-breaks',
+      value: tieBreakRecord,
+      detail: 'Sets 7-6 / 6-7.',
+      accent: 'white',
     },
   ];
 }

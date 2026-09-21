@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { parseLeagueData } from '../src/services/leagueSchema';
 import { calculatePlayerStats, getPairingMatrix } from '../src/utils/leagueCalculations';
 import { getMatchWinner } from '../src/utils/scoreValidation';
-import { getHallOfFame } from '../src/utils/rankingInsights';
+import { getHallOfFame, getPlayerRecords } from '../src/utils/rankingInsights';
 
 const fixture = () => parseLeagueData(JSON.parse(readFileSync(new URL('../public/league.json', import.meta.url), 'utf8')));
 
@@ -85,4 +85,23 @@ test('hall of fame: Mr. Tie Break solo cuenta sets 7-6 o 6-7', () => {
 
   const withTieBreak = getHallOfFame(data.players, [sevenSix]).find((record) => record.title === 'Mr. Tie Break');
   assert.match(withTieBreak?.value || '', /1 ganados$/);
+});
+
+
+test('ficha de jugador: calcula balance en terceros sets y tie-breaks', () => {
+  const data = fixture();
+  const base = data.matches[0];
+  const playerId = base.team1[0];
+  const match = {
+    ...base,
+    id: 'test_player_records',
+    sets: [{ games1: 7, games2: 6 }, { games1: 4, games2: 6 }, { games1: 6, games2: 3 }],
+    status: 'completed' as const,
+    winnerTeam: 1 as const,
+  };
+  const stats = calculatePlayerStats(data.players, [match]);
+  const records = getPlayerRecords(data.players, [match], playerId, stats.find((row) => row.playerId === playerId));
+
+  assert.equal(records.find((record) => record.title === 'Terceros sets')?.value, '1-0');
+  assert.equal(records.find((record) => record.title === 'Tie-breaks')?.value, '1-0');
 });

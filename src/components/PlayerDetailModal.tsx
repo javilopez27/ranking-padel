@@ -5,7 +5,7 @@ import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerEvolution } from './PlayerEvolution';
 import { PlayerRecords } from './PlayerRecords';
-import { getPlayerPositionHistory, getPlayerRecords } from '../utils/rankingInsights';
+import { getPlayerPositionHistory, getPlayerRecords, getRankingMovement } from '../utils/rankingInsights';
 
 interface PlayerDetailModalProps {
   player: Player | null;
@@ -40,37 +40,61 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
   const isCaptain = position <= 4;
   const positionHistory = getPlayerPositionHistory(players, matches, player.id);
   const playerRecords = getPlayerRecords(players, matches, player.id, stats);
+  const movement = getRankingMovement(players, matches).get(player.id)?.delta || 0;
+  const movementLabel = movement > 0
+    ? `\u2191${movement} esta jornada`
+    : movement < 0
+      ? `\u2193${Math.abs(movement)} esta jornada`
+      : '= esta jornada';
+  const movementClass = movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-400';
+  const rankStatus = isCaptain ? 'Capit\u00e1n provisional' : isTop8 ? 'Top 8 provisional' : 'Fase regular';
 
   return (
     <div ref={modalRef} className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="bg-[#0a0c12] border-2 border-black w-full max-w-2xl shadow-[8px_8px_0px_0px_#ccff00] overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header Strip */}
-        <div className="bg-black p-4 sm:p-5 border-b-2 border-[#262c3a] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <h2 className="font-display text-2xl sm:text-3xl font-black text-white leading-none">
+        <div className="relative overflow-hidden bg-black p-4 sm:p-5 border-b-2 border-[#262c3a]">
+          <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(204,255,0,0.18),transparent_55%)] pointer-events-none" />
+          <div className="relative flex items-start justify-between gap-4">
+            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+              <div className="border-2 border-[#ccff00] bg-[#ccff00] text-black shadow-[4px_4px_0px_0px_#ffffff] px-3 py-2 text-center shrink-0">
+                <span className="block font-display text-4xl sm:text-5xl font-black leading-none">
+                  {position < 10 ? `0${position}` : position}
+                </span>
+              </div>
+
+              <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
+
+              <div className="min-w-0">
+                <h2 className="font-display text-3xl sm:text-5xl font-black text-white leading-none uppercase truncate">
                   {player.name}
                 </h2>
-                <span className="bg-[#ccff00] text-black font-black text-xs px-2 py-0.5 font-grotesk uppercase border border-black">
-                  POSICIÓN #{position}
-                </span>
-                {isCaptain && (
-                  <span className="bg-[#ff5500] text-white font-black text-xs px-2 py-0.5 font-grotesk uppercase border border-black">
-                    CAPITÁN DRAFT
+
+                <div className="mt-2 flex flex-wrap items-center gap-2">
+                  <span className={`font-black text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border ${
+                    isCaptain ? 'bg-[#ff5500] text-white border-black' : isTop8 ? 'bg-[#ccff00] text-black border-black' : 'bg-[#12151e] text-slate-300 border-[#262c3a]'
+                  }`}>
+                    {rankStatus}
                   </span>
-                )}
+                  <span className={`font-black text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border border-[#262c3a] bg-[#12151e] ${movementClass}`}>
+                    {movementLabel}
+                  </span>
+                </div>
+
+                <div className="mt-3 font-display text-2xl sm:text-3xl font-black text-[#ccff00] leading-none">
+                  {stats?.matchesWon || 0}V <span className="text-slate-500">{'\u2014'}</span> <span className="text-white">{stats?.matchesLost || 0}D</span>
+                </div>
               </div>
             </div>
-          </div>
 
-          <button
-            onClick={onClose}
-            className="p-1.5 bg-[#12151e] hover:bg-[#ff5500] hover:text-white text-slate-400 border border-[#262c3a] transition-colors"
-          >
-            <X className="w-4 h-4" />
-          </button>
+            <button
+              onClick={onClose}
+              className="relative shrink-0 p-1.5 bg-[#12151e] hover:bg-[#ff5500] hover:text-white text-slate-400 border border-[#262c3a] transition-colors"
+              aria-label="Cerrar ficha"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Modal Scroll Content */}

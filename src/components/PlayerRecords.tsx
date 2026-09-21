@@ -12,7 +12,7 @@ const accentClass = {
 } satisfies Record<PlayerRecordCard['accent'], string>;
 
 export const PlayerRecords: React.FC<PlayerRecordsProps> = ({ records }) => (
-  <section className="grid grid-cols-2 lg:grid-cols-5 gap-2.5">
+  <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5">
     {records.map((record) => (
       <article key={record.title} className={`bg-black border-2 p-3 ${accentClass[record.accent]}`}>
         <span className="text-[9px] text-slate-400 font-black uppercase font-grotesk tracking-wider block">
