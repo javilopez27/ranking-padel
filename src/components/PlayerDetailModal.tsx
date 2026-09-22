@@ -53,47 +53,47 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
     <div ref={modalRef} className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-xs animate-in fade-in duration-150">
       <div className="bg-[#0a0c12] border-2 border-black w-full max-w-2xl shadow-[8px_8px_0px_0px_#ccff00] overflow-hidden max-h-[92vh] flex flex-col">
         {/* Header Strip */}
-        <div className="relative overflow-hidden bg-black p-4 sm:p-5 border-b-2 border-[#262c3a]">
+        <div className="relative bg-black p-4 sm:p-5 border-b-2 border-[#262c3a]">
           <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_top_right,rgba(204,255,0,0.18),transparent_55%)] pointer-events-none" />
-          <div className="relative flex items-start justify-between gap-4">
-            <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-              <div className="border-2 border-[#ccff00] bg-[#ccff00] text-black shadow-[4px_4px_0px_0px_#ffffff] px-3 py-2 text-center shrink-0">
+          <button
+            onClick={onClose}
+            className="absolute right-3 top-3 z-20 shrink-0 p-1.5 bg-[#12151e] hover:bg-[#ff5500] hover:text-white text-slate-400 border border-[#262c3a] transition-colors"
+            aria-label="Cerrar ficha"
+          >
+            <X className="w-4 h-4" />
+          </button>
+
+          <div className="relative pr-9 sm:pr-10">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="border-2 border-[#ccff00] bg-[#ccff00] text-black shadow-[4px_4px_0px_0px_#ffffff] px-2.5 sm:px-3 py-2 text-center shrink-0">
                 <span className="block font-display text-4xl sm:text-5xl font-black leading-none">
                   {position < 10 ? `0${position}` : position}
                 </span>
               </div>
 
               <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
-
-              <div className="min-w-0">
-                <h2 className="font-display text-3xl sm:text-5xl font-black text-white leading-none uppercase truncate">
-                  {player.name}
-                </h2>
-
-                <div className="mt-2 flex flex-wrap items-center gap-2">
-                  <span className={`font-black text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border ${
-                    isCaptain ? 'bg-[#ff5500] text-white border-black' : isTop8 ? 'bg-[#ccff00] text-black border-black' : 'bg-[#12151e] text-slate-300 border-[#262c3a]'
-                  }`}>
-                    {rankStatus}
-                  </span>
-                  <span className={`font-black text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border border-[#262c3a] bg-[#12151e] ${movementClass}`}>
-                    {movementLabel}
-                  </span>
-                </div>
-
-                <div className="mt-3 font-display text-2xl sm:text-3xl font-black text-[#ccff00] leading-none">
-                  {stats?.matchesWon || 0}V <span className="text-slate-500">{'\u2014'}</span> <span className="text-white">{stats?.matchesLost || 0}D</span>
-                </div>
-              </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="relative shrink-0 p-1.5 bg-[#12151e] hover:bg-[#ff5500] hover:text-white text-slate-400 border border-[#262c3a] transition-colors"
-              aria-label="Cerrar ficha"
-            >
-              <X className="w-4 h-4" />
-            </button>
+            <div className="mt-3 min-w-0">
+              <h2 className="font-display text-4xl sm:text-5xl font-black text-white leading-none uppercase truncate">
+                {player.name}
+              </h2>
+
+              <div className="mt-2 flex flex-wrap items-center gap-1.5 sm:gap-2">
+                <span className={`font-black text-[9px] min-[390px]:text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border ${
+                  isCaptain ? 'bg-[#ff5500] text-white border-black' : isTop8 ? 'bg-[#ccff00] text-black border-black' : 'bg-[#12151e] text-slate-300 border-[#262c3a]'
+                }`}>
+                  {rankStatus}
+                </span>
+                <span className={`font-black text-[9px] min-[390px]:text-[10px] sm:text-xs px-2 py-1 font-grotesk uppercase border border-[#262c3a] bg-[#12151e] ${movementClass}`}>
+                  {movementLabel}
+                </span>
+              </div>
+
+              <div className="mt-2 sm:mt-3 font-display text-2xl sm:text-3xl font-black text-[#ccff00] leading-none">
+                {stats?.matchesWon || 0}V <span className="text-slate-500">{'\u2014'}</span> <span className="text-white">{stats?.matchesLost || 0}D</span>
+              </div>
+            </div>
           </div>
         </div>
 
