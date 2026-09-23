@@ -13,6 +13,8 @@ export interface Player {
 export interface SetScore {
   games1: number;
   games2: number;
+  tieBreak1?: number;
+  tieBreak2?: number;
 }
 
 export type MatchStatus = 'pending' | 'completed' | 'postponed';

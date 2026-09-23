@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AlertTriangle, Filter } from 'lucide-react';
 import { Player, Match, RoundInfo } from '../types';
 import { RoundSimulator } from './RoundSimulator';
+import { MatchScoreboard } from './MatchScoreboard';
 
 interface CalendarioTabProps {
   roundInfos: RoundInfo[];
@@ -18,7 +19,6 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
   const [playerFilter, setPlayerFilter] = useState<number | 'all'>('all');
   const [showPostponedView, setShowPostponedView] = useState<boolean>(false);
 
-  const playerMap = new Map<number, Player>(players.map((p) => [p.id, p]));
 
   // Postponed matches across all rounds
   const postponedMatches = matches.filter((m) => m.status === 'postponed');
@@ -170,11 +170,6 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
           </div>
         ) : (
           displayedMatches.map((match) => {
-            const p1 = playerMap.get(match.team1[0]);
-            const p2 = playerMap.get(match.team1[1]);
-            const p3 = playerMap.get(match.team2[0]);
-            const p4 = playerMap.get(match.team2[1]);
-
             const isCompleted = match.status === 'completed';
             const isPostponed = match.status === 'postponed';
 
@@ -220,95 +215,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                   </div>
                 </div>
 
-                {/* Teams Faceoff Grid */}
-                <div className="p-4 sm:p-5 grid grid-cols-11 items-center gap-3">
-                  {/* Pareja 1 */}
-                  <div className={`col-span-5 p-3.5 border-2 ${
-                    isCompleted && match.winnerTeam === 1
-                      ? 'bg-[#ccff00]/10 border-[#ccff00]'
-                      : 'bg-[#12151e] border-[#262c3a]'
-                  }`}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-black uppercase text-[#ccff00] font-grotesk tracking-wider">
-                        PAREJA 1
-                      </span>
-                      {isCompleted && match.winnerTeam === 1 && (
-                        <span className="text-[9px] font-black bg-[#ccff00] text-black px-1.5 py-0.2 uppercase">
-                          VICTORIA
-                        </span>
-                      )}
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs sm:text-sm text-white">{p1?.name}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs sm:text-sm text-white">{p2?.name}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Center VS */}
-                  <div className="col-span-1 text-center">
-                    <span className="font-display text-xl sm:text-2xl font-black text-slate-500">
-                      VS
-                    </span>
-                  </div>
-
-                  {/* Pareja 2 */}
-                  <div className={`col-span-5 p-3.5 border-2 ${
-                    isCompleted && match.winnerTeam === 2
-                      ? 'bg-[#ccff00]/10 border-[#ccff00]'
-                      : 'bg-[#12151e] border-[#262c3a]'
-                  }`}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[10px] font-black uppercase text-blue-400 font-grotesk tracking-wider">
-                        PAREJA 2
-                      </span>
-                      {isCompleted && match.winnerTeam === 2 && (
-                        <span className="text-[9px] font-black bg-[#ccff00] text-black px-1.5 py-0.2 uppercase">
-                          VICTORIA
-                        </span>
-                      )}
-                    </div>
-                    <div className="space-y-1">
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs sm:text-sm text-white">{p3?.name}</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="font-bold text-xs sm:text-sm text-white">{p4?.name}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Score & Postponed Info Bar */}
-                {isPostponed && match.postponedNote && (
-                  <div className="px-4 py-2 bg-[#ff5500]/10 border-t border-[#ff5500]/30 text-xs font-mono-code text-[#ff5500]">
-                    <strong>Motivo de aplazamiento:</strong> {match.postponedNote}
-                  </div>
-                )}
-
-                {/* Action Footer */}
-                <div className="px-4 py-3 bg-[#0a0c12] border-t border-[#262c3a] flex flex-wrap items-center justify-between gap-3">
-                  {isCompleted && match.sets.length > 0 ? (
-                    <div className="flex items-center gap-2 text-xs font-mono-code">
-                      <span className="text-slate-400 font-bold uppercase">SCORE:</span>
-                      <div className="flex items-center gap-1.5">
-                        {match.sets.map((s, idx) => (
-                          <span key={idx} className="bg-black px-2.5 py-1 border border-[#262c3a] font-bold text-white">
-                            SET {idx + 1}: [{s.games1} - {s.games2}]
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ) : (
-                    <span className="text-xs font-mono-code text-slate-400">
-                      {isPostponed ? 'Aplazado a Diciembre' : 'Marcador aún no registrado'}
-                    </span>
-                  )}
-
-                </div>
+                <MatchScoreboard match={match} players={players} />
               </div>
             );
           })

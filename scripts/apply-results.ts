@@ -66,10 +66,15 @@ function parseSets(rawSets: string, id: string): SetScore[] {
   if (!rawSets) return [];
 
   return rawSets.split(/\s+/).map((set) => {
-    const match = set.match(/^(\d+)-(\d+)$/);
-    if (!match) throw new Error(`${id}: escribe los sets como "6-4 7-5" o "6-4 3-6 7-6".`);
+    const match = set.match(/^(\d+)-(\d+)(?:\((\d+)-(\d+)\))?$/);
+    if (!match) throw new Error(`${id}: escribe los sets como "6-4 7-5" o, si hay tie-break, "6-7(5-7)".`);
 
-    return { games1: Number(match[1]), games2: Number(match[2]) };
+    const score: SetScore = { games1: Number(match[1]), games2: Number(match[2]) };
+    if (match[3] !== undefined && match[4] !== undefined) {
+      score.tieBreak1 = Number(match[3]);
+      score.tieBreak2 = Number(match[4]);
+    }
+    return score;
   });
 }
 

@@ -6,6 +6,7 @@ import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerEvolution } from './PlayerEvolution';
 import { PlayerRecords } from './PlayerRecords';
 import { getPlayerPositionHistory, getPlayerRecords, getRankingMovement } from '../utils/rankingInsights';
+import { formatSetScore } from '../utils/scoreFormat';
 
 interface PlayerDetailModalProps {
   player: Player | null;
@@ -195,7 +196,7 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
                           <div className="flex items-center gap-1 font-bold">
                             {m.sets.map((s, idx) => (
                               <span key={idx} className="bg-[#12151e] px-1.5 py-0.5 border border-[#262c3a]">
-                                {s.games1}-{s.games2}
+                                {formatSetScore(s)}
                               </span>
                             ))}
                           </div>

@@ -5,6 +5,7 @@ import { parseLeagueData } from '../src/services/leagueSchema';
 import { calculatePlayerStats, getPairingMatrix } from '../src/utils/leagueCalculations';
 import { getMatchWinner } from '../src/utils/scoreValidation';
 import { getHallOfFame, getPlayerRecords } from '../src/utils/rankingInsights';
+import { formatSetScore } from '../src/utils/scoreFormat';
 
 const fixture = () => parseLeagueData(JSON.parse(readFileSync(new URL('../public/league.json', import.meta.url), 'utf8')));
 
@@ -25,6 +26,16 @@ test('marcadores: rechaza empates, decimales, sets incompletos y un tercer set d
   assert.equal(getMatchWinner([score(6,4), score(7,6)]), 1);
   assert.equal(getMatchWinner([score(6,4), score(4,6), score(5,7)]), 2);
   for (const sets of [[score(6,6),score(6,4)], [score(6,4),score(4,6)], [score(6,5),score(6,0)], [score(6,4),score(6,4),score(0,6)], [score(6.5,4),score(6,4)], [score(0,0)]]) assert.equal(getMatchWinner(sets), undefined);
+});
+
+
+test('tie-breaks: permite puntos reales y los muestra junto al set', () => {
+  const set = { games1: 6, games2: 7, tieBreak1: 5, tieBreak2: 7 };
+  assert.equal(getMatchWinner([{ games1: 6, games2: 4 }, set]), undefined);
+  assert.equal(getMatchWinner([{ games1: 4, games2: 6 }, set]), 2);
+  assert.equal(formatSetScore(set), '(5) 6 - 7 (7)');
+  assert.equal(getMatchWinner([{ games1: 7, games2: 5, tieBreak1: 7, tieBreak2: 4 }, { games1: 6, games2: 4 }]), undefined);
+  assert.equal(getMatchWinner([{ games1: 4, games2: 6 }, { games1: 6, games2: 7, tieBreak1: 7, tieBreak2: 5 }]), undefined);
 });
 
 test('guardar y deshacer un resultado actualiza clasificación y victorias de los cuatro jugadores', () => {

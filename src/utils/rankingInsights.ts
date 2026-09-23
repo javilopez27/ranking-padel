@@ -1,5 +1,6 @@
 import { Match, Player, PlayerStats } from '../types';
 import { calculatePlayerStats } from './leagueCalculations';
+import { formatMatchScore } from './scoreFormat';
 
 export interface PositionPoint {
   roundNumber: number;
@@ -36,7 +37,7 @@ const completedMatches = (matches: Match[]) =>
     .filter((match) => match.status === 'completed' && match.sets.length > 0 && match.winnerTeam)
     .sort((a, b) => a.roundNumber - b.roundNumber || a.matchNumberInRound - b.matchNumberInRound);
 
-const formatScore = (match: Match) => match.sets.map((set) => `${set.games1}-${set.games2}`).join(' / ');
+const formatScore = (match: Match) => formatMatchScore(match.sets);
 
 const rankMap = (stats: PlayerStats[]) =>
   new Map<number, number>(stats.map((stat, index) => [stat.playerId, index + 1]));

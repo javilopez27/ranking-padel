@@ -8,7 +8,12 @@ const player = z.object({
   id, name: text.trim().min(1), nickname: text.optional(),
   side: z.enum(['drive', 'reves', 'ambos']), paidFee: z.boolean(), avatarColor: text.optional(), imageUrl: text.optional(),
 });
-const score = z.object({ games1: z.number().int().min(0).max(7), games2: z.number().int().min(0).max(7) });
+const score = z.object({
+  games1: z.number().int().min(0).max(7),
+  games2: z.number().int().min(0).max(7),
+  tieBreak1: z.number().int().min(0).max(99).optional(),
+  tieBreak2: z.number().int().min(0).max(99).optional(),
+});
 const result = z.object({
   sets: z.array(score).max(3), winnerTeam: z.union([z.literal(1), z.literal(2)]).optional(),
   status: z.enum(['pending', 'completed', 'postponed']).optional(),

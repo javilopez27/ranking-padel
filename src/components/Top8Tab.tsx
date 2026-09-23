@@ -3,6 +3,7 @@ import type { Match, Player, PlayerStats } from '../types';
 import type { LeagueData } from '../services/leagueSchema';
 import { PlayerAvatar } from './PlayerAvatar';
 import { getRankingMovement } from '../utils/rankingInsights';
+import { formatMatchScore } from '../utils/scoreFormat';
 
 type Playoffs = LeagueData['playoffs'];
 type Stage = 'semi1' | 'semi2' | 'final';
@@ -274,7 +275,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
             <p className={playoffs[round.id].winnerTeam === 2 ? 'font-bold text-[#ccff00]' : 'font-bold'}>{pairName(round.team2)}</p>
             <p className="font-mono-code text-sm">
               {playoffs[round.id].sets.length
-                ? playoffs[round.id].sets.map((set) => `${set.games1}-${set.games2}`).join(' / ')
+                ? formatMatchScore(playoffs[round.id].sets)
                 : playoffs[round.id].status === 'postponed'
                   ? 'Aplazado'
                   : 'Pendiente de disputar'}

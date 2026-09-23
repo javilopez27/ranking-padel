@@ -3,6 +3,7 @@ import heroVideo from '/raquet-padel-balls.mp4';
 import { Trophy, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { Player, Match, RoundInfo, PlayerStats } from '../types';
 import { HallOfFame } from './HallOfFame';
+import { MatchScoreboard } from './MatchScoreboard';
 import { getHallOfFame } from '../utils/rankingInsights';
 
 interface InicioTabProps {
@@ -31,7 +32,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
   const completedMatches = matches.filter((m) => m.status === 'completed');
   const progressPercent = Math.round((completedMatches.length / matches.length) * 100);
 
-  const playerMap = new Map<number, Player>(players.map((p) => [p.id, p]));
 
   // Top 3 Podium
   const top1 = stats[0];
@@ -51,7 +51,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
         <div className="campechos-hero-content">
           <div className="campechos-enter flex flex-wrap items-center gap-2">
             <span className="campechos-badge bg-[#ccff00] text-black">Ranking Padel 2026</span>
-            <span className="campechos-badge bg-[#ff5500] text-black">120 € en premios</span>
             <span className="campechos-badge hidden lg:inline-block bg-[#0a0c12] text-slate-300">Temporada regular</span>
           </div>
 
@@ -91,11 +90,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
               <dd className="campechos-score-note">Jugados</dd>
             </div>
             <div>
-              <dt>Bote</dt>
-              <dd className="font-display text-[#ff5500]">120 €</dd>
-              <dd className="campechos-score-note">Premios</dd>
-            </div>
-            <div>
               <dt>Fase final</dt>
               <dd className="font-display text-white">Top 8</dd>
               <dd className="campechos-score-note">Diciembre</dd>
@@ -124,11 +118,6 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
           <div className="space-y-3">
             {currentMatches.map((match) => {
-              const p1 = playerMap.get(match.team1[0]);
-              const p2 = playerMap.get(match.team1[1]);
-              const p3 = playerMap.get(match.team2[0]);
-              const p4 = playerMap.get(match.team2[1]);
-
               const isCompleted = match.status === 'completed';
               const isPostponed = match.status === 'postponed';
 
@@ -170,70 +159,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                     )}
                   </div>
 
-                  {/* Match Teams Faceoff */}
-                  <div className="p-4 grid grid-cols-11 items-center gap-2">
-                    {/* Team 1 */}
-                    <div className={`col-span-5 p-2.5 border ${
-                      isCompleted && match.winnerTeam === 1 
-                        ? 'bg-[#ccff00]/10 border-[#ccff00]' 
-                        : 'bg-[#12151e] border-[#262c3a]'
-                    }`}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-black uppercase text-[#ccff00] font-grotesk">
-                          PAREJA 1
-                        </span>
-                        {isCompleted && match.winnerTeam === 1 && (
-                          <span className="text-[9px] font-black bg-[#ccff00] text-black px-1">WIN</span>
-                        )}
-                      </div>
-                      <p className="font-bold text-xs sm:text-sm text-white truncate">{p1?.name}</p>
-                      <p className="font-bold text-xs sm:text-sm text-white truncate">{p2?.name}</p>
-                    </div>
-
-                    {/* VS / Score */}
-                    <div className="col-span-1 text-center font-display font-black text-lg text-slate-500">
-                      VS
-                    </div>
-
-                    {/* Team 2 */}
-                    <div className={`col-span-5 p-2.5 border ${
-                      isCompleted && match.winnerTeam === 2 
-                        ? 'bg-[#ccff00]/10 border-[#ccff00]' 
-                        : 'bg-[#12151e] border-[#262c3a]'
-                    }`}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-black uppercase text-blue-400 font-grotesk">
-                          PAREJA 2
-                        </span>
-                        {isCompleted && match.winnerTeam === 2 && (
-                          <span className="text-[9px] font-black bg-[#ccff00] text-black px-1">WIN</span>
-                        )}
-                      </div>
-                      <p className="font-bold text-xs sm:text-sm text-white truncate">{p3?.name}</p>
-                      <p className="font-bold text-xs sm:text-sm text-white truncate">{p4?.name}</p>
-                    </div>
-                  </div>
-
-                  {/* Sets & Action Footer */}
-                  <div className="px-4 py-2.5 bg-[#0f1118] border-t border-[#262c3a] flex items-center justify-between">
-                    {isCompleted && match.sets.length > 0 ? (
-                      <div className="flex items-center gap-2">
-                        <span className="text-[11px] font-mono-code text-slate-400 font-bold uppercase">SCORE:</span>
-                        <div className="flex items-center gap-1.5 font-mono-code font-bold text-xs">
-                          {match.sets.map((s, idx) => (
-                            <span key={idx} className="bg-black text-white px-2 py-0.5 border border-[#262c3a]">
-                              {s.games1}-{s.games2}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    ) : (
-                      <span className="text-xs font-mono-code text-slate-400">
-                        {isPostponed ? match.postponedNote || 'Aplazado' : 'Resultado pendiente'}
-                      </span>
-                    )}
-
-                  </div>
+                  <MatchScoreboard match={match} players={players} compact />
                 </div>
               );
             })}

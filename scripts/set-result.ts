@@ -36,13 +36,25 @@ function stringifyCsvValue(value: string) {
     : value;
 }
 
+function normalizeSetToken(set: string) {
+  const normal = set.match(/^(\d+)-(\d+)(?:\((\d+)-(\d+)\))?$/);
+  if (normal) return set;
+
+  const displayStyle = set.match(/^\((\d+)\)(\d+)-(\d+)\((\d+)\)$/);
+  if (displayStyle) return `${displayStyle[2]}-${displayStyle[3]}(${displayStyle[1]}-${displayStyle[4]})`;
+
+  return undefined;
+}
+
 function normalizeSets(value: string) {
   const sets = value.trim().replace(/\s*\/\s*/g, ' ').replace(/\s+/g, ' ');
   if (!sets) return '';
-  if (!sets.split(' ').every((set) => /^\d+-\d+$/.test(set))) {
-    throw new Error('Escribe sets como "6-4 7-5" o "6-4 3-6 7-6".');
+
+  const normalized = sets.split(' ').map(normalizeSetToken);
+  if (normalized.some((set) => !set)) {
+    throw new Error('Escribe sets como "6-4 7-5" o, si hay tie-break, "6-7(5-7)".');
   }
-  return sets;
+  return normalized.join(' ');
 }
 
 function readInput(name: string, fallback = '') {
