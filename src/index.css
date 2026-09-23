@@ -6,10 +6,10 @@
   --surface: #191512;
   --surface-raised: #241d18;
   --line: #40342a;
-  --accent: #f29352;
-  --accent-hover: #ffb579;
+  --accent: #ccff00;
+  --accent-hover: #d8ff33;
   --copper: #b84924;
-  --ball: #d3df62;
+  --ball: var(--accent);
 }
 
 @layer base {
@@ -61,7 +61,7 @@
 
 /* Halftone / Athletic Grid Pattern */
 .bg-athletic-grid {
-  background-image: radial-gradient(rgba(242, 147, 82, 0.045) 1px, transparent 1px), radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(204, 255, 0, 0.045) 1px, transparent 1px), radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 24px 24px, 12px 12px;
   background-position: 0 0, 12px 12px;
 }
