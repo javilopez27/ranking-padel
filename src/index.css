@@ -2,13 +2,13 @@
 
 :root {
   color-scheme: dark;
-  --page: #222521;
-  --surface: #2b2f29;
-  --surface-raised: #353a32;
-  --surface-soft: #272b25;
-  --line: #484e42;
-  --ink: #e7e7dc;
-  --muted: #b2b8a9;
+  --page: #0c0e0d;
+  --surface: #141715;
+  --surface-raised: #202420;
+  --surface-soft: #101311;
+  --line: #343c35;
+  --ink: #e7ebe5;
+  --muted: #a8b2a7;
   --accent: #c3ca88;
   --accent-hover: #d1d79e;
   --accent-ink: #c3ca88;
@@ -24,18 +24,18 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --page: #eeeee5;
-  --surface: #f8f8f0;
-  --surface-raised: #e5e8dc;
-  --surface-soft: #eceedf;
-  --line: #cdd2c2;
-  --ink: #353b30;
-  --muted: #626c58;
-  --accent: #ccd49b;
-  --accent-hover: #bbc781;
-  --accent-ink: #55652d;
+  --page: #e9ece8;
+  --surface: #ffffff;
+  --surface-raised: #e2e7e0;
+  --surface-soft: #f1f4ef;
+  --line: #aab5a6;
+  --ink: #172019;
+  --muted: #455341;
+  --accent: #d4de8c;
+  --accent-hover: #c4d16f;
+  --accent-ink: #3d511c;
   --copper: #a45e43;
-  --neutral-badge: #d8ddc8;
+  --neutral-badge: #dce3d7;
   --copper-ink: #955036;
   --positive: #386048;
   --negative: #9a4d4b;
@@ -128,12 +128,12 @@
 
 /* Inicio: editorial video and a single sports scoreboard. */
 .campechos-hero {
-  --page: #222521;
-  --surface: #2b2f29;
-  --surface-raised: #353a32;
-  --line: #484e42;
-  --ink: #e7e7dc;
-  --muted: #b2b8a9;
+  --page: #0c0e0d;
+  --surface: #141715;
+  --surface-raised: #202420;
+  --line: #343c35;
+  --ink: #e7ebe5;
+  --muted: #a8b2a7;
   --accent-ink: #c3ca88;
   position: relative;
   isolation: isolate;
