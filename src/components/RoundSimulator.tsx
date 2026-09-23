@@ -29,7 +29,7 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
 
   if (!pendingRoundMatches.length) {
     return (
-      <section className="bg-[#0a0c12] border-2 border-[#262c3a] p-4 text-xs font-mono-code text-slate-400">
+      <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-4 text-xs font-mono-code text-slate-400">
         <span className="font-display text-xl text-white uppercase block">Simular jornada</span>
         Jornada cerrada: no quedan partidos pendientes para simular aquí.
       </section>
@@ -37,10 +37,10 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
   }
 
   return (
-    <section className="bg-[#0a0c12] border-2 border-black p-5 shadow-[5px_5px_0px_0px_#ccff00]">
+    <section className="bg-[var(--surface)] border-2 border-black p-5 shadow-[5px_5px_0px_0px_var(--accent)]">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
         <div>
-          <span className="bg-[#ccff00] text-black text-[10px] font-black px-2.5 py-0.5 uppercase font-grotesk border border-black">
+          <span className="bg-[var(--accent)] text-black text-[10px] font-black px-2.5 py-0.5 uppercase font-grotesk border border-black">
             Calculadora Campecha
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-black text-white uppercase tracking-wide mt-1">
@@ -49,9 +49,9 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
         </div>
         <button
           onClick={() => setWinners({})}
-          className="inline-flex items-center justify-center gap-2 bg-black hover:bg-[#12151e] text-white border-2 border-[#262c3a] px-3 py-2 text-xs font-black uppercase font-grotesk"
+          className="inline-flex items-center justify-center gap-2 bg-black hover:bg-[var(--surface-raised)] text-white border-2 border-[var(--line)] px-3 py-2 text-xs font-black uppercase font-grotesk"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[#ff5500]" />
+          <RotateCcw className="w-3.5 h-3.5 text-[var(--copper)]" />
           Reset
         </button>
       </div>
@@ -63,12 +63,12 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
             const team2 = match.team2.map((id) => playerMap.get(id)?.name).join(' / ');
 
             return (
-              <article key={match.id} className="bg-black border-2 border-[#262c3a] p-3">
+              <article key={match.id} className="bg-black border-2 border-[var(--line)] p-3">
                 <div className="flex items-center justify-between gap-2 mb-3">
                   <span className="font-mono-code text-[10px] text-slate-400 font-black uppercase">
                     Partido {match.matchNumberInRound}
                   </span>
-                  <span className="bg-[#12151e] border border-[#262c3a] text-[10px] px-2 py-0.5 text-slate-300 font-black uppercase font-grotesk">
+                  <span className="bg-[var(--surface-raised)] border border-[var(--line)] text-[10px] px-2 py-0.5 text-slate-300 font-black uppercase font-grotesk">
                     Marcador simulado 6-4 / 6-4
                   </span>
                 </div>
@@ -90,8 +90,8 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
                           onClick={() => setWinners((current) => ({ ...current, [match.id]: option.team }))}
                           className={`sm:col-span-5 text-left border-2 p-3 transition-all ${
                             selected
-                              ? 'bg-[#ccff00] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
-                              : 'bg-[#12151e] text-white border-[#262c3a] hover:border-[#ccff00]'
+                              ? 'bg-[var(--accent)] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
+                              : 'bg-[var(--surface-raised)] text-white border-[var(--line)] hover:border-[var(--accent)]'
                           }`}
                         >
                           <span className="text-[10px] font-black uppercase font-grotesk block opacity-70">
@@ -110,9 +110,9 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
           })}
         </div>
 
-        <aside className="lg:col-span-5 bg-black border-2 border-[#ff5500] p-4 shadow-[4px_4px_0px_0px_#ff5500]">
+        <aside className="lg:col-span-5 bg-black border-2 border-[var(--copper)] p-4 shadow-[4px_4px_0px_0px_var(--copper)]">
           <div className="flex items-center gap-2 mb-3">
-            <Calculator className="w-4 h-4 text-[#ff5500]" />
+            <Calculator className="w-4 h-4 text-[var(--copper)]" />
             <h3 className="font-display text-2xl font-black text-white uppercase">
               Tabla simulada
             </h3>
@@ -125,9 +125,9 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
           <div className="space-y-1.5 max-h-96 overflow-y-auto pr-1">
             {simulatedStats.map((stat, index) => (
               <div key={stat.playerId} className={`grid grid-cols-[38px_1fr_48px] items-center gap-2 px-2.5 py-2 border ${
-                index < 8 ? 'border-[#ccff00]/40 bg-[#ccff00]/5' : 'border-[#262c3a] bg-[#12151e]'
+                index < 8 ? 'border-[var(--accent)]/40 bg-[var(--accent)]/5' : 'border-[var(--line)] bg-[var(--surface-raised)]'
               }`}>
-                <span className="font-display text-xl font-black text-[#ccff00]">#{index + 1}</span>
+                <span className="font-display text-xl font-black text-[var(--accent)]">#{index + 1}</span>
                 <span className="text-sm font-bold text-white truncate">{stat.player.name}</span>
                 <span className="text-right font-display text-xl font-black text-white">{stat.matchesWon}V</span>
               </div>

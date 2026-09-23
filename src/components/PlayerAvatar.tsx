@@ -13,7 +13,7 @@ const sizeClass = {
 };
 
 export function PlayerAvatar({ player, size = 'md', onClick }: PlayerAvatarProps) {
-  const className = `${sizeClass[size]} ${player.avatarColor || 'bg-[#ccff00]'} text-black font-display font-black flex items-center justify-center border-2 border-black overflow-hidden shrink-0 ${onClick ? 'cursor-zoom-in hover:border-[#ccff00] focus:outline-none focus:ring-2 focus:ring-[#ccff00]' : ''}`;
+  const className = `${sizeClass[size]} ${player.avatarColor || 'bg-[var(--accent)]'} text-black font-display font-black flex items-center justify-center border-2 border-black overflow-hidden shrink-0 ${onClick ? 'cursor-zoom-in hover:border-[var(--accent)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]' : ''}`;
   const content = player.imageUrl ? (
     <img src={player.imageUrl} alt={player.name} className="w-full h-full object-cover" loading="lazy" />
   ) : (

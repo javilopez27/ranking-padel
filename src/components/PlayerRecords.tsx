@@ -6,8 +6,8 @@ interface PlayerRecordsProps {
 }
 
 const accentClass = {
-  lime: 'border-[#ccff00] text-[#ccff00] shadow-[2px_2px_0px_0px_#ccff00]',
-  orange: 'border-[#ff5500] text-[#ff5500] shadow-[2px_2px_0px_0px_#ff5500]',
+  lime: 'border-[var(--accent)] text-[var(--accent)] shadow-[2px_2px_0px_0px_var(--accent)]',
+  orange: 'border-[var(--copper)] text-[var(--copper)] shadow-[2px_2px_0px_0px_var(--copper)]',
   white: 'border-white text-white shadow-[2px_2px_0px_0px_#ffffff]',
 } satisfies Record<PlayerRecordCard['accent'], string>;
 

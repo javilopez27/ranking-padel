@@ -41,13 +41,13 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
   return (
     <div className="space-y-6 pb-12">
       {/* Header & Filter Controls */}
-      <div className="bg-[#0a0c12] border-2 border-black p-5 shadow-[4px_4px_0px_0px_#ccff00] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="bg-[var(--surface)] border-2 border-black p-5 shadow-[4px_4px_0px_0px_var(--accent)] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="bg-[#ccff00] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
               FIXTURE OFICIAL
             </span>
-            <span className="bg-[#ff5500] text-white font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
               33 PARTIDOS REGULARES
             </span>
           </div>
@@ -61,8 +61,8 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
 
         {/* Filter controls */}
         <div className="flex flex-wrap items-center gap-2 shrink-0">
-          <div className="flex items-center gap-2 bg-black border-2 border-[#262c3a] px-3 py-1.5">
-            <Filter className="w-3.5 h-3.5 text-[#ccff00] shrink-0" />
+          <div className="flex items-center gap-2 bg-black border-2 border-[var(--line)] px-3 py-1.5">
+            <Filter className="w-3.5 h-3.5 text-[var(--accent)] shrink-0" />
             <span className="text-xs font-grotesk font-black text-slate-400 uppercase hidden sm:inline">FILTRO:</span>
             <select
               id="player-filter-select"
@@ -79,14 +79,14 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             </select>
           </div>
 
-          <span className="bg-[#12151e] border-2 border-[#262c3a] px-3.5 py-2 text-xs font-black font-grotesk uppercase text-slate-300">
+          <span className="bg-[var(--surface-raised)] border-2 border-[var(--line)] px-3.5 py-2 text-xs font-black font-grotesk uppercase text-slate-300">
             Edicion por archivo del organizador
           </span>
         </div>
       </div>
 
       {/* Round Selector Bar */}
-      <div className="bg-[#0a0c12] border-2 border-black p-2 sm:p-3 shadow-[4px_4px_0px_0px_#000]">
+      <div className="bg-[var(--surface)] border-2 border-black p-2 sm:p-3 shadow-[4px_4px_0px_0px_#000]">
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
           {roundInfos.map((r) => {
             const isSelected = selectedRound === r.roundNumber && !showPostponedView;
@@ -102,15 +102,15 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                 }}
                 className={`flex-shrink-0 px-3 py-2 font-grotesk text-xs uppercase font-black transition-all border-2 ${
                   isSelected
-                    ? 'bg-[#ccff00] text-black border-black shadow-[2px_2px_0px_0px_#ffffff]'
+                    ? 'bg-[var(--accent)] text-black border-black shadow-[2px_2px_0px_0px_#ffffff]'
                     : isRoundDone
-                    ? 'bg-[#12151e] text-slate-300 border-[#262c3a] hover:border-slate-500'
-                    : 'bg-black text-slate-400 border-[#1e222d] hover:text-white'
+                    ? 'bg-[var(--surface-raised)] text-slate-300 border-[var(--line)] hover:border-slate-500'
+                    : 'bg-black text-slate-400 border-[var(--line)] hover:text-white'
                 }`}
               >
                 <div className="flex items-center gap-1">
                   <span>J{r.roundNumber < 10 ? `0${r.roundNumber}` : r.roundNumber}</span>
-                  {isRoundDone && <span className="text-[10px] text-black bg-[#ccff00] px-0.5">✓</span>}
+                  {isRoundDone && <span className="text-[10px] text-black bg-[var(--accent)] px-0.5">✓</span>}
                 </div>
               </button>
             );
@@ -121,8 +121,8 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             onClick={() => setShowPostponedView(true)}
             className={`flex-shrink-0 px-3.5 py-2 font-grotesk text-xs uppercase font-black transition-all border-2 ml-auto ${
               showPostponedView
-                ? 'bg-[#ff5500] text-white border-black shadow-[2px_2px_0px_0px_#ffffff]'
-                : 'bg-black text-[#ff5500] border-[#ff5500] hover:bg-[#ff5500]/10'
+                ? 'bg-[var(--copper)] text-white border-black shadow-[2px_2px_0px_0px_#ffffff]'
+                : 'bg-black text-[var(--copper)] border-[var(--copper)] hover:bg-[var(--copper)]/10'
             }`}
           >
             <div className="flex items-center gap-1.5">
@@ -135,12 +135,12 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
 
       {/* Round Subheader Banner */}
       {!showPostponedView ? (
-        <div className="bg-[#12151e] border-2 border-[#262c3a] p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono-code">
+        <div className="bg-[var(--surface-raised)] border-2 border-[var(--line)] p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs font-mono-code">
           <div className="flex items-center gap-2">
             <span className="font-display text-xl font-black text-white uppercase">
               JORNADA {selectedRound} // {currentRoundInfo.startDate} - {currentRoundInfo.endDate}
             </span>
-            <span className="bg-[#ccff00] text-black text-[10px] font-black px-1.5 py-0.2 uppercase font-grotesk">
+            <span className="bg-[var(--accent)] text-black text-[10px] font-black px-1.5 py-0.2 uppercase font-grotesk">
               3 PARTIDOS
             </span>
           </div>
@@ -149,14 +149,14 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
           </span>
         </div>
       ) : (
-        <div className="bg-[#1e1008] border-2 border-[#ff5500] p-4 text-xs font-mono-code text-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="bg-[var(--surface-raised)] border-2 border-[var(--copper)] p-4 text-xs font-mono-code text-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <span className="font-display text-xl font-black text-[#ff5500] uppercase block">
+            <span className="font-display text-xl font-black text-[var(--copper)] uppercase block">
               ZONA DE PARTIDOS APLAZADOS A DICIEMBRE
             </span>
             <span>Partidos que no se pudieron jugar en su semana y se recuperan antes del Draft Top 8.</span>
           </div>
-          <span className="bg-[#ff5500] text-white px-2 py-1 font-bold text-xs shrink-0">
+          <span className="bg-[var(--copper)] text-white px-2 py-1 font-bold text-xs shrink-0">
             {postponedMatches.length} PENDIENTES
           </span>
         </div>
@@ -165,7 +165,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
       {/* Match Cards List */}
       <div className="space-y-4">
         {displayedMatches.length === 0 ? (
-          <div className="bg-[#0a0c12] border-2 border-[#262c3a] p-8 text-center font-mono-code text-slate-400 text-xs">
+          <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-8 text-center font-mono-code text-slate-400 text-xs">
             No hay partidos para los filtros seleccionados.
           </div>
         ) : (
@@ -176,35 +176,35 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             return (
               <div
                 key={match.id}
-                className={`bg-[#0a0c12] border-2 transition-all ${
+                className={`bg-[var(--surface)] border-2 transition-all ${
                   isCompleted
-                    ? 'border-[#262c3a] shadow-[4px_4px_0px_0px_#000]'
+                    ? 'border-[var(--line)] shadow-[4px_4px_0px_0px_#000]'
                     : isPostponed
-                    ? 'border-[#ff5500] shadow-[4px_4px_0px_0px_#ff5500]'
-                    : 'border-[#ccff00] shadow-[4px_4px_0px_0px_#ccff00]'
+                    ? 'border-[var(--copper)] shadow-[4px_4px_0px_0px_var(--copper)]'
+                    : 'border-[var(--accent)] shadow-[4px_4px_0px_0px_var(--accent)]'
                 }`}
               >
                 {/* Header Ticket Strip */}
-                <div className="bg-black px-4 py-2 border-b border-[#262c3a] flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
-                  <div className="flex items-center gap-2.5">
-                    <span className="bg-[#1e222d] text-white font-black text-[10px] px-1.5 py-0.5 border border-[#262c3a]">
+                <div className="bg-black px-4 py-2 border-b border-[var(--line)] flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="bg-[var(--line)] text-white font-black text-[10px] px-1.5 py-0.5 border border-[var(--line)]">
                       JORNADA {match.roundNumber} · PARTIDO 0{match.matchNumberInRound}
                     </span>
                     <span className="text-slate-400">
                       {match.court || 'Pista 1'}
                     </span>
                     {match.playedDate && (
-                      <span className="text-[#ccff00]">({match.playedDate})</span>
+                      <span className="text-[var(--accent)]">({match.playedDate})</span>
                     )}
                   </div>
 
                   <div>
                     {isCompleted ? (
-                      <span className="bg-[#ccff00] text-black font-black text-[10px] px-2 py-0.5 font-grotesk uppercase">
+                      <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 font-grotesk uppercase">
                         ✓ FINALIZADO
                       </span>
                     ) : isPostponed ? (
-                      <span className="bg-[#ff5500] text-white font-black text-[10px] px-2 py-0.5 font-grotesk uppercase">
+                      <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2 py-0.5 font-grotesk uppercase">
                         ⚠️ APLAZADO A DICIEMBRE
                       </span>
                     ) : (

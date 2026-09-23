@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ] as const;
 
   return (
-    <header className="sticky top-0 z-40 bg-[#060709] border-b-2 border-[#1e222d]">
+    <header className="sticky top-0 z-40 bg-[var(--page)] border-b-2 border-[var(--line)]">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20 gap-2">
           {/* Logo & Athletic Club Identity */}
@@ -44,7 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 event.stopPropagation();
                 setShowLeaguePhoto(true);
               }}
-              className="w-10 h-10 sm:w-12 sm:h-12 bg-black border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all overflow-hidden focus:outline-none focus:ring-2 focus:ring-[#ccff00] cursor-zoom-in"
+              className="w-10 h-10 sm:w-12 sm:h-12 bg-black border-2 border-black flex items-center justify-center shadow-[3px_3px_0px_0px_#ffffff] group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:shadow-[1px_1px_0px_0px_#ffffff] transition-all overflow-hidden focus:outline-none focus:ring-2 focus:ring-[var(--accent)] cursor-zoom-in"
               title="Ampliar logo"
             >
               <img src="./logo.png" alt="Ranking Campechos" className="w-full h-full object-cover" />
@@ -62,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Center Navigation Tabs (Desktop) */}
-          <nav className="hidden md:flex items-center gap-1.5 bg-[#0f1117] p-1.5 border-2 border-[#262c3a]">
+          <nav className="hidden md:flex items-center gap-1.5 bg-[var(--surface)] p-1.5 border-2 border-[var(--line)]">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -73,15 +73,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 text-xs font-black uppercase font-grotesk tracking-wider transition-all duration-100 ${
                     isActive
-                      ? 'bg-[#ccff00] text-black border border-black shadow-[2px_2px_0px_0px_#ffffff]'
-                      : 'text-slate-300 hover:text-white hover:bg-[#1b202c]'
+                      ? 'bg-[var(--accent)] text-black border border-black shadow-[2px_2px_0px_0px_#ffffff]'
+                      : 'text-slate-300 hover:text-white hover:bg-[var(--surface-raised)]'
                   }`}
                 >
                   <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-black' : 'text-slate-400'}`} />
                   {tab.label}
                   {'tag' in tab && (
                     <span className={`text-[9px] px-1 py-0.2 font-black ${
-                      isActive ? 'bg-black text-[#ccff00]' : 'bg-[#ccff00] text-black'
+                      isActive ? 'bg-black text-[var(--accent)]' : 'bg-[var(--accent)] text-black'
                     }`}>
                       {tab.tag}
                     </span>
@@ -96,7 +96,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Bottom Navigation Bar */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#060709] border-t-2 border-[#262c3a] pt-1 pb-[calc(0.35rem+env(safe-area-inset-bottom))] px-2">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[var(--page)] border-t-2 border-[var(--line)] pt-1 pb-[calc(0.35rem+env(safe-area-inset-bottom))] px-2">
         <div className="grid grid-cols-5 gap-1">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -108,7 +108,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onClick={() => setActiveTab(tab.id)}
                 className={`min-h-14 flex flex-col items-center justify-center py-1.5 px-0.5 font-grotesk uppercase transition-all ${
                   isActive
-                    ? 'text-black bg-[#ccff00] font-black border border-black'
+                    ? 'text-black bg-[var(--accent)] font-black border border-black'
                     : 'text-slate-400 hover:text-slate-200'
                 }`}
               >

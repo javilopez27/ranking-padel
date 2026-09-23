@@ -62,17 +62,17 @@ function RankCard({ row, position, movement, variant }: RankCardProps) {
   return (
     <article className={`relative overflow-hidden border-2 p-4 shadow-[4px_4px_0px_0px_#000] ${
       isCaptain
-        ? 'bg-[#ccff00]/10 border-[#ccff00]'
-        : 'bg-[#0a0c12] border-[#262c3a]'
+        ? 'bg-[var(--accent)]/10 border-[var(--accent)]'
+        : 'bg-[var(--surface)] border-[var(--line)]'
     }`}>
-      {isCaptain && <div className="absolute -right-6 -top-8 font-display text-[96px] leading-none text-[#ccff00]/10 font-black">C</div>}
+      {isCaptain && <div className="absolute -right-6 -top-8 font-display text-[96px] leading-none text-[var(--accent)]/10 font-black">C</div>}
 
       <div className="relative flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex items-center gap-3 min-w-0">
           <PlayerAvatar player={row.player} size="lg" />
           <div className="min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className={`font-display text-4xl font-black leading-none ${isCaptain ? 'text-[#ccff00]' : 'text-white'}`}>
+              <span className={`font-display text-4xl font-black leading-none ${isCaptain ? 'text-[var(--accent)]' : 'text-white'}`}>
                 {formatPosition(position)}
               </span>
               <span className={`text-xs font-black font-grotesk ${movementClass}`}>{movementLabel(movement)}</span>
@@ -84,22 +84,22 @@ function RankCard({ row, position, movement, variant }: RankCardProps) {
         </div>
 
         <span className={`shrink-0 px-2 py-1 text-[10px] font-black uppercase font-grotesk border ${
-          isCaptain ? 'bg-[#ccff00] text-black border-black' : 'bg-[#12151e] text-slate-300 border-[#262c3a]'
+          isCaptain ? 'bg-[var(--accent)] text-black border-black' : 'bg-[var(--surface-raised)] text-slate-300 border-[var(--line)]'
         }`}>
           {isCaptain ? 'Capitán' : 'Elegible'}
         </span>
       </div>
 
       <div className="relative mt-4 grid grid-cols-3 gap-2 font-mono-code text-[11px]">
-        <div className="bg-black/70 border border-[#262c3a] p-2">
+        <div className="bg-black/70 border border-[var(--line)] p-2">
           <span className="block text-slate-500 font-black uppercase font-grotesk">Victorias</span>
-          <strong className={`font-display text-2xl ${isCaptain ? 'text-[#ccff00]' : 'text-white'}`}>{row.matchesWon}</strong>
+          <strong className={`font-display text-2xl ${isCaptain ? 'text-[var(--accent)]' : 'text-white'}`}>{row.matchesWon}</strong>
         </div>
-        <div className="bg-black/70 border border-[#262c3a] p-2">
+        <div className="bg-black/70 border border-[var(--line)] p-2">
           <span className="block text-slate-500 font-black uppercase font-grotesk">Sets</span>
           <strong className={row.setsDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{formatSigned(row.setsDiff)}</strong>
         </div>
-        <div className="bg-black/70 border border-[#262c3a] p-2">
+        <div className="bg-black/70 border border-[var(--line)] p-2">
           <span className="block text-slate-500 font-black uppercase font-grotesk">Juegos</span>
           <strong className={row.gamesDiff >= 0 ? 'text-emerald-400' : 'text-rose-400'}>{formatSigned(row.gamesDiff)}</strong>
         </div>
@@ -138,12 +138,12 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
 
   return (
     <div className="space-y-6 sm:space-y-8 pb-12">
-      <section className="bg-[#0a0c12] border-2 border-black p-5 sm:p-7 shadow-[5px_5px_0px_0px_#ff5500]">
+      <section className="bg-[var(--surface)] border-2 border-black p-5 sm:p-7 shadow-[5px_5px_0px_0px_var(--copper)]">
         <div className="flex flex-col lg:flex-row justify-between gap-5">
           <div>
             <div className="flex flex-wrap gap-2 mb-3 font-grotesk font-black text-xs uppercase">
-              <span className="bg-[#ff5500] px-2 py-1">Fase final</span>
-              <span className="bg-[#ccff00] text-black px-2 py-1">Draft Top 8</span>
+              <span className="bg-[var(--copper)] px-2 py-1">Fase final</span>
+              <span className="bg-[var(--accent)] text-black px-2 py-1">Draft Top 8</span>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl text-white leading-none">
               Draft de capitanes
@@ -159,7 +159,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
         <div className="space-y-5">
           <div>
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 mb-3">
-              <h2 className="font-display text-4xl text-[#ccff00] font-black uppercase leading-none">Capitanes</h2>
+              <h2 className="font-display text-4xl text-[var(--accent)] font-black uppercase leading-none">Capitanes</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {captains.map((captain, index) => (
@@ -177,7 +177,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
           <div>
             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 mb-3">
               <h2 className="font-display text-4xl text-white font-black uppercase leading-none">Draft pool</h2>
-              <span className="bg-[#12151e] text-slate-300 border border-[#262c3a] px-2 py-1 text-[10px] font-black uppercase font-grotesk">Puestos #5–#8</span>
+              <span className="bg-[var(--surface-raised)] text-slate-300 border border-[var(--line)] px-2 py-1 text-[10px] font-black uppercase font-grotesk">Puestos #5–#8</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {draftPool.map((row, index) => (
@@ -194,22 +194,22 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
         </div>
 
         <aside className="space-y-5">
-          <section className="bg-black border-2 border-[#ccff00] p-4 sm:p-5 shadow-[5px_5px_0px_0px_#ccff00]">
-            <span className="font-grotesk text-[10px] font-black uppercase text-[#ccff00] tracking-[0.3em]">Batalla por el Top 8</span>
+          <section className="bg-black border-2 border-[var(--accent)] p-4 sm:p-5 shadow-[5px_5px_0px_0px_var(--accent)]">
+            <span className="font-grotesk text-[10px] font-black uppercase text-[var(--accent)] tracking-[0.3em]">Batalla por el Top 8</span>
             <h2 className="font-display text-3xl sm:text-4xl text-white font-black uppercase leading-none mt-2">Línea de corte</h2>
 
             {cutoff && hunter && (
               <div className="mt-5 grid grid-cols-1 items-stretch gap-3 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
-                <article className="border-2 border-[#ccff00] bg-[#ccff00]/10 p-3">
-                  <span className="font-display text-3xl font-black text-[#ccff00]">#8</span>
+                <article className="border-2 border-[var(--accent)] bg-[var(--accent)]/10 p-3">
+                  <span className="font-display text-3xl font-black text-[var(--accent)]">#8</span>
                   <h3 className="font-display text-2xl text-white uppercase leading-none truncate">{cutoff.player.name}</h3>
                   <p className="mt-2 text-xs font-mono-code text-slate-300">
                     <strong className="text-white">{cutoff.matchesWon}V</strong> · {formatSigned(cutoff.setsDiff)} sets · {formatSigned(cutoff.gamesDiff)} juegos
                   </p>
                 </article>
                 <span className="font-display text-3xl text-slate-500 font-black text-center self-center">VS</span>
-                <article className="border-2 border-[#ff5500] bg-[#ff5500]/10 p-3">
-                  <span className="font-display text-3xl font-black text-[#ff5500]">#9</span>
+                <article className="border-2 border-[var(--copper)] bg-[var(--copper)]/10 p-3">
+                  <span className="font-display text-3xl font-black text-[var(--copper)]">#9</span>
                   <h3 className="font-display text-2xl text-white uppercase leading-none truncate">{hunter.player.name}</h3>
                   <p className="mt-2 text-xs font-mono-code text-slate-300">
                     <strong className="text-white">{hunter.matchesWon}V</strong> · {formatSigned(hunter.setsDiff)} sets · {formatSigned(hunter.gamesDiff)} juegos
@@ -218,7 +218,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
               </div>
             )}
 
-            <p className="mt-4 bg-[#12151e] border border-[#262c3a] p-3 text-sm font-mono-code text-white">
+            <p className="mt-4 bg-[var(--surface-raised)] border border-[var(--line)] p-3 text-sm font-mono-code text-white">
               {cutlineReason(cutoff, hunter)}
             </p>
             {top7to10Gap !== undefined && (
@@ -228,7 +228,7 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
             )}
           </section>
 
-          <section className="bg-[#0a0c12] border-2 border-[#262c3a] p-4 sm:p-5">
+          <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-4 sm:p-5">
             <h2 className="font-display text-3xl text-white font-black uppercase leading-none mb-4">Distancia al corte</h2>
             <div className="space-y-2 font-mono-code text-xs">
               {cutlineRows.map((row, index) => {
@@ -242,10 +242,10 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
                     : `${diff} ${pluralVictory(diff)}`;
 
                 return (
-                  <div key={row.playerId} className="grid grid-cols-[auto_1fr_auto] items-center gap-2 bg-black border border-[#262c3a] px-3 py-2">
-                    <span className={isInside ? 'text-[#ccff00] font-black' : 'text-slate-500 font-black'}>#{position}</span>
+                  <div key={row.playerId} className="grid grid-cols-[auto_1fr_auto] items-center gap-2 bg-black border border-[var(--line)] px-3 py-2">
+                    <span className={isInside ? 'text-[var(--accent)] font-black' : 'text-slate-500 font-black'}>#{position}</span>
                     <span className="text-white font-bold truncate">{row.player.name}</span>
-                    <span className={isInside ? 'text-[#ccff00]' : diff === 0 ? 'text-[#ff5500]' : 'text-slate-400'}>{label}</span>
+                    <span className={isInside ? 'text-[var(--accent)]' : diff === 0 ? 'text-[var(--copper)]' : 'text-slate-400'}>{label}</span>
                   </div>
                 );
               })}
@@ -254,12 +254,12 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
         </aside>
       </section>
 
-      <section className="bg-[#0a0c12] border-2 border-black p-5 shadow-[5px_5px_0px_0px_#000]">
+      <section className="bg-[var(--surface)] border-2 border-black p-5 shadow-[5px_5px_0px_0px_#000]">
         <h2 className="font-display text-4xl text-white font-black uppercase leading-none mb-5">Cómo funciona</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {flow.map((step, index) => (
-            <article key={step} className="bg-black border-2 border-[#262c3a] p-4 min-h-28 sm:min-h-32 flex flex-col justify-between">
-              <span className="font-display text-5xl text-[#ccff00] font-black leading-none">{index + 1}</span>
+            <article key={step} className="bg-black border-2 border-[var(--line)] p-4 min-h-28 sm:min-h-32 flex flex-col justify-between">
+              <span className="font-display text-5xl text-[var(--accent)] font-black leading-none">{index + 1}</span>
               <p className="mt-4 text-sm text-white font-black font-grotesk uppercase leading-tight">{step}</p>
             </article>
           ))}
@@ -268,11 +268,11 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
 
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {rounds.map((round) => (
-          <article key={round.id} className="bg-[#0a0c12] border-2 border-[#262c3a] p-5 space-y-4">
-            <h2 className="font-display text-2xl text-[#ccff00]">{round.title}</h2>
-            <p className={playoffs[round.id].winnerTeam === 1 ? 'font-bold text-[#ccff00]' : 'font-bold'}>{pairName(round.team1)}</p>
+          <article key={round.id} className="bg-[var(--surface)] border-2 border-[var(--line)] p-5 space-y-4">
+            <h2 className="font-display text-2xl text-[var(--accent)]">{round.title}</h2>
+            <p className={playoffs[round.id].winnerTeam === 1 ? 'font-bold text-[var(--accent)]' : 'font-bold'}>{pairName(round.team1)}</p>
             <span className="font-display text-xl text-slate-500">VS</span>
-            <p className={playoffs[round.id].winnerTeam === 2 ? 'font-bold text-[#ccff00]' : 'font-bold'}>{pairName(round.team2)}</p>
+            <p className={playoffs[round.id].winnerTeam === 2 ? 'font-bold text-[var(--accent)]' : 'font-bold'}>{pairName(round.team2)}</p>
             <p className="font-mono-code text-sm">
               {playoffs[round.id].sets.length
                 ? formatMatchScore(playoffs[round.id].sets)
@@ -286,10 +286,10 @@ export function Top8Tab({ stats, players, matches, playoffs }: Top8TabProps) {
       </section>
 
       {final.winnerTeam && (
-        <section className="border-2 border-[#ccff00] bg-[#0a0c12] p-6 text-center shadow-[5px_5px_0px_0px_#ccff00]">
-          <Trophy className="mx-auto text-[#ccff00]" size={36} />
+        <section className="border-2 border-[var(--accent)] bg-[var(--surface)] p-6 text-center shadow-[5px_5px_0px_0px_var(--accent)]">
+          <Trophy className="mx-auto text-[var(--accent)]" size={36} />
           <h2 className="font-display text-4xl mt-3">Campeones // 80 €</h2>
-          <p className="text-xl text-[#ccff00] font-bold">{pairName(final.winnerTeam === 1 ? finalTeam1 : finalTeam2)}</p>
+          <p className="text-xl text-[var(--accent)] font-bold">{pairName(final.winnerTeam === 1 ? finalTeam1 : finalTeam2)}</p>
           <p className="text-sm text-slate-300 mt-4">Subcampeones // 40 €: {pairName(final.winnerTeam === 1 ? finalTeam2 : finalTeam1)}</p>
         </section>
       )}

@@ -58,13 +58,13 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="bg-[#0a0c12] border-2 border-black p-5 shadow-[4px_4px_0px_0px_#ccff00] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-[var(--surface)] border-2 border-black p-5 shadow-[4px_4px_0px_0px_var(--accent)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-[#ccff00] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
               Ranking oficial
             </span>
-            <span className="bg-[#ff5500] text-white font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
               Victorias
             </span>
           </div>
@@ -83,7 +83,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
             <button
               id="ranking-history-menu"
               onClick={() => setShowHistoryMenu((value) => !value)}
-              className="min-w-36 flex items-center justify-between gap-3 px-3 py-2 bg-black text-[#ccff00] border-2 border-[#ccff00] shadow-[3px_3px_0px_0px_#000] text-xs font-black font-grotesk uppercase transition-all hover:bg-[#ccff00] hover:text-black"
+              className="min-w-36 flex items-center justify-between gap-3 px-3 py-2 bg-black text-[var(--accent)] border-2 border-[var(--accent)] shadow-[3px_3px_0px_0px_#000] text-xs font-black font-grotesk uppercase transition-all hover:bg-[var(--accent)] hover:text-black"
               aria-expanded={showHistoryMenu}
               aria-haspopup="listbox"
             >
@@ -95,7 +95,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
               <div
                 role="listbox"
                 aria-label="Seleccionar clasificación histórica"
-                className="absolute right-0 z-30 mt-2 w-44 bg-[#060709] border-2 border-[#ccff00] shadow-[5px_5px_0px_0px_#000] p-1 font-grotesk uppercase"
+                className="absolute right-0 z-30 mt-2 w-44 bg-[var(--page)] border-2 border-[var(--accent)] shadow-[5px_5px_0px_0px_#000] p-1 font-grotesk uppercase"
               >
                 <button
                   role="option"
@@ -106,8 +106,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                   }}
                   className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
                     rankingView === 'current'
-                      ? 'bg-[#ccff00] text-black border-black'
-                      : 'bg-transparent text-white border-transparent hover:border-[#262c3a] hover:bg-[#12151e]'
+                      ? 'bg-[var(--accent)] text-black border-black'
+                      : 'bg-transparent text-white border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
                   }`}
                 >
                   Actual
@@ -124,8 +124,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
                       rankingView === round
-                        ? 'bg-[#ccff00] text-black border-black'
-                        : 'bg-transparent text-slate-200 border-transparent hover:border-[#262c3a] hover:bg-[#12151e]'
+                        ? 'bg-[var(--accent)] text-black border-black'
+                        : 'bg-transparent text-slate-200 border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
                     }`}
                   >
                     Tras {formatRound(round)}
@@ -143,8 +143,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
             }}
             className={`px-3 py-2 border-2 text-xs font-black font-grotesk uppercase transition-all shrink-0 ${
               compareMode
-                ? 'bg-[#ccff00] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
-                : 'bg-[#12151e] hover:bg-[#1a1f2c] border-[#ff5500] text-white'
+                ? 'bg-[var(--accent)] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
+                : 'bg-[var(--surface-raised)] hover:bg-[#1a1f2c] border-[var(--copper)] text-white'
             }`}
           >
             Comparar
@@ -152,17 +152,17 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
           <button
             id="btn-tiebreak-info"
             onClick={() => setShowTiebreakExplainer((value) => !value)}
-            className="flex items-center gap-1.5 px-3 py-2 bg-[#12151e] hover:bg-[#1a1f2c] border-2 border-[#262c3a] text-white text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
+            className="flex items-center gap-1.5 px-3 py-2 bg-[var(--surface-raised)] hover:bg-[#1a1f2c] border-2 border-[var(--line)] text-white text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-[#ccff00]" />
+            <HelpCircle className="w-3.5 h-3.5 text-[var(--accent)]" />
             <span>Desempates</span>
           </button>
         </div>
       </div>
 
       {showTiebreakExplainer && (
-        <div className="bg-[#12151e] border-2 border-[#ccff00] p-4 sm:p-5 text-xs text-slate-300 space-y-2 shadow-[3px_3px_0px_0px_#ccff00]">
-          <div className="text-[#ccff00] font-black text-sm font-grotesk uppercase">Desempate</div>
+        <div className="bg-[var(--surface-raised)] border-2 border-[var(--accent)] p-4 sm:p-5 text-xs text-slate-300 space-y-2 shadow-[3px_3px_0px_0px_var(--accent)]">
+          <div className="text-[var(--accent)] font-black text-sm font-grotesk uppercase">Desempate</div>
           <ol className="list-decimal list-inside space-y-1 font-mono-code text-slate-200">
             <li><strong className="text-white">Victorias</strong>.</li>
             <li><strong className="text-white">Mayor diferencia de sets</strong> (sets ganados - sets perdidos).</li>
@@ -175,12 +175,12 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
 
       <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono-code">
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 bg-[#0a0c12] px-2 py-1 border border-[#ccff00]">
-            <span className="w-2.5 h-2.5 bg-[#ccff00] inline-block" />
+          <div className="flex items-center gap-1.5 bg-[var(--surface)] px-2 py-1 border border-[var(--accent)]">
+            <span className="w-2.5 h-2.5 bg-[var(--accent)] inline-block" />
             <span className="text-white font-bold">Puestos 1 al 8:</span>
-            <span className="text-[#ccff00]">pasan al Top 8 Draft</span>
+            <span className="text-[var(--accent)]">pasan al Top 8 Draft</span>
           </div>
-          <div className="flex items-center gap-1.5 bg-[#0a0c12] px-2 py-1 border border-[#262c3a]">
+          <div className="flex items-center gap-1.5 bg-[var(--surface)] px-2 py-1 border border-[var(--line)]">
             <span className="w-2.5 h-2.5 bg-slate-600 inline-block" />
             <span className="text-slate-400">Puestos 9 al 12: fase regular</span>
           </div>
@@ -228,18 +228,18 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                 }}
                 className={`border-2 p-3.5 transition-all cursor-pointer shadow-[4px_4px_0px_0px_#000] ${
                   isCompared
-                    ? 'bg-[#ccff00]/10 border-[#ccff00]'
+                    ? 'bg-[var(--accent)]/10 border-[var(--accent)]'
                     : pos === 1
-                      ? 'bg-[#ccff00]/5 border-[#ccff00]'
+                      ? 'bg-[var(--accent)]/5 border-[var(--accent)]'
                       : isTop8
-                        ? 'bg-[#0a0c12] border-[#262c3a]'
-                        : 'bg-[#060709] border-[#1e222d] opacity-85'
+                        ? 'bg-[var(--surface)] border-[var(--line)]'
+                        : 'bg-[var(--page)] border-[var(--line)] opacity-85'
                 }`}
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`font-display text-2xl leading-none font-black ${pos <= 3 ? 'text-[#ccff00]' : isTop8 ? 'text-white' : 'text-slate-500'}`}>
+                      <span className={`font-display text-2xl leading-none font-black ${pos <= 3 ? 'text-[var(--accent)]' : isTop8 ? 'text-white' : 'text-slate-500'}`}>
                         {pos < 10 ? `0${pos}` : pos}
                       </span>
                       <span className={`min-w-7 text-xs font-black font-grotesk ${movementClass}`}>
@@ -251,7 +251,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     </div>
 
                     <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-black font-mono-code text-slate-300">
-                      <span className="text-[#ccff00]">{row.matchesWon}V</span>
+                      <span className="text-[var(--accent)]">{row.matchesWon}V</span>
                       <span className="text-slate-600">·</span>
                       <span className={row.setsDiff > 0 ? 'text-emerald-400' : row.setsDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
                         {formatSigned(row.setsDiff)} sets
@@ -267,7 +267,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     <PlayerAvatar player={row.player} size="sm" />
                     {compareMode && (
                       <span className={`border px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk ${
-                        isCompared ? 'bg-[#ccff00] text-black border-black' : 'bg-[#1e222d] text-slate-300 border-[#262c3a]'
+                        isCompared ? 'bg-[var(--accent)] text-black border-black' : 'bg-[var(--line)] text-slate-300 border-[var(--line)]'
                       }`}>
                         {isCompared ? 'Elegido' : 'Elegir'}
                       </span>
@@ -295,7 +295,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
 
                   {(isCaptain || (isTop8 && !isCaptain)) && (
                     <span className={`shrink-0 px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk border ${
-                      isCaptain ? 'bg-[#ccff00] text-black border-black' : 'bg-[#1e222d] text-slate-300 border-[#262c3a]'
+                      isCaptain ? 'bg-[var(--accent)] text-black border-black' : 'bg-[var(--line)] text-slate-300 border-[var(--line)]'
                     }`}>
                       {isCaptain ? 'Capitan' : 'Draft pool'}
                     </span>
@@ -304,7 +304,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
               </article>
 
               {isCutoff && (
-                <div className="border-2 border-black bg-[#ccff00] px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-black font-grotesk shadow-[4px_4px_0px_0px_#000]">
+                <div className="border-2 border-black bg-[var(--accent)] px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-black font-grotesk shadow-[4px_4px_0px_0px_#000]">
                   Corte Top 8 · draft de diciembre
                 </div>
               )}
@@ -313,14 +313,14 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
         })}
       </div>
 
-      <div className="hidden md:block bg-[#0a0c12] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
+      <div className="hidden md:block bg-[var(--surface)] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-black border-b-2 border-[#262c3a] font-grotesk font-black uppercase text-slate-300 text-[11px] tracking-wider">
+              <tr className="bg-black border-b-2 border-[var(--line)] font-grotesk font-black uppercase text-slate-300 text-[11px] tracking-wider">
                 <th className="py-3 px-3 sm:px-4 w-14 text-center">Pos</th>
                 <th className="py-3 px-3 sm:px-4">Jugador</th>
-                <th className="py-3 px-3 sm:px-4 text-center bg-[#ccff00]/10 text-[#ccff00] border-x border-[#262c3a]">Victorias</th>
+                <th className="py-3 px-3 sm:px-4 text-center bg-[var(--accent)]/10 text-[var(--accent)] border-x border-[var(--line)]">Victorias</th>
                 <th className="py-3 px-2 sm:px-3 text-center">PJ</th>
                 <th className="py-3 px-2 sm:px-3 text-center text-rose-400">Derrotas</th>
                 <th className="py-3 px-2 sm:px-3 text-center">Dif sets</th>
@@ -331,7 +331,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                 <th className="py-3 px-3 sm:px-4 text-right">Ficha</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1e222d] font-mono-code">
+            <tbody className="divide-y divide-[var(--line)] font-mono-code">
               {visibleStats.map((row, index) => {
                 const pos = index + 1;
                 const isTop8 = pos <= 8;
@@ -346,15 +346,15 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                       onClick={() => compareMode ? toggleComparePlayer(row.playerId) : onSelectPlayer(row.player)}
                       className={`hover:bg-[#151822] cursor-pointer transition-colors ${
                         pos === 1
-                          ? 'bg-[#ccff00]/5 font-bold'
+                          ? 'bg-[var(--accent)]/5 font-bold'
                           : isTop8
-                          ? 'bg-[#0a0c12]'
-                          : 'bg-[#060709] opacity-80 hover:opacity-100'
+                          ? 'bg-[var(--surface)]'
+                          : 'bg-[var(--page)] opacity-80 hover:opacity-100'
                       }`}
                     >
                       <td className="py-3 px-3 sm:px-4 text-center">
                         <div className="flex items-center justify-center gap-1.5">
-                          <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[#ccff00]' : isTop8 ? 'text-slate-200' : 'text-slate-600'}`}>
+                          <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[var(--accent)]' : isTop8 ? 'text-slate-200' : 'text-slate-600'}`}>
                             {pos < 10 ? `0${pos}` : pos}
                           </span>
                           <span className={`text-[10px] font-black font-grotesk min-w-6 ${
@@ -373,12 +373,12 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                               {row.player.name}
                             </span>
                             {isCaptain && (
-                              <span className="bg-[#ccff00] text-black text-[9px] font-black px-1 font-grotesk uppercase">
+                              <span className="bg-[var(--accent)] text-black text-[9px] font-black px-1 font-grotesk uppercase">
                                 Capitan
                               </span>
                             )}
                             {isTop8 && !isCaptain && (
-                              <span className="bg-[#1e222d] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
+                              <span className="bg-[var(--line)] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
                                 Draft pool
                               </span>
                             )}
@@ -386,8 +386,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 sm:px-4 text-center bg-[#ccff00]/10 border-x border-[#262c3a]">
-                        <span className="font-display text-2xl font-black text-[#ccff00]">{row.matchesWon}</span>
+                      <td className="py-3 px-3 sm:px-4 text-center bg-[var(--accent)]/10 border-x border-[var(--line)]">
+                        <span className="font-display text-2xl font-black text-[var(--accent)]">{row.matchesWon}</span>
                       </td>
                       <td className="py-3 px-2 sm:px-3 text-center text-slate-300 font-bold">{row.matchesPlayed}</td>
                       <td className="py-3 px-2 sm:px-3 text-center text-rose-400 font-bold">{row.matchesLost}</td>
@@ -434,8 +434,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                             }}
                             className={`px-2.5 py-1 text-[10px] font-black font-grotesk uppercase border transition-colors ${
                               isCompared
-                                ? 'bg-[#ccff00] text-black border-black'
-                                : 'bg-[#1e222d] hover:bg-[#ff5500] hover:text-white text-slate-200 border-[#262c3a]'
+                                ? 'bg-[var(--accent)] text-black border-black'
+                                : 'bg-[var(--line)] hover:bg-[var(--copper)] hover:text-white text-slate-200 border-[var(--line)]'
                             }`}
                           >
                             {isCompared ? 'Elegido' : 'Elegir'}
@@ -446,7 +446,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                               event.stopPropagation();
                               onSelectPlayer(row.player);
                             }}
-                            className="px-2.5 py-1 bg-[#1e222d] hover:bg-[#ccff00] hover:text-black text-slate-200 text-[10px] font-black font-grotesk uppercase border border-[#262c3a] transition-colors"
+                            className="px-2.5 py-1 bg-[var(--line)] hover:bg-[var(--accent)] hover:text-black text-slate-200 text-[10px] font-black font-grotesk uppercase border border-[var(--line)] transition-colors"
                           >
                             Ver
                           </button>
@@ -455,8 +455,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     </tr>
 
                     {isCutoff && (
-                      <tr className="bg-black border-y-2 border-[#ccff00]">
-                        <td colSpan={11} className="py-1 px-4 text-center font-grotesk font-black text-[11px] text-black bg-[#ccff00] uppercase tracking-widest">
+                      <tr className="bg-black border-y-2 border-[var(--accent)]">
+                        <td colSpan={11} className="py-1 px-4 text-center font-grotesk font-black text-[11px] text-black bg-[var(--accent)] uppercase tracking-widest">
                           Linea de corte fase final: los 8 primeros disputan el draft de diciembre
                         </td>
                       </tr>

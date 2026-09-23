@@ -8,28 +8,20 @@ interface MatchScoreboardProps {
   compact?: boolean;
 }
 
-function teamLabel(team: Player[]) {
-  return team.map((player) => player.name).join(' / ');
-}
-
-function TeamBlock({ team, winner, align = 'left', compact = false }: { team: Player[]; winner: boolean; align?: 'left' | 'right'; compact?: boolean }) {
+function TeamBlock({ team, winner, align = 'left' }: { team: Player[]; winner: boolean; align?: 'left' | 'right' }) {
   return (
-    <div className={`min-w-0 ${align === 'right' ? 'md:text-right' : ''}`}>
-      <div className={`flex gap-2 ${align === 'right' ? 'md:justify-end' : ''}`}>
+    <div className={`match-team match-team--${align} ${winner ? 'match-team--winner' : ''}`}>
+      <div className="match-team-avatars">
         {team.map((player) => (
-          <div key={player.id} className={`rounded-2xl border-2 bg-white/95 p-1 ${winner ? 'border-[#ccff00]' : 'border-[#262c3a]'}`}>
-            <PlayerAvatar player={player} size={compact ? 'md' : 'lg'} />
+          <div key={player.id} className="match-avatar">
+            <PlayerAvatar player={player} size="md" />
           </div>
         ))}
       </div>
-      <h3 className={`mt-2 font-display font-black uppercase leading-none ${compact ? 'text-lg' : 'text-xl sm:text-2xl'} ${winner ? 'text-[#ccff00]' : 'text-white'}`}>
-        {teamLabel(team)}
+      <h3 className="match-team-names font-display">
+        {team.map((player) => <span key={player.id}>{player.name}</span>)}
       </h3>
-      {winner && (
-        <span className="mt-1 inline-flex bg-[#ccff00] px-2 py-0.5 text-[9px] font-black uppercase text-black font-grotesk">
-          Victoria
-        </span>
-      )}
+      {winner && <span className="match-winner">Victoria</span>}
     </div>
   );
 }
@@ -43,46 +35,32 @@ export function MatchScoreboard({ match, players, compact = false }: MatchScoreb
   const setsWon = getSetsWon(match.sets);
 
   return (
-    <div className={`${compact ? 'p-3' : 'p-4 sm:p-5'} bg-[#0a0c12]`}>
-      <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] md:gap-5">
-        <TeamBlock team={team1} winner={isCompleted && match.winnerTeam === 1} compact={compact} />
+    <div className={`match-scoreboard ${compact ? 'match-scoreboard--compact' : ''}`}>
+      <div className="match-score-layout">
+        <TeamBlock team={team1} winner={isCompleted && match.winnerTeam === 1} />
 
-        <div className="mx-auto w-full max-w-[240px] border-2 border-black bg-[#f6f8fb] px-4 py-3 text-center text-[#07151f] shadow-[4px_4px_0px_0px_#000] md:w-[190px]">
+        <div className="match-result">
           {isCompleted ? (
-            <>
-              <div className="font-mono-code text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
-                {match.playedDate || `J${match.roundNumber}`}
-              </div>
-              <div className="font-display text-5xl sm:text-6xl font-black leading-none tracking-tight text-[#07151f]">
-                {setsWon.team1}<span className="mx-2 text-slate-500">-</span>{setsWon.team2}
-              </div>
-              <div className="mt-1 font-grotesk text-[11px] font-black uppercase tracking-[0.18em] text-slate-700">
-                Finalizado
-              </div>
-            </>
+            <div className="match-result-numbers font-display" aria-label={`${team1.map(p => p.name).join(' y ')}: ${setsWon.team1} sets; ${team2.map(p => p.name).join(' y ')}: ${setsWon.team2} sets`}>
+              <span className={match.winnerTeam === 1 ? 'match-result-winner' : ''}>{setsWon.team1}</span>
+              <span className="match-result-separator" aria-hidden="true">:</span>
+              <span className={match.winnerTeam === 2 ? 'match-result-winner' : ''}>{setsWon.team2}</span>
+            </div>
           ) : (
-            <>
-              <div className="font-mono-code text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">
-                {isPostponed ? 'Aplazado' : 'Pendiente'}
-              </div>
-              <div className="font-display text-4xl sm:text-5xl font-black leading-none text-[#07151f]">VS</div>
-              <div className="mt-1 font-grotesk text-[11px] font-black uppercase tracking-[0.18em] text-slate-700">
-                {isPostponed ? 'Diciembre' : 'Por jugar'}
-              </div>
-            </>
+            <div className="match-result-vs font-display" aria-label={isPostponed ? 'Partido aplazado' : 'Partido pendiente'}>VS</div>
           )}
         </div>
 
-        <TeamBlock team={team2} winner={isCompleted && match.winnerTeam === 2} align="right" compact={compact} />
+        <TeamBlock team={team2} winner={isCompleted && match.winnerTeam === 2} align="right" />
       </div>
 
-      <div className="mt-4 border-t border-[#262c3a] pt-3">
+      <div className="match-set-summary">
         {isCompleted ? (
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-center">
-            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500 font-grotesk">Score</span>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400 font-grotesk">Sets</span>
             <div className="flex flex-wrap justify-center gap-1.5 font-mono-code text-xs font-black">
               {match.sets.map((set, index) => (
-                <span key={`${match.id}-${index}`} className="border border-[#262c3a] bg-black px-2.5 py-1 text-white">
+                <span key={`${match.id}-${index}`} className="match-set">
                   {formatSetScore(set)}
                 </span>
               ))}

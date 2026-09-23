@@ -9,20 +9,20 @@ interface HallOfFameProps {
 const icons = [Crown, Flame, Swords, Medal];
 
 const accentClass = {
-  lime: 'border-[#ccff00] shadow-[3px_3px_0px_0px_#ccff00] text-[#ccff00]',
-  orange: 'border-[#ff5500] shadow-[3px_3px_0px_0px_#ff5500] text-[#ff5500]',
+  lime: 'border-[var(--accent)] shadow-[3px_3px_0px_0px_var(--accent)] text-[var(--accent)]',
+  orange: 'border-[var(--copper)] shadow-[3px_3px_0px_0px_var(--copper)] text-[var(--copper)]',
   white: 'border-white shadow-[3px_3px_0px_0px_#ffffff] text-white',
 } satisfies Record<FameRecord['accent'], string>;
 
 export const HallOfFame: React.FC<HallOfFameProps> = ({ records }) => (
-  <section className="bg-[#0a0c12] border-2 border-black p-5 sm:p-6 shadow-[6px_6px_0px_0px_#ff5500] relative overflow-hidden">
+  <section className="bg-[var(--surface)] border-2 border-black p-5 sm:p-6 shadow-[6px_6px_0px_0px_var(--copper)] relative overflow-hidden">
     <div className="absolute -right-10 -top-8 font-display text-[120px] text-white/5 font-black leading-none pointer-events-none">
       HOF
     </div>
 
     <div className="relative z-10 flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-5">
       <div>
-        <span className="bg-[#ff5500] text-white font-black text-[10px] px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black">
+        <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2.5 py-0.5 uppercase tracking-wider font-grotesk border border-black">
           Records Campechos
         </span>
         <h2 className="font-display text-3xl sm:text-5xl font-black text-white uppercase tracking-wide leading-none mt-2">

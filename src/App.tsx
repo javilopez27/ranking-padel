@@ -20,9 +20,9 @@ export default function App() {
 
   if (!league.data) {
     return (
-      <main className="min-h-screen bg-[#060709] text-white grid place-items-center p-6">
+      <main className="min-h-screen bg-[var(--page)] text-white grid place-items-center p-6">
         <div role="status">
-          <h1 className="font-display text-4xl text-[#ccff00]">Ranking Padel</h1>
+          <h1 className="font-display text-4xl text-[var(--accent)]">Ranking Padel</h1>
           <p>{league.error || 'Cargando ranking...'}</p>
           {league.error && <button className="mt-4 underline" onClick={() => window.location.reload()}>Volver a intentar</button>}
         </div>
@@ -34,7 +34,7 @@ export default function App() {
   const stats = calculatePlayerStats(players, matches);
 
   return (
-    <div className="min-h-screen bg-[#060709] text-slate-100 flex flex-col selection:bg-[#ccff00] selection:text-black font-sans bg-athletic-grid">
+    <div className="min-h-screen bg-[var(--page)] text-slate-100 flex flex-col selection:bg-[var(--accent)] selection:text-black font-sans bg-athletic-grid">
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -89,9 +89,9 @@ export default function App() {
         )}
       </main>
 
-      <footer className="border-t-2 border-[#1e222d] bg-[#060709] pt-6 pb-[calc(6rem+env(safe-area-inset-bottom))] md:py-6 text-xs text-slate-400 font-mono-code">
+      <footer className="border-t-2 border-[var(--line)] bg-[var(--page)] pt-6 pb-[calc(6rem+env(safe-area-inset-bottom))] md:py-6 text-xs text-slate-400 font-mono-code">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center gap-2">
-          <span className="bg-[#ccff00] text-black font-black text-[10px] px-1.5 py-0.2 font-grotesk uppercase">
+          <span className="bg-[var(--accent)] text-black font-black text-[10px] px-1.5 py-0.2 font-grotesk uppercase">
             Ranking Padel
           </span>
           <span className="text-white font-bold">11 jornadas</span>

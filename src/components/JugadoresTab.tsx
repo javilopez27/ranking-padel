@@ -35,10 +35,10 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="bg-[#0a0c12] border-2 border-black p-5 shadow-[4px_4px_0px_0px_#ccff00] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-[var(--surface)] border-2 border-black p-5 shadow-[4px_4px_0px_0px_var(--accent)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-[#ccff00] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
               Jugadores
             </span>
             <span className="bg-white text-black font-black text-[10px] px-2 py-0.5 uppercase font-mono-code border border-black">
@@ -53,7 +53,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
           </p>
         </div>
 
-        <div className="flex items-center bg-[#0a0c12] border-2 border-[#262c3a] px-3 py-2 w-full sm:w-80">
+        <div className="flex items-center bg-[var(--surface)] border-2 border-[var(--line)] px-3 py-2 w-full sm:w-80">
           <Search className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
           <input
             type="text"
@@ -97,8 +97,8 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                   onSelectPlayer(player);
                 }
               }}
-              className={`bg-[#0a0c12] border-2 p-4 shadow-[4px_4px_0px_0px_#000] flex flex-col justify-between transition-all cursor-pointer ${
-                isCompared ? 'border-[#ccff00]' : 'border-black hover:border-[#ccff00]'
+              className={`bg-[var(--surface)] border-2 p-4 shadow-[4px_4px_0px_0px_#000] flex flex-col justify-between transition-all cursor-pointer ${
+                isCompared ? 'border-[var(--accent)]' : 'border-black hover:border-[var(--accent)]'
               }`}
             >
               <div className="flex items-center justify-between mb-4">
@@ -116,12 +116,12 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                         {movement > 0 ? `↑${movement}` : movement < 0 ? `↓${Math.abs(movement)}` : '='}
                       </span>
                       {isCaptain && (
-                        <span className="bg-[#ccff00] text-black text-[9px] font-black px-1 font-grotesk uppercase">
+                        <span className="bg-[var(--accent)] text-black text-[9px] font-black px-1 font-grotesk uppercase">
                           Capitan
                         </span>
                       )}
                       {isTop8 && !isCaptain && (
-                        <span className="bg-[#1e222d] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
+                        <span className="bg-[var(--line)] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
                           Top 8
                         </span>
                       )}
@@ -147,9 +147,9 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-2 bg-black p-2.5 border border-[#262c3a] text-center font-mono-code">
+              <div className="grid grid-cols-3 gap-2 bg-black p-2.5 border border-[var(--line)] text-center font-mono-code">
                 <div>
-                  <span className="font-display text-xl font-black text-[#ccff00] block leading-none">
+                  <span className="font-display text-xl font-black text-[var(--accent)] block leading-none">
                     {playerStats.matchesWon}
                   </span>
                   <span className="text-[9px] text-slate-400 uppercase">Victorias</span>
@@ -179,7 +179,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                     event.stopPropagation();
                     onSelectPlayer(player);
                   }}
-                  className="flex-1 bg-[#ccff00] hover:bg-[#d8ff33] text-black border-2 border-black px-3 py-2 text-xs font-black font-grotesk uppercase shadow-[2px_2px_0px_0px_#ffffff] transition-all active:translate-x-0.5 active:translate-y-0.5"
+                  className="flex-1 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-black border-2 border-black px-3 py-2 text-xs font-black font-grotesk uppercase shadow-[2px_2px_0px_0px_#ffffff] transition-all active:translate-x-0.5 active:translate-y-0.5"
                 >
                   Ver ficha
                 </button>
@@ -191,8 +191,8 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                   }}
                   className={`flex-1 border-2 px-3 py-2 text-xs font-black font-grotesk uppercase transition-all ${
                     isCompared
-                      ? 'bg-[#ccff00] text-black border-black'
-                      : 'bg-[#12151e] text-white border-[#ff5500] hover:bg-[#1a1f2c]'
+                      ? 'bg-[var(--accent)] text-black border-black'
+                      : 'bg-[var(--surface-raised)] text-white border-[var(--copper)] hover:bg-[#1a1f2c]'
                   }`}
                 >
                   {isCompared ? 'Elegido' : 'Comparar'}
@@ -204,7 +204,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
       </div>
 
       {filteredStats.length === 0 && (
-        <div className="bg-[#0a0c12] border-2 border-[#262c3a] p-8 text-center text-xs font-mono-code text-slate-400">
+        <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-8 text-center text-xs font-mono-code text-slate-400">
           No hay jugadores para esa busqueda.
         </div>
       )}
