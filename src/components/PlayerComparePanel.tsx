@@ -99,14 +99,14 @@ const ComparisonEvolution: React.FC<{
 
   if (!leftPoints.length && !rightPoints.length) {
     return (
-      <div className="bg-black border-2 border-[var(--line)] p-5 text-xs text-slate-400 font-mono-code">
+      <div className="bg-[var(--surface-soft)] border-2 border-[var(--line)] p-5 text-xs text-[var(--muted)] font-mono-code">
         La evolución comparada aparecerá cuando haya resultados publicados.
       </div>
     );
   }
 
   return (
-    <div className="bg-black border-2 border-[var(--line)] p-3 sm:p-4 overflow-x-auto shadow-[4px_4px_0px_0px_#000]">
+    <div className="bg-[var(--surface-soft)] border-2 border-[var(--line)] p-3 sm:p-4 overflow-x-auto shadow-sm">
       <svg width={width} height={height} role="img" aria-label="Evolución comparada de dos jugadores" className="min-w-full">
         <rect x="0" y="0" width={width} height={height} fill="var(--page)" />
         {[1, 2, 3, 4, 5, 8, players.length].filter((rank, index, list) => list.indexOf(rank) === index && rank <= players.length).map((rank) => {
@@ -114,40 +114,40 @@ const ComparisonEvolution: React.FC<{
           return (
             <g key={rank}>
               <line x1="42" y1={y} x2={width - 26} y2={y} stroke={rank === 8 ? 'var(--accent)' : 'var(--line)'} strokeDasharray="5 8" opacity={rank === 8 ? 0.55 : 1} />
-              <text x="6" y={y + 4} fill={rank <= 4 ? 'var(--accent)' : '#94a3b8'} fontSize="11" fontWeight="900">#{rank}</text>
+              <text x="6" y={y + 4} fill={rank <= 4 ? 'var(--accent-ink)' : 'var(--muted)'} fontSize="11" fontWeight="900">#{rank}</text>
             </g>
           );
         })}
 
-        <path d={path(leftPoints)} fill="none" stroke="var(--accent)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="round" />
-        <path d={path(rightPoints)} fill="none" stroke="var(--copper)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="round" />
+        <path d={path(leftPoints)} fill="none" stroke="var(--accent-ink)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="round" />
+        <path d={path(rightPoints)} fill="none" stroke="var(--copper-ink)" strokeWidth="6" strokeLinecap="square" strokeLinejoin="round" />
 
         {leftPoints.map((point) => (
           <g key={`left-${point.round}`}>
-            <circle cx={point.x} cy={point.y} r="7" fill="var(--page)" stroke="var(--accent)" strokeWidth="4" />
-            <text x={point.x} y={point.y - 12} fill="var(--accent)" fontSize="10" fontWeight="900" textAnchor="middle">#{point.position}</text>
+            <circle cx={point.x} cy={point.y} r="7" fill="var(--page)" stroke="var(--accent-ink)" strokeWidth="4" />
+            <text x={point.x} y={point.y - 12} fill="var(--accent-ink)" fontSize="10" fontWeight="900" textAnchor="middle">#{point.position}</text>
           </g>
         ))}
         {rightPoints.map((point) => (
           <g key={`right-${point.round}`}>
-            <rect x={point.x - 7} y={point.y - 7} width="14" height="14" fill="var(--page)" stroke="var(--copper)" strokeWidth="4" />
-            <text x={point.x} y={point.y + 24} fill="var(--copper)" fontSize="10" fontWeight="900" textAnchor="middle">#{point.position}</text>
+            <rect x={point.x - 7} y={point.y - 7} width="14" height="14" fill="var(--page)" stroke="var(--copper-ink)" strokeWidth="4" />
+            <text x={point.x} y={point.y + 24} fill="var(--copper-ink)" fontSize="10" fontWeight="900" textAnchor="middle">#{point.position}</text>
           </g>
         ))}
 
         {leftLast && (
-          <text x={Math.min(leftLast.x + 12, width - 18)} y={leftLast.y - 10} fill="var(--accent)" fontSize="12" fontWeight="900">
+          <text x={Math.min(leftLast.x + 12, width - 18)} y={leftLast.y - 10} fill="var(--accent-ink)" fontSize="12" fontWeight="900">
             {left.player.name}
           </text>
         )}
         {rightLast && (
-          <text x={Math.min(rightLast.x + 12, width - 18)} y={rightLast.y + 18} fill="var(--copper)" fontSize="12" fontWeight="900">
+          <text x={Math.min(rightLast.x + 12, width - 18)} y={rightLast.y + 18} fill="var(--copper-ink)" fontSize="12" fontWeight="900">
             {right.player.name}
           </text>
         )}
 
         {rounds.map((round, index) => (
-          <text key={round} x={54 + index * xStep} y={height - 15} fill="#ffffff" fontSize="11" fontWeight="900" textAnchor="middle">
+          <text key={round} x={54 + index * xStep} y={height - 15} fill="var(--ink)" fontSize="11" fontWeight="900" textAnchor="middle">
             J{round}
           </text>
         ))}
@@ -168,12 +168,12 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
 
   if (selected.length < 2) {
     return (
-      <section className="bg-[var(--surface)] border-2 border-[var(--copper)] p-4 shadow-[4px_4px_0px_0px_var(--copper)]">
+      <section className="bg-[var(--surface)] border-2 border-[var(--copper)] p-4 shadow-sm">
         <div className="flex items-center gap-2">
-          <Swords className="w-4 h-4 text-[var(--copper)]" />
-          <h2 className="font-display text-2xl font-black text-white uppercase">Comparar jugadores</h2>
+          <Swords className="w-4 h-4 text-[var(--copper-ink)]" />
+          <h2 className="font-display text-2xl font-black text-[var(--ink)] uppercase">Comparar jugadores</h2>
         </div>
-        <p className="text-xs text-slate-400 font-mono-code mt-1">
+        <p className="text-xs text-[var(--muted)] font-mono-code mt-1">
           Selecciona dos jugadores de la tabla. Van {selected.length}/2.
         </p>
       </section>
@@ -192,21 +192,21 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
   ];
 
   return (
-    <section className="bg-[var(--surface)] border-2 border-black p-4 sm:p-6 shadow-[8px_8px_0px_0px_var(--copper)] relative overflow-hidden">
-      <div className="absolute -right-10 -top-10 font-display text-[180px] text-white/5 font-black leading-none pointer-events-none">VS</div>
+    <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-4 sm:p-6 shadow-sm relative overflow-hidden">
+      <div className="absolute -right-10 -top-10 font-display text-[180px] text-[var(--ink)]/5 font-black leading-none pointer-events-none">VS</div>
 
       <div className="relative z-10 flex items-start justify-between gap-3 mb-5">
         <div>
-          <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2.5 py-0.5 uppercase font-grotesk border border-black">
+          <span className="bg-[var(--copper)] text-[#fff8ef] font-black text-[10px] px-2.5 py-0.5 uppercase font-grotesk border border-[var(--line)]">
             Comparativa
           </span>
-          <h2 className="font-display text-4xl sm:text-6xl font-black text-white uppercase leading-none mt-2">
+          <h2 className="font-display text-4xl sm:text-6xl font-black text-[var(--ink)] uppercase leading-none mt-2">
             Cara a cara
           </h2>
         </div>
         <button
           onClick={onClear}
-          className="bg-black hover:bg-[var(--surface-raised)] border-2 border-[var(--line)] p-2 text-slate-300 hover:text-white"
+          className="bg-[var(--surface-soft)] hover:bg-[var(--surface-raised)] border-2 border-[var(--line)] p-2 text-[var(--ink)] hover:text-[var(--ink)]"
           title="Limpiar comparación"
           aria-label="Limpiar comparación"
         >
@@ -215,29 +215,29 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
       </div>
 
       <div className="relative z-10 grid grid-cols-[1fr_auto_1fr] gap-2 sm:gap-5 items-stretch mb-5">
-        <div className="bg-black border-2 border-[var(--accent)] p-3 sm:p-4 shadow-[4px_4px_0px_0px_var(--accent)]">
+        <div className="bg-[var(--surface-soft)] border-2 border-[var(--accent)] p-3 sm:p-4 shadow-sm">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <PlayerAvatar player={left.player} size="lg" />
             <div className="min-w-0">
-              <strong className="font-display text-3xl sm:text-5xl text-white font-black uppercase leading-none block truncate">
+              <strong className="font-display text-3xl sm:text-5xl text-[var(--ink)] font-black uppercase leading-none block truncate">
                 {left.player.name}
               </strong>
-              <span className="font-display text-4xl font-black text-[var(--accent)]">{playerRank(stats, left.playerId)}</span>
+              <span className="font-display text-4xl font-black text-[var(--accent-ink)]">{playerRank(stats, left.playerId)}</span>
             </div>
           </div>
         </div>
 
-        <div className="self-center bg-[var(--accent)] text-black border-2 border-black px-2 sm:px-5 py-2 font-display text-2xl sm:text-5xl font-black shadow-[3px_3px_0px_0px_#ffffff]">
+        <div className="self-center bg-[var(--accent)] text-black border-2 border-[var(--line)] px-2 sm:px-5 py-2 font-display text-2xl sm:text-5xl font-black shadow-sm">
           VS
         </div>
 
-        <div className="bg-black border-2 border-[var(--copper)] p-3 sm:p-4 shadow-[4px_4px_0px_0px_var(--copper)]">
+        <div className="bg-[var(--surface-soft)] border-2 border-[var(--copper)] p-3 sm:p-4 shadow-sm">
           <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 text-right">
             <div className="min-w-0">
-              <strong className="font-display text-3xl sm:text-5xl text-white font-black uppercase leading-none block truncate">
+              <strong className="font-display text-3xl sm:text-5xl text-[var(--ink)] font-black uppercase leading-none block truncate">
                 {right.player.name}
               </strong>
-              <span className="font-display text-4xl font-black text-[var(--copper)]">{playerRank(stats, right.playerId)}</span>
+              <span className="font-display text-4xl font-black text-[var(--copper-ink)]">{playerRank(stats, right.playerId)}</span>
             </div>
             <PlayerAvatar player={right.player} size="lg" />
           </div>
@@ -247,12 +247,12 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
       <div className="relative z-10 mb-5">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 mb-3">
           <div>
-            <span className="font-grotesk text-[10px] font-black uppercase text-slate-500 tracking-[0.3em]">Evolución histórica</span>
-            <h3 className="font-display text-3xl sm:text-5xl font-black text-white uppercase leading-none">Doble línea</h3>
+            <span className="font-grotesk text-[10px] font-black uppercase text-[var(--muted)] tracking-[0.3em]">Evolución histórica</span>
+            <h3 className="font-display text-3xl sm:text-5xl font-black text-[var(--ink)] uppercase leading-none">Doble línea</h3>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-[10px] font-black uppercase font-grotesk">
-            <span className="inline-flex items-center gap-1 text-[var(--accent)]"><span className="w-3 h-3 bg-[var(--accent)] inline-block" /> {left.player.name}</span>
-            <span className="inline-flex items-center gap-1 text-[var(--copper)]"><span className="w-3 h-3 bg-[var(--copper)] inline-block" /> {right.player.name}</span>
+            <span className="inline-flex items-center gap-1 text-[var(--accent-ink)]"><span className="w-3 h-3 bg-[var(--accent)] inline-block" /> {left.player.name}</span>
+            <span className="inline-flex items-center gap-1 text-[var(--copper-ink)]"><span className="w-3 h-3 bg-[var(--copper)] inline-block" /> {right.player.name}</span>
           </div>
         </div>
         <ComparisonEvolution left={left} right={right} players={players} matches={matches} />
@@ -261,43 +261,43 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-5">
         <div className="space-y-2 font-mono-code">
           {rows.map((row) => (
-            <div key={row.label} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 bg-black border border-[var(--line)] px-3 py-2.5">
-              <span className={`text-right font-black ${row.loud ? 'font-display text-4xl text-[var(--accent)]' : 'text-white text-xl'}`}>
+            <div key={row.label} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 bg-[var(--surface-soft)] border border-[var(--line)] px-3 py-2.5">
+              <span className={`text-right font-black ${row.loud ? 'font-display text-4xl text-[var(--accent-ink)]' : 'text-[var(--ink)] text-xl'}`}>
                 {row.left}
               </span>
-              <span className="bg-[var(--surface-raised)] border border-[var(--line)] text-slate-400 px-2 py-1 text-[10px] font-black uppercase font-grotesk min-w-24 sm:min-w-32 text-center">
+              <span className="bg-[var(--surface-raised)] border border-[var(--line)] text-[var(--muted)] px-2 py-1 text-[10px] font-black uppercase font-grotesk min-w-24 sm:min-w-32 text-center">
                 {row.label}
               </span>
-              <span className={`font-black ${row.loud ? 'font-display text-4xl text-[var(--copper)]' : 'text-white text-xl'}`}>
+              <span className={`font-black ${row.loud ? 'font-display text-4xl text-[var(--copper-ink)]' : 'text-[var(--ink)] text-xl'}`}>
                 {row.right}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="bg-black border-2 border-[var(--line)] p-4 flex flex-col justify-between">
+        <div className="bg-[var(--surface-soft)] border-2 border-[var(--line)] p-4 flex flex-col justify-between">
           <div className="flex items-center gap-2 mb-4">
-            <Flame className="w-4 h-4 text-[var(--copper)]" />
-            <h3 className="font-display text-3xl font-black text-white uppercase">Entre ellos</h3>
+            <Flame className="w-4 h-4 text-[var(--copper-ink)]" />
+            <h3 className="font-display text-3xl font-black text-[var(--ink)] uppercase">Entre ellos</h3>
           </div>
 
           <div className="space-y-3 text-xs font-mono-code">
             <div className="bg-[var(--surface-raised)] border border-[var(--line)] p-3">
-              <span className="text-slate-400 uppercase font-black font-grotesk block">Rivales</span>
-              <strong className="text-white text-2xl font-display font-black block mt-1">
+              <span className="text-[var(--muted)] uppercase font-black font-grotesk block">Rivales</span>
+              <strong className="text-[var(--ink)] text-2xl font-display font-black block mt-1">
                 {h2h.rivalMatches ? `${h2h.rivalLeftWins}-${h2h.rivalRightWins}` : '—'}
               </strong>
-              <span className="text-slate-500 text-[11px]">
+              <span className="text-[var(--muted)] text-[11px]">
                 {h2h.rivalMatches ? `${h2h.rivalMatches} partido${h2h.rivalMatches === 1 ? '' : 's'} cara a cara` : 'Aún no se han cruzado como rivales'}
               </span>
             </div>
 
             <div className="bg-[var(--surface-raised)] border border-[var(--line)] p-3">
-              <span className="text-slate-400 uppercase font-black font-grotesk block">Pareja</span>
-              <strong className="text-white text-2xl font-display font-black block mt-1">
+              <span className="text-[var(--muted)] uppercase font-black font-grotesk block">Pareja</span>
+              <strong className="text-[var(--ink)] text-2xl font-display font-black block mt-1">
                 {h2h.partnerMatches ? `${h2h.partnerWins}-${h2h.partnerMatches - h2h.partnerWins}` : '—'}
               </strong>
-              <span className="text-slate-500 text-[11px]">
+              <span className="text-[var(--muted)] text-[11px]">
                 {h2h.partnerMatches
                   ? `${h2h.partnerMatches} partido${h2h.partnerMatches === 1 ? '' : 's'} juntos · ${h2h.partnerWins} victoria${h2h.partnerWins === 1 ? '' : 's'}`
                   : 'Sin partidos juntos publicados'}

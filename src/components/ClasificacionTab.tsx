@@ -58,20 +58,20 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="bg-[var(--surface)] border-2 border-black p-5 shadow-[4px_4px_0px_0px_var(--accent)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-[var(--line)]">
               Ranking oficial
             </span>
-            <span className="bg-[var(--copper)] text-white font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--copper)] text-[#fff8ef] font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-[var(--line)]">
               Victorias
             </span>
           </div>
-          <h1 className="font-display text-3xl sm:text-5xl font-black text-white tracking-wide uppercase leading-none">
+          <h1 className="font-display text-3xl sm:text-5xl font-black text-[var(--ink)] tracking-wide uppercase leading-none">
             Clasificación
           </h1>
-          <p className="text-xs sm:text-sm font-mono-code text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono-code text-[var(--muted)] mt-1">
             {rankingView === 'current'
               ? 'Orden: victorias, diferencia de sets, diferencia de juegos, sets a favor y juegos a favor.'
               : `${viewLabel}: ${playedMatchesInView} partidos computados hasta ese corte.`}
@@ -83,7 +83,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
             <button
               id="ranking-history-menu"
               onClick={() => setShowHistoryMenu((value) => !value)}
-              className="min-w-36 flex items-center justify-between gap-3 px-3 py-2 bg-black text-[var(--accent)] border-2 border-[var(--accent)] shadow-[3px_3px_0px_0px_#000] text-xs font-black font-grotesk uppercase transition-all hover:bg-[var(--accent)] hover:text-black"
+              className="min-w-36 flex items-center justify-between gap-3 px-3 py-2 bg-[var(--surface-soft)] text-[var(--accent-ink)] border-2 border-[var(--accent)] shadow-sm text-xs font-black font-grotesk uppercase transition-all hover:bg-[var(--accent)] hover:text-black"
               aria-expanded={showHistoryMenu}
               aria-haspopup="listbox"
             >
@@ -95,7 +95,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
               <div
                 role="listbox"
                 aria-label="Seleccionar clasificación histórica"
-                className="absolute right-0 z-30 mt-2 w-44 bg-[var(--page)] border-2 border-[var(--accent)] shadow-[5px_5px_0px_0px_#000] p-1 font-grotesk uppercase"
+                className="absolute right-0 z-30 mt-2 w-44 bg-[var(--page)] border-2 border-[var(--accent)] shadow-sm p-1 font-grotesk uppercase"
               >
                 <button
                   role="option"
@@ -106,8 +106,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                   }}
                   className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
                     rankingView === 'current'
-                      ? 'bg-[var(--accent)] text-black border-black'
-                      : 'bg-transparent text-white border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
+                      ? 'bg-[var(--accent)] text-black border-[var(--line)]'
+                      : 'bg-transparent text-[var(--ink)] border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
                   }`}
                 >
                   Actual
@@ -124,8 +124,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs font-black border transition-colors ${
                       rankingView === round
-                        ? 'bg-[var(--accent)] text-black border-black'
-                        : 'bg-transparent text-slate-200 border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
+                        ? 'bg-[var(--accent)] text-black border-[var(--line)]'
+                        : 'bg-transparent text-[var(--ink)] border-transparent hover:border-[var(--line)] hover:bg-[var(--surface-raised)]'
                     }`}
                   >
                     Tras {formatRound(round)}
@@ -143,8 +143,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
             }}
             className={`px-3 py-2 border-2 text-xs font-black font-grotesk uppercase transition-all shrink-0 ${
               compareMode
-                ? 'bg-[var(--accent)] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
-                : 'bg-[var(--surface-raised)] hover:bg-[#1a1f2c] border-[var(--copper)] text-white'
+                ? 'bg-[var(--accent)] text-black border-[var(--line)] shadow-sm'
+                : 'bg-[var(--surface-raised)] hover:bg-[var(--surface-soft)] border-[var(--copper)] text-[var(--ink)]'
             }`}
           >
             Comparar
@@ -152,23 +152,23 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
           <button
             id="btn-tiebreak-info"
             onClick={() => setShowTiebreakExplainer((value) => !value)}
-            className="flex items-center gap-1.5 px-3 py-2 bg-[var(--surface-raised)] hover:bg-[#1a1f2c] border-2 border-[var(--line)] text-white text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
+            className="flex items-center gap-1.5 px-3 py-2 bg-[var(--surface-raised)] hover:bg-[var(--surface-soft)] border-2 border-[var(--line)] text-[var(--ink)] text-xs font-bold font-grotesk uppercase transition-colors shrink-0"
           >
-            <HelpCircle className="w-3.5 h-3.5 text-[var(--accent)]" />
+            <HelpCircle className="w-3.5 h-3.5 text-[var(--accent-ink)]" />
             <span>Desempates</span>
           </button>
         </div>
       </div>
 
       {showTiebreakExplainer && (
-        <div className="bg-[var(--surface-raised)] border-2 border-[var(--accent)] p-4 sm:p-5 text-xs text-slate-300 space-y-2 shadow-[3px_3px_0px_0px_var(--accent)]">
-          <div className="text-[var(--accent)] font-black text-sm font-grotesk uppercase">Desempate</div>
-          <ol className="list-decimal list-inside space-y-1 font-mono-code text-slate-200">
-            <li><strong className="text-white">Victorias</strong>.</li>
-            <li><strong className="text-white">Mayor diferencia de sets</strong> (sets ganados - sets perdidos).</li>
-            <li><strong className="text-white">Mayor diferencia de juegos</strong> (juegos ganados - juegos perdidos).</li>
-            <li><strong className="text-white">Mayor numero de sets a favor</strong>.</li>
-            <li><strong className="text-white">Mayor numero de juegos a favor</strong>.</li>
+        <div className="bg-[var(--surface-raised)] border-2 border-[var(--accent)] p-4 sm:p-5 text-xs text-[var(--ink)] space-y-2 shadow-sm">
+          <div className="text-[var(--accent-ink)] font-black text-sm font-grotesk uppercase">Desempate</div>
+          <ol className="list-decimal list-inside space-y-1 font-mono-code text-[var(--ink)]">
+            <li><strong className="text-[var(--ink)]">Victorias</strong>.</li>
+            <li><strong className="text-[var(--ink)]">Mayor diferencia de sets</strong> (sets ganados - sets perdidos).</li>
+            <li><strong className="text-[var(--ink)]">Mayor diferencia de juegos</strong> (juegos ganados - juegos perdidos).</li>
+            <li><strong className="text-[var(--ink)]">Mayor numero de sets a favor</strong>.</li>
+            <li><strong className="text-[var(--ink)]">Mayor numero de juegos a favor</strong>.</li>
           </ol>
         </div>
       )}
@@ -177,16 +177,16 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 bg-[var(--surface)] px-2 py-1 border border-[var(--accent)]">
             <span className="w-2.5 h-2.5 bg-[var(--accent)] inline-block" />
-            <span className="text-white font-bold">Puestos 1 al 8:</span>
-            <span className="text-[var(--accent)]">pasan al Top 8 Draft</span>
+            <span className="text-[var(--ink)] font-bold">Puestos 1 al 8:</span>
+            <span className="text-[var(--accent-ink)]">pasan al Top 8 Draft</span>
           </div>
           <div className="flex items-center gap-1.5 bg-[var(--surface)] px-2 py-1 border border-[var(--line)]">
             <span className="w-2.5 h-2.5 bg-slate-600 inline-block" />
-            <span className="text-slate-400">Puestos 9 al 12: fase regular</span>
+            <span className="text-[var(--muted)]">Puestos 9 al 12: fase regular</span>
           </div>
         </div>
 
-        <span className="text-slate-400 text-[11px]">
+        <span className="text-[var(--muted)] text-[11px]">
           {compareMode
             ? `Modo comparar activo: selecciona dos jugadores (${compareIds.length}/2).`
             : 'Pulsa sobre cualquier jugador para abrir su ficha completa y resultados.'}
@@ -211,7 +211,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
           const isCutoff = pos === 8;
           const isCompared = compareIds.includes(row.playerId);
           const movement = movementMap.get(row.playerId)?.delta || 0;
-          const movementClass = movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-500';
+          const movementClass = movement > 0 ? 'text-[var(--positive)]' : movement < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]';
           const openOrCompare = () => compareMode ? toggleComparePlayer(row.playerId) : onSelectPlayer(row.player);
 
           return (
@@ -226,7 +226,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     openOrCompare();
                   }
                 }}
-                className={`border-2 p-3.5 transition-all cursor-pointer shadow-[4px_4px_0px_0px_#000] ${
+                className={`border-2 p-3.5 transition-all cursor-pointer shadow-sm ${
                   isCompared
                     ? 'bg-[var(--accent)]/10 border-[var(--accent)]'
                     : pos === 1
@@ -239,25 +239,25 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className={`font-display text-2xl leading-none font-black ${pos <= 3 ? 'text-[var(--accent)]' : isTop8 ? 'text-white' : 'text-slate-500'}`}>
+                      <span className={`font-display text-2xl leading-none font-black ${pos <= 3 ? 'text-[var(--accent-ink)]' : isTop8 ? 'text-[var(--ink)]' : 'text-[var(--muted)]'}`}>
                         {pos < 10 ? `0${pos}` : pos}
                       </span>
                       <span className={`min-w-7 text-xs font-black font-grotesk ${movementClass}`}>
                         {movement > 0 ? `↑${movement}` : movement < 0 ? `↓${Math.abs(movement)}` : '='}
                       </span>
-                      <h2 className="truncate font-display text-2xl font-black uppercase leading-none text-white">
+                      <h2 className="truncate font-display text-2xl font-black uppercase leading-none text-[var(--ink)]">
                         {row.player.name}
                       </h2>
                     </div>
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-black font-mono-code text-slate-300">
-                      <span className="text-[var(--accent)]">{row.matchesWon}V</span>
-                      <span className="text-slate-600">·</span>
-                      <span className={row.setsDiff > 0 ? 'text-emerald-400' : row.setsDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                    <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] font-black font-mono-code text-[var(--ink)]">
+                      <span className="text-[var(--accent-ink)]">{row.matchesWon}V</span>
+                      <span className="text-[var(--muted)]">·</span>
+                      <span className={row.setsDiff > 0 ? 'text-[var(--positive)]' : row.setsDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]'}>
                         {formatSigned(row.setsDiff)} sets
                       </span>
-                      <span className="text-slate-600">·</span>
-                      <span className={row.gamesDiff > 0 ? 'text-emerald-400' : row.gamesDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                      <span className="text-[var(--muted)]">·</span>
+                      <span className={row.gamesDiff > 0 ? 'text-[var(--positive)]' : row.gamesDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]'}>
                         {formatSigned(row.gamesDiff)} juegos
                       </span>
                     </div>
@@ -267,7 +267,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     <PlayerAvatar player={row.player} size="sm" />
                     {compareMode && (
                       <span className={`border px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk ${
-                        isCompared ? 'bg-[var(--accent)] text-black border-black' : 'bg-[var(--line)] text-slate-300 border-[var(--line)]'
+                        isCompared ? 'bg-[var(--accent)] text-black border-[var(--line)]' : 'bg-[var(--line)] text-[var(--ink)] border-[var(--line)]'
                       }`}>
                         {isCompared ? 'Elegido' : 'Elegir'}
                       </span>
@@ -281,21 +281,21 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                       row.streak.map((result, sIdx) => (
                         <span
                           key={sIdx}
-                          className={`w-6 h-6 text-[11px] font-black flex items-center justify-center border border-black ${
-                            result === 'W' ? 'bg-emerald-500 text-black' : 'bg-rose-500 text-white'
+                          className={`w-6 h-6 text-[11px] font-black flex items-center justify-center border border-[var(--line)] ${
+                            result === 'W' ? 'bg-[var(--positive-badge)] text-black' : 'bg-[var(--negative-badge)] text-[var(--ink)]'
                           }`}
                         >
                           {result}
                         </span>
                       ))
                     ) : (
-                      <span className="text-[11px] font-mono-code text-slate-600">Sin racha</span>
+                      <span className="text-[11px] font-mono-code text-[var(--muted)]">Sin racha</span>
                     )}
                   </div>
 
                   {(isCaptain || (isTop8 && !isCaptain)) && (
                     <span className={`shrink-0 px-1.5 py-0.5 text-[9px] font-black uppercase font-grotesk border ${
-                      isCaptain ? 'bg-[var(--accent)] text-black border-black' : 'bg-[var(--line)] text-slate-300 border-[var(--line)]'
+                      isCaptain ? 'bg-[var(--accent)] text-black border-[var(--line)]' : 'bg-[var(--line)] text-[var(--ink)] border-[var(--line)]'
                     }`}>
                       {isCaptain ? 'Capitan' : 'Draft pool'}
                     </span>
@@ -304,7 +304,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
               </article>
 
               {isCutoff && (
-                <div className="border-2 border-black bg-[var(--accent)] px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-black font-grotesk shadow-[4px_4px_0px_0px_#000]">
+                <div className="border-2 border-[var(--line)] bg-[var(--accent)] px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-black font-grotesk shadow-sm">
                   Corte Top 8 · draft de diciembre
                 </div>
               )}
@@ -313,16 +313,16 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
         })}
       </div>
 
-      <div className="hidden md:block bg-[var(--surface)] border-2 border-black overflow-hidden shadow-[6px_6px_0px_0px_#000]">
+      <div className="hidden md:block bg-[var(--surface)] border-2 border-[var(--line)] overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-black border-b-2 border-[var(--line)] font-grotesk font-black uppercase text-slate-300 text-[11px] tracking-wider">
+              <tr className="bg-[var(--surface-soft)] border-b-2 border-[var(--line)] font-grotesk font-black uppercase text-[var(--ink)] text-[11px] tracking-wider">
                 <th className="py-3 px-3 sm:px-4 w-14 text-center">Pos</th>
                 <th className="py-3 px-3 sm:px-4">Jugador</th>
-                <th className="py-3 px-3 sm:px-4 text-center bg-[var(--accent)]/10 text-[var(--accent)] border-x border-[var(--line)]">Victorias</th>
+                <th className="py-3 px-3 sm:px-4 text-center bg-[var(--accent)]/10 text-[var(--accent-ink)] border-x border-[var(--line)]">Victorias</th>
                 <th className="py-3 px-2 sm:px-3 text-center">PJ</th>
-                <th className="py-3 px-2 sm:px-3 text-center text-rose-400">Derrotas</th>
+                <th className="py-3 px-2 sm:px-3 text-center text-[var(--negative)]">Derrotas</th>
                 <th className="py-3 px-2 sm:px-3 text-center">Dif sets</th>
                 <th className="py-3 px-2 sm:px-3 text-center">Dif juegos</th>
                 <th className="py-3 px-2 sm:px-3 text-center hidden md:table-cell">SG/SP</th>
@@ -344,7 +344,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                   <React.Fragment key={row.playerId}>
                     <tr
                       onClick={() => compareMode ? toggleComparePlayer(row.playerId) : onSelectPlayer(row.player)}
-                      className={`hover:bg-[#151822] cursor-pointer transition-colors ${
+                      className={`hover:bg-[var(--surface-raised)] cursor-pointer transition-colors ${
                         pos === 1
                           ? 'bg-[var(--accent)]/5 font-bold'
                           : isTop8
@@ -354,11 +354,11 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     >
                       <td className="py-3 px-3 sm:px-4 text-center">
                         <div className="flex items-center justify-center gap-1.5">
-                          <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[var(--accent)]' : isTop8 ? 'text-slate-200' : 'text-slate-600'}`}>
+                          <span className={`font-display text-lg font-black ${pos <= 3 ? 'text-[var(--accent-ink)]' : isTop8 ? 'text-[var(--ink)]' : 'text-[var(--muted)]'}`}>
                             {pos < 10 ? `0${pos}` : pos}
                           </span>
                           <span className={`text-[10px] font-black font-grotesk min-w-6 ${
-                            movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-500'
+                            movement > 0 ? 'text-[var(--positive)]' : movement < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]'
                           }`}>
                             {movement > 0 ? `↑${movement}` : movement < 0 ? `↓${Math.abs(movement)}` : '='}
                           </span>
@@ -369,7 +369,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                         <div className="flex items-center gap-2.5">
                           <PlayerAvatar player={row.player} size="sm" onClick={() => onOpenPhoto(row.player)} />
                           <div className="flex items-center gap-1.5 flex-wrap">
-                            <span className="font-bold text-white font-grotesk text-sm">
+                            <span className="font-bold text-[var(--ink)] font-grotesk text-sm">
                               {row.player.name}
                             </span>
                             {isCaptain && (
@@ -378,7 +378,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                               </span>
                             )}
                             {isTop8 && !isCaptain && (
-                              <span className="bg-[var(--line)] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
+                              <span className="bg-[var(--line)] text-[var(--ink)] text-[9px] font-black px-1 font-grotesk uppercase">
                                 Draft pool
                               </span>
                             )}
@@ -387,24 +387,24 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                       </td>
 
                       <td className="py-3 px-3 sm:px-4 text-center bg-[var(--accent)]/10 border-x border-[var(--line)]">
-                        <span className="font-display text-2xl font-black text-[var(--accent)]">{row.matchesWon}</span>
+                        <span className="font-display text-2xl font-black text-[var(--accent-ink)]">{row.matchesWon}</span>
                       </td>
-                      <td className="py-3 px-2 sm:px-3 text-center text-slate-300 font-bold">{row.matchesPlayed}</td>
-                      <td className="py-3 px-2 sm:px-3 text-center text-rose-400 font-bold">{row.matchesLost}</td>
+                      <td className="py-3 px-2 sm:px-3 text-center text-[var(--ink)] font-bold">{row.matchesPlayed}</td>
+                      <td className="py-3 px-2 sm:px-3 text-center text-[var(--negative)] font-bold">{row.matchesLost}</td>
                       <td className="py-3 px-2 sm:px-3 text-center font-bold">
-                        <span className={row.setsDiff > 0 ? 'text-emerald-400' : row.setsDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                        <span className={row.setsDiff > 0 ? 'text-[var(--positive)]' : row.setsDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]'}>
                           {formatSigned(row.setsDiff)}
                         </span>
                       </td>
                       <td className="py-3 px-2 sm:px-3 text-center font-bold">
-                        <span className={row.gamesDiff > 0 ? 'text-emerald-400' : row.gamesDiff < 0 ? 'text-rose-400' : 'text-slate-400'}>
+                        <span className={row.gamesDiff > 0 ? 'text-[var(--positive)]' : row.gamesDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]'}>
                           {formatSigned(row.gamesDiff)}
                         </span>
                       </td>
-                      <td className="py-3 px-2 sm:px-3 text-center text-slate-400 hidden md:table-cell text-[11px]">
+                      <td className="py-3 px-2 sm:px-3 text-center text-[var(--muted)] hidden md:table-cell text-[11px]">
                         {row.setsWon}/{row.setsLost}
                       </td>
-                      <td className="py-3 px-2 sm:px-3 text-center text-slate-400 hidden md:table-cell text-[11px]">
+                      <td className="py-3 px-2 sm:px-3 text-center text-[var(--muted)] hidden md:table-cell text-[11px]">
                         {row.gamesWon}/{row.gamesLost}
                       </td>
                       <td className="py-3 px-2 sm:px-3 text-center hidden sm:table-cell">
@@ -413,15 +413,15 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                             row.streak.map((result, sIdx) => (
                               <span
                                 key={sIdx}
-                                className={`w-4 h-4 text-[9px] font-black flex items-center justify-center border border-black ${
-                                  result === 'W' ? 'bg-emerald-500 text-black' : 'bg-rose-500 text-white'
+                                className={`w-4 h-4 text-[9px] font-black flex items-center justify-center border border-[var(--line)] ${
+                                  result === 'W' ? 'bg-[var(--positive-badge)] text-black' : 'bg-[var(--negative-badge)] text-[var(--ink)]'
                                 }`}
                               >
                                 {result}
                               </span>
                             ))
                           ) : (
-                            <span className="text-slate-600 text-[10px]">-</span>
+                            <span className="text-[var(--muted)] text-[10px]">-</span>
                           )}
                         </div>
                       </td>
@@ -434,8 +434,8 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                             }}
                             className={`px-2.5 py-1 text-[10px] font-black font-grotesk uppercase border transition-colors ${
                               isCompared
-                                ? 'bg-[var(--accent)] text-black border-black'
-                                : 'bg-[var(--line)] hover:bg-[var(--copper)] hover:text-white text-slate-200 border-[var(--line)]'
+                                ? 'bg-[var(--accent)] text-black border-[var(--line)]'
+                                : 'bg-[var(--line)] hover:bg-[var(--copper)] hover:text-[#fff8ef] text-[var(--ink)] border-[var(--line)]'
                             }`}
                           >
                             {isCompared ? 'Elegido' : 'Elegir'}
@@ -446,7 +446,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                               event.stopPropagation();
                               onSelectPlayer(row.player);
                             }}
-                            className="px-2.5 py-1 bg-[var(--line)] hover:bg-[var(--accent)] hover:text-black text-slate-200 text-[10px] font-black font-grotesk uppercase border border-[var(--line)] transition-colors"
+                            className="px-2.5 py-1 bg-[var(--line)] hover:bg-[var(--accent)] hover:text-black text-[var(--ink)] text-[10px] font-black font-grotesk uppercase border border-[var(--line)] transition-colors"
                           >
                             Ver
                           </button>
@@ -455,7 +455,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
                     </tr>
 
                     {isCutoff && (
-                      <tr className="bg-black border-y-2 border-[var(--accent)]">
+                      <tr className="bg-[var(--surface-soft)] border-y-2 border-[var(--accent)]">
                         <td colSpan={11} className="py-1 px-4 text-center font-grotesk font-black text-[11px] text-black bg-[var(--accent)] uppercase tracking-widest">
                           Linea de corte fase final: los 8 primeros disputan el draft de diciembre
                         </td>

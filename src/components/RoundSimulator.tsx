@@ -29,29 +29,29 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
 
   if (!pendingRoundMatches.length) {
     return (
-      <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-4 text-xs font-mono-code text-slate-400">
-        <span className="font-display text-xl text-white uppercase block">Simular jornada</span>
+      <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-4 text-xs font-mono-code text-[var(--muted)]">
+        <span className="font-display text-xl text-[var(--ink)] uppercase block">Simular jornada</span>
         Jornada cerrada: no quedan partidos pendientes para simular aquí.
       </section>
     );
   }
 
   return (
-    <section className="bg-[var(--surface)] border-2 border-black p-5 shadow-[5px_5px_0px_0px_var(--accent)]">
+    <section className="bg-[var(--surface)] border-2 border-[var(--line)] p-5 shadow-sm">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-4">
         <div>
-          <span className="bg-[var(--accent)] text-black text-[10px] font-black px-2.5 py-0.5 uppercase font-grotesk border border-black">
+          <span className="bg-[var(--accent)] text-black text-[10px] font-black px-2.5 py-0.5 uppercase font-grotesk border border-[var(--line)]">
             Calculadora Campecha
           </span>
-          <h2 className="font-display text-3xl sm:text-4xl font-black text-white uppercase tracking-wide mt-1">
+          <h2 className="font-display text-3xl sm:text-4xl font-black text-[var(--ink)] uppercase tracking-wide mt-1">
             Simular Jornada {selectedRound}
           </h2>
         </div>
         <button
           onClick={() => setWinners({})}
-          className="inline-flex items-center justify-center gap-2 bg-black hover:bg-[var(--surface-raised)] text-white border-2 border-[var(--line)] px-3 py-2 text-xs font-black uppercase font-grotesk"
+          className="inline-flex items-center justify-center gap-2 bg-[var(--surface-soft)] hover:bg-[var(--surface-raised)] text-[var(--ink)] border-2 border-[var(--line)] px-3 py-2 text-xs font-black uppercase font-grotesk"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[var(--copper)]" />
+          <RotateCcw className="w-3.5 h-3.5 text-[var(--copper-ink)]" />
           Reset
         </button>
       </div>
@@ -63,12 +63,12 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
             const team2 = match.team2.map((id) => playerMap.get(id)?.name).join(' / ');
 
             return (
-              <article key={match.id} className="bg-black border-2 border-[var(--line)] p-3">
+              <article key={match.id} className="bg-[var(--surface-soft)] border-2 border-[var(--line)] p-3">
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="font-mono-code text-[10px] text-slate-400 font-black uppercase">
+                  <span className="font-mono-code text-[10px] text-[var(--muted)] font-black uppercase">
                     Partido {match.matchNumberInRound}
                   </span>
-                  <span className="bg-[var(--surface-raised)] border border-[var(--line)] text-[10px] px-2 py-0.5 text-slate-300 font-black uppercase font-grotesk">
+                  <span className="bg-[var(--surface-raised)] border border-[var(--line)] text-[10px] px-2 py-0.5 text-[var(--ink)] font-black uppercase font-grotesk">
                     Marcador simulado 6-4 / 6-4
                   </span>
                 </div>
@@ -82,7 +82,7 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
                     return (
                       <React.Fragment key={option.team}>
                         {index === 1 && (
-                          <div className="hidden sm:flex sm:col-span-1 items-center justify-center font-display text-xl text-slate-500 font-black">
+                          <div className="hidden sm:flex sm:col-span-1 items-center justify-center font-display text-xl text-[var(--muted)] font-black">
                             VS
                           </div>
                         )}
@@ -90,8 +90,8 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
                           onClick={() => setWinners((current) => ({ ...current, [match.id]: option.team }))}
                           className={`sm:col-span-5 text-left border-2 p-3 transition-all ${
                             selected
-                              ? 'bg-[var(--accent)] text-black border-black shadow-[3px_3px_0px_0px_#ffffff]'
-                              : 'bg-[var(--surface-raised)] text-white border-[var(--line)] hover:border-[var(--accent)]'
+                              ? 'bg-[var(--accent)] text-black border-[var(--line)] shadow-sm'
+                              : 'bg-[var(--surface-raised)] text-[var(--ink)] border-[var(--line)] hover:border-[var(--accent)]'
                           }`}
                         >
                           <span className="text-[10px] font-black uppercase font-grotesk block opacity-70">
@@ -110,15 +110,15 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
           })}
         </div>
 
-        <aside className="lg:col-span-5 bg-black border-2 border-[var(--copper)] p-4 shadow-[4px_4px_0px_0px_var(--copper)]">
+        <aside className="lg:col-span-5 bg-[var(--surface-soft)] border-2 border-[var(--copper)] p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
-            <Calculator className="w-4 h-4 text-[var(--copper)]" />
-            <h3 className="font-display text-2xl font-black text-white uppercase">
+            <Calculator className="w-4 h-4 text-[var(--copper-ink)]" />
+            <h3 className="font-display text-2xl font-black text-[var(--ink)] uppercase">
               Tabla simulada
             </h3>
           </div>
           {!hasSimulation && (
-            <p className="text-xs text-slate-400 font-mono-code mb-3">
+            <p className="text-xs text-[var(--muted)] font-mono-code mb-3">
               Elige ganadores y verás cómo se movería el ranking.
             </p>
           )}
@@ -127,9 +127,9 @@ export const RoundSimulator: React.FC<RoundSimulatorProps> = ({ selectedRound, m
               <div key={stat.playerId} className={`grid grid-cols-[38px_1fr_48px] items-center gap-2 px-2.5 py-2 border ${
                 index < 8 ? 'border-[var(--accent)]/40 bg-[var(--accent)]/5' : 'border-[var(--line)] bg-[var(--surface-raised)]'
               }`}>
-                <span className="font-display text-xl font-black text-[var(--accent)]">#{index + 1}</span>
-                <span className="text-sm font-bold text-white truncate">{stat.player.name}</span>
-                <span className="text-right font-display text-xl font-black text-white">{stat.matchesWon}V</span>
+                <span className="font-display text-xl font-black text-[var(--accent-ink)]">#{index + 1}</span>
+                <span className="text-sm font-bold text-[var(--ink)] truncate">{stat.player.name}</span>
+                <span className="text-right font-display text-xl font-black text-[var(--ink)]">{stat.matchesWon}V</span>
               </div>
             ))}
           </div>

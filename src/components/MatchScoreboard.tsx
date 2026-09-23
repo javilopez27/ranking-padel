@@ -57,7 +57,7 @@ export function MatchScoreboard({ match, players, compact = false }: MatchScoreb
       <div className="match-set-summary">
         {isCompleted ? (
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400 font-grotesk">Sets</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.18em] text-[var(--muted)] font-grotesk">Sets</span>
             <div className="flex flex-wrap justify-center gap-1.5 font-mono-code text-xs font-black">
               {match.sets.map((set, index) => (
                 <span key={`${match.id}-${index}`} className="match-set">
@@ -67,7 +67,7 @@ export function MatchScoreboard({ match, players, compact = false }: MatchScoreb
             </div>
           </div>
         ) : (
-          <p className="text-center text-xs font-mono-code text-slate-400">
+          <p className="text-center text-xs font-mono-code text-[var(--muted)]">
             {isPostponed ? match.postponedNote || 'Partido aplazado.' : 'Resultado pendiente.'}
           </p>
         )}

@@ -3,6 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Apply the saved/system theme before React and styles paint.
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('padel-theme'); } catch {}
+        document.documentElement.dataset.theme = saved === 'light' || saved === 'dark'
+          ? saved
+          : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      })();
+    </script>
     <title>Ranking Padel</title>
     <meta name="description" content="Ranking de padel individual para 12 jugadores con calendario, clasificacion en tiempo real y fase final Top 8." />
     <link rel="icon" type="image/png" href="./logo.png" />
@@ -15,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#060709] text-slate-100 antialiased font-sans selection:bg-[#ccff00] selection:text-black min-h-screen">
+  <body class="antialiased font-sans min-h-screen">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

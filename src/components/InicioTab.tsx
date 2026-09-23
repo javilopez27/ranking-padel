@@ -51,15 +51,15 @@ export const InicioTab: React.FC<InicioTabProps> = ({
         <div className="campechos-hero-content">
           <div className="campechos-enter flex flex-wrap items-center gap-2">
             <span className="campechos-badge bg-[var(--accent)] text-black">Ranking Padel 2026</span>
-            <span className="campechos-badge hidden lg:inline-block bg-[var(--surface)] text-slate-300">Temporada regular</span>
+            <span className="campechos-badge hidden lg:inline-block bg-[var(--surface)] text-[var(--ink)]">Temporada regular</span>
           </div>
 
           <h1 id="campechos-title" className="campechos-hero-title campechos-enter font-display" style={{ animationDelay: '120ms' }}>
-            <span className="block text-white">Ranking</span>
-            <span className="block text-[var(--accent)]">Campechos.</span>
+            <span className="block text-[var(--ink)]">Ranking</span>
+            <span className="block text-[var(--accent-ink)]">Campechos.</span>
           </h1>
 
-          <p className="campechos-hero-copy campechos-enter text-sm sm:text-base text-slate-300 leading-relaxed" style={{ animationDelay: '240ms' }}>
+          <p className="campechos-hero-copy campechos-enter text-sm sm:text-base text-[var(--ink)] leading-relaxed" style={{ animationDelay: '240ms' }}>
             {players.length} jugadores. 11 jornadas.<br />
             {matches.length} partidos. Todo por decidir.
           </p>
@@ -71,7 +71,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
             </button>
             <button type="button" onClick={() => onNavigate('clasificacion')} className="campechos-cta campechos-cta-secondary">
               Clasificación
-              <Trophy aria-hidden="true" className="w-4 h-4 text-[var(--accent)]" />
+              <Trophy aria-hidden="true" className="w-4 h-4 text-[var(--accent-ink)]" />
             </button>
             <button type="button" onClick={() => onNavigate('top8')} className="campechos-top8 font-grotesk">
               Ver Top 8 <ChevronRight aria-hidden="true" className="w-4 h-4" />
@@ -81,17 +81,17 @@ export const InicioTab: React.FC<InicioTabProps> = ({
           <dl className="campechos-scoreboard campechos-enter" style={{ animationDelay: '480ms' }}>
             <div>
               <dt>Jornada</dt>
-              <dd className="font-display text-[var(--accent)]">{String(currentRoundNumber).padStart(2, '0')} <span>/ 11</span></dd>
+              <dd className="font-display text-[var(--accent-ink)]">{String(currentRoundNumber).padStart(2, '0')} <span>/ 11</span></dd>
               <dd className="campechos-score-note">{completedMatches.length === matches.length ? 'Completada' : 'En curso'}</dd>
             </div>
             <div>
               <dt>Progreso</dt>
-              <dd className="font-display text-white">{completedMatches.length} <span>/ {matches.length}</span></dd>
+              <dd className="font-display text-[var(--ink)]">{completedMatches.length} <span>/ {matches.length}</span></dd>
               <dd className="campechos-score-note">Jugados</dd>
             </div>
             <div>
               <dt>Fase final</dt>
-              <dd className="font-display text-white">Top 8</dd>
+              <dd className="font-display text-[var(--ink)]">Top 8</dd>
               <dd className="campechos-score-note">Diciembre</dd>
             </div>
           </dl>
@@ -104,14 +104,14 @@ export const InicioTab: React.FC<InicioTabProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column (7 cols): Current Round Match Tickets */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between bg-black p-3 border-2 border-[var(--line)]">
+          <div className="flex items-center justify-between bg-[var(--surface-soft)] p-3 border-2 border-[var(--line)]">
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 bg-[var(--accent)] inline-block"></span>
-              <h2 className="font-display text-xl sm:text-2xl font-black text-white uppercase tracking-wider">
+              <h2 className="font-display text-xl sm:text-2xl font-black text-[var(--ink)] uppercase tracking-wider">
                 PARTIDOS DE LA JORNADA #{currentRoundNumber}
               </h2>
             </div>
-            <span className="text-xs font-mono-code font-bold text-slate-400">
+            <span className="text-xs font-mono-code font-bold text-[var(--muted)]">
               {currentRoundInfo.startDate}
             </span>
           </div>
@@ -129,17 +129,17 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                       ? 'border-[var(--line)]'
                       : isPostponed
                       ? 'border-[var(--copper)]'
-                      : 'border-[var(--accent)] shadow-[3px_3px_0px_0px_#000]'
+                      : 'border-[var(--accent)] shadow-sm'
                   }`}
                 >
                   {/* Match Top Bar */}
                   <div className="bg-[var(--surface-raised)] px-3.5 py-1.5 border-b border-[var(--line)] flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2">
-                      <span className="font-mono-code font-black text-slate-400">
+                      <span className="font-mono-code font-black text-[var(--muted)]">
                         MATCH 0{match.matchNumberInRound}
                       </span>
-                      <span className="text-slate-600">/</span>
-                      <span className="font-grotesk font-bold text-slate-300">
+                      <span className="text-[var(--muted)]">/</span>
+                      <span className="font-grotesk font-bold text-[var(--ink)]">
                         {match.court || 'Pista 1'}
                       </span>
                     </div>
@@ -149,11 +149,11 @@ export const InicioTab: React.FC<InicioTabProps> = ({
                         FINALIZADO
                       </span>
                     ) : isPostponed ? (
-                      <span className="bg-[var(--copper)] text-white font-black font-grotesk text-[10px] px-2 py-0.2 uppercase">
+                      <span className="bg-[var(--copper)] text-[#fff8ef] font-black font-grotesk text-[10px] px-2 py-0.2 uppercase">
                         APLAZADO A DICIEMBRE
                       </span>
                     ) : (
-                      <span className="bg-white text-black font-black font-grotesk text-[10px] px-2 py-0.2 uppercase animate-pulse">
+                      <span className="bg-[var(--neutral-badge)] text-black font-black font-grotesk text-[10px] px-2 py-0.2 uppercase animate-pulse">
                         POR JUGAR
                       </span>
                     )}
@@ -168,7 +168,7 @@ export const InicioTab: React.FC<InicioTabProps> = ({
           <div className="flex justify-end pt-1">
             <button
               onClick={() => onNavigate('calendario')}
-              className="text-xs font-mono-code font-bold text-[var(--accent)] hover:underline uppercase flex items-center gap-1"
+              className="text-xs font-mono-code font-bold text-[var(--accent-ink)] hover:underline uppercase flex items-center gap-1"
             >
               <span>Ver las 11 Jornadas del Calendario Completo</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -178,16 +178,16 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
         {/* Right Column (5 cols): Podium & Top 8 Cutoff Preview */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-black p-3 border-2 border-[var(--line)] flex items-center justify-between">
+          <div className="bg-[var(--surface-soft)] p-3 border-2 border-[var(--line)] flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Trophy className="w-4 h-4 text-[var(--accent)]" />
-              <h2 className="font-display text-xl sm:text-2xl font-black text-white uppercase tracking-wider">
+              <Trophy className="w-4 h-4 text-[var(--accent-ink)]" />
+              <h2 className="font-display text-xl sm:text-2xl font-black text-[var(--ink)] uppercase tracking-wider">
                 PODIO PROVISIONAL
               </h2>
             </div>
             <button
               onClick={() => onNavigate('clasificacion')}
-              className="text-xs font-mono-code text-[var(--accent)] font-bold hover:underline"
+              className="text-xs font-mono-code text-[var(--accent-ink)] font-bold hover:underline"
             >
               VER TABLA
             </button>
@@ -197,29 +197,29 @@ export const InicioTab: React.FC<InicioTabProps> = ({
           <div className="space-y-2.5">
             {/* 1st Place */}
             {top1 && (
-              <div className="bg-[var(--surface)] border-2 border-[var(--accent)] p-3.5 shadow-[3px_3px_0px_0px_var(--accent)] flex items-center justify-between">
+              <div className="bg-[var(--surface)] border-2 border-[var(--accent)] p-3.5 shadow-sm flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[var(--accent)] text-black font-display text-2xl font-black flex items-center justify-center border border-black">
+                  <div className="w-10 h-10 bg-[var(--accent)] text-black font-display text-2xl font-black flex items-center justify-center border border-[var(--line)]">
                     01
                   </div>
                   <div>
-                    <span className="text-[10px] font-black uppercase text-[var(--accent)] font-grotesk tracking-wider block">
+                    <span className="text-[10px] font-black uppercase text-[var(--accent-ink)] font-grotesk tracking-wider block">
                       LÍDER DE LA LIGA
                     </span>
-                    <h3 className="font-display text-xl font-black text-white leading-none">
+                    <h3 className="font-display text-xl font-black text-[var(--ink)] leading-none">
                       {top1.player.name}
                     </h3>
-                    <span className="text-[11px] font-mono-code text-slate-400 block mt-0.5">
+                    <span className="text-[11px] font-mono-code text-[var(--muted)] block mt-0.5">
                       {top1.matchesWon}V - {top1.matchesLost}D · Dif Sets: {top1.setsDiff > 0 ? `+${top1.setsDiff}` : top1.setsDiff}
                     </span>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="font-display text-3xl font-black text-[var(--accent)] leading-none block">
+                  <span className="font-display text-3xl font-black text-[var(--accent-ink)] leading-none block">
                     {top1.matchesWon}
                   </span>
-                  <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
+                  <span className="text-[10px] font-mono-code font-bold text-[var(--muted)] uppercase">
                     VICTORIAS
                   </span>
                 </div>
@@ -228,29 +228,29 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
             {/* 2nd Place */}
             {top2 && (
-              <div className="bg-[var(--surface)] border-2 border-white p-3.5 shadow-[3px_3px_0px_0px_#ffffff] flex items-center justify-between">
+              <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-3.5 shadow-sm flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white text-black font-display text-2xl font-black flex items-center justify-center border border-black">
+                  <div className="w-10 h-10 bg-[var(--neutral-badge)] text-black font-display text-2xl font-black flex items-center justify-center border border-[var(--line)]">
                     02
                   </div>
                   <div>
-                    <span className="text-[10px] font-black uppercase text-slate-400 font-grotesk tracking-wider block">
+                    <span className="text-[10px] font-black uppercase text-[var(--muted)] font-grotesk tracking-wider block">
                       SUBCAMPEÓN PROVISIONAL
                     </span>
-                    <h3 className="font-display text-xl font-black text-white leading-none">
+                    <h3 className="font-display text-xl font-black text-[var(--ink)] leading-none">
                       {top2.player.name}
                     </h3>
-                    <span className="text-[11px] font-mono-code text-slate-400 block mt-0.5">
+                    <span className="text-[11px] font-mono-code text-[var(--muted)] block mt-0.5">
                       {top2.matchesWon}V - {top2.matchesLost}D · Dif Sets: {top2.setsDiff > 0 ? `+${top2.setsDiff}` : top2.setsDiff}
                     </span>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="font-display text-3xl font-black text-white leading-none block">
+                  <span className="font-display text-3xl font-black text-[var(--ink)] leading-none block">
                     {top2.matchesWon}
                   </span>
-                  <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
+                  <span className="text-[10px] font-mono-code font-bold text-[var(--muted)] uppercase">
                     VICTORIAS
                   </span>
                 </div>
@@ -259,29 +259,29 @@ export const InicioTab: React.FC<InicioTabProps> = ({
 
             {/* 3rd Place */}
             {top3 && (
-              <div className="bg-[var(--surface)] border-2 border-[var(--copper)] p-3.5 shadow-[3px_3px_0px_0px_var(--copper)] flex items-center justify-between">
+              <div className="bg-[var(--surface)] border-2 border-[var(--copper)] p-3.5 shadow-sm flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[var(--copper)] text-white font-display text-2xl font-black flex items-center justify-center border border-black">
+                  <div className="w-10 h-10 bg-[var(--copper)] text-[#fff8ef] font-display text-2xl font-black flex items-center justify-center border border-[var(--line)]">
                     03
                   </div>
                   <div>
-                    <span className="text-[10px] font-black uppercase text-[var(--copper)] font-grotesk tracking-wider block">
+                    <span className="text-[10px] font-black uppercase text-[var(--copper-ink)] font-grotesk tracking-wider block">
                       TERCER PUESTO
                     </span>
-                    <h3 className="font-display text-xl font-black text-white leading-none">
+                    <h3 className="font-display text-xl font-black text-[var(--ink)] leading-none">
                       {top3.player.name}
                     </h3>
-                    <span className="text-[11px] font-mono-code text-slate-400 block mt-0.5">
+                    <span className="text-[11px] font-mono-code text-[var(--muted)] block mt-0.5">
                       {top3.matchesWon}V - {top3.matchesLost}D · Dif Sets: {top3.setsDiff > 0 ? `+${top3.setsDiff}` : top3.setsDiff}
                     </span>
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <span className="font-display text-3xl font-black text-[var(--copper)] leading-none block">
+                  <span className="font-display text-3xl font-black text-[var(--copper-ink)] leading-none block">
                     {top3.matchesWon}
                   </span>
-                  <span className="text-[10px] font-mono-code font-bold text-slate-400 uppercase">
+                  <span className="text-[10px] font-mono-code font-bold text-[var(--muted)] uppercase">
                     VICTORIAS
                   </span>
                 </div>

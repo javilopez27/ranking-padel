@@ -35,32 +35,32 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
 
   return (
     <div className="space-y-6 pb-12">
-      <div className="bg-[var(--surface)] border-2 border-black p-5 shadow-[4px_4px_0px_0px_var(--accent)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-5 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-black">
+            <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-grotesk border border-[var(--line)]">
               Jugadores
             </span>
-            <span className="bg-white text-black font-black text-[10px] px-2 py-0.5 uppercase font-mono-code border border-black">
+            <span className="bg-[var(--neutral-badge)] text-black font-black text-[10px] px-2 py-0.5 uppercase font-mono-code border border-[var(--line)]">
               12 jugadores
             </span>
           </div>
-          <h1 className="font-display text-3xl sm:text-5xl font-black text-white tracking-wide uppercase leading-none">
+          <h1 className="font-display text-3xl sm:text-5xl font-black text-[var(--ink)] tracking-wide uppercase leading-none">
             Jugadores
           </h1>
-          <p className="text-xs sm:text-sm font-mono-code text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm font-mono-code text-[var(--muted)] mt-1">
             Fichas, fotos y estado deportivo de cada jugador.
           </p>
         </div>
 
         <div className="flex items-center bg-[var(--surface)] border-2 border-[var(--line)] px-3 py-2 w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 mr-2 shrink-0" />
+          <Search className="w-4 h-4 text-[var(--muted)] mr-2 shrink-0" />
           <input
             type="text"
             placeholder="Buscar jugador..."
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            className="bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none w-full font-mono-code"
+            className="bg-transparent text-xs text-[var(--ink)] placeholder-slate-500 focus:outline-none w-full font-mono-code"
           />
         </div>
       </div>
@@ -81,7 +81,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
           const position = stats.findIndex((row) => row.playerId === player.id) + 1;
           const movement = movementMap.get(player.id)?.delta || 0;
           const isCompared = compareIds.includes(player.id);
-          const movementClass = movement > 0 ? 'text-emerald-400' : movement < 0 ? 'text-rose-400' : 'text-slate-500';
+          const movementClass = movement > 0 ? 'text-[var(--positive)]' : movement < 0 ? 'text-[var(--negative)]' : 'text-[var(--muted)]';
           const isTop8 = position <= 8;
           const isCaptain = position <= 4;
 
@@ -97,19 +97,19 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                   onSelectPlayer(player);
                 }
               }}
-              className={`bg-[var(--surface)] border-2 p-4 shadow-[4px_4px_0px_0px_#000] flex flex-col justify-between transition-all cursor-pointer ${
-                isCompared ? 'border-[var(--accent)]' : 'border-black hover:border-[var(--accent)]'
+              className={`bg-[var(--surface)] border-2 p-4 shadow-sm flex flex-col justify-between transition-all cursor-pointer ${
+                isCompared ? 'border-[var(--accent)]' : 'border-[var(--line)] hover:border-[var(--accent)]'
               }`}
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3 min-w-0">
                   <PlayerAvatar player={player} size="lg" onClick={() => onOpenPhoto(player)} />
                   <div className="min-w-0">
-                    <h3 className="font-display text-2xl font-black text-white leading-none truncate">
+                    <h3 className="font-display text-2xl font-black text-[var(--ink)] leading-none truncate">
                       {player.name}
                     </h3>
                     <div className="mt-1 flex flex-wrap items-center gap-1.5">
-                      <span className="text-[11px] font-mono-code text-slate-400">
+                      <span className="text-[11px] font-mono-code text-[var(--muted)]">
                         #{position}
                       </span>
                       <span className={`text-[11px] font-black font-grotesk ${movementClass}`}>
@@ -121,7 +121,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                         </span>
                       )}
                       {isTop8 && !isCaptain && (
-                        <span className="bg-[var(--line)] text-slate-300 text-[9px] font-black px-1 font-grotesk uppercase">
+                        <span className="bg-[var(--line)] text-[var(--ink)] text-[9px] font-black px-1 font-grotesk uppercase">
                           Top 8
                         </span>
                       )}
@@ -135,40 +135,40 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                   playerStats.streak.map((result, index) => (
                     <span
                       key={`${player.id}-streak-${index}`}
-                      className={`w-6 h-6 text-[11px] font-black flex items-center justify-center border border-black ${
-                        result === 'W' ? 'bg-emerald-500 text-black' : 'bg-rose-500 text-white'
+                      className={`w-6 h-6 text-[11px] font-black flex items-center justify-center border border-[var(--line)] ${
+                        result === 'W' ? 'bg-[var(--positive-badge)] text-black' : 'bg-[var(--negative-badge)] text-[var(--ink)]'
                       }`}
                     >
                       {result}
                     </span>
                   ))
                 ) : (
-                  <span className="text-[11px] font-mono-code text-slate-600">Sin forma</span>
+                  <span className="text-[11px] font-mono-code text-[var(--muted)]">Sin forma</span>
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-2 bg-black p-2.5 border border-[var(--line)] text-center font-mono-code">
+              <div className="grid grid-cols-3 gap-2 bg-[var(--surface-soft)] p-2.5 border border-[var(--line)] text-center font-mono-code">
                 <div>
-                  <span className="font-display text-xl font-black text-[var(--accent)] block leading-none">
+                  <span className="font-display text-xl font-black text-[var(--accent-ink)] block leading-none">
                     {playerStats.matchesWon}
                   </span>
-                  <span className="text-[9px] text-slate-400 uppercase">Victorias</span>
+                  <span className="text-[9px] text-[var(--muted)] uppercase">Victorias</span>
                 </div>
                 <div>
                   <span className={`font-display text-xl font-black block leading-none ${
-                    playerStats.setsDiff > 0 ? 'text-emerald-400' : playerStats.setsDiff < 0 ? 'text-rose-400' : 'text-slate-300'
+                    playerStats.setsDiff > 0 ? 'text-[var(--positive)]' : playerStats.setsDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--ink)]'
                   }`}>
                     {formatSigned(playerStats.setsDiff)}
                   </span>
-                  <span className="text-[9px] text-slate-400 uppercase">Sets</span>
+                  <span className="text-[9px] text-[var(--muted)] uppercase">Sets</span>
                 </div>
                 <div>
                   <span className={`font-display text-xl font-black block leading-none ${
-                    playerStats.gamesDiff > 0 ? 'text-emerald-400' : playerStats.gamesDiff < 0 ? 'text-rose-400' : 'text-slate-300'
+                    playerStats.gamesDiff > 0 ? 'text-[var(--positive)]' : playerStats.gamesDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--ink)]'
                   }`}>
                     {formatSigned(playerStats.gamesDiff)}
                   </span>
-                  <span className="text-[9px] text-slate-400 uppercase">Juegos</span>
+                  <span className="text-[9px] text-[var(--muted)] uppercase">Juegos</span>
                 </div>
               </div>
 
@@ -179,7 +179,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                     event.stopPropagation();
                     onSelectPlayer(player);
                   }}
-                  className="flex-1 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-black border-2 border-black px-3 py-2 text-xs font-black font-grotesk uppercase shadow-[2px_2px_0px_0px_#ffffff] transition-all active:translate-x-0.5 active:translate-y-0.5"
+                  className="flex-1 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-black border-2 border-[var(--line)] px-3 py-2 text-xs font-black font-grotesk uppercase shadow-sm transition-all active:translate-x-0.5 active:translate-y-0.5"
                 >
                   Ver ficha
                 </button>
@@ -191,8 +191,8 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                   }}
                   className={`flex-1 border-2 px-3 py-2 text-xs font-black font-grotesk uppercase transition-all ${
                     isCompared
-                      ? 'bg-[var(--accent)] text-black border-black'
-                      : 'bg-[var(--surface-raised)] text-white border-[var(--copper)] hover:bg-[#1a1f2c]'
+                      ? 'bg-[var(--accent)] text-black border-[var(--line)]'
+                      : 'bg-[var(--surface-raised)] text-[var(--ink)] border-[var(--copper)] hover:bg-[var(--surface-soft)]'
                   }`}
                 >
                   {isCompared ? 'Elegido' : 'Comparar'}
@@ -204,7 +204,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
       </div>
 
       {filteredStats.length === 0 && (
-        <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-8 text-center text-xs font-mono-code text-slate-400">
+        <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-8 text-center text-xs font-mono-code text-[var(--muted)]">
           No hay jugadores para esa busqueda.
         </div>
       )}
