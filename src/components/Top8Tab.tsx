@@ -90,18 +90,18 @@ function RankCard({ row, position, movement, variant }: RankCardProps) {
         </span>
       </div>
 
-      <div className="relative mt-4 grid grid-cols-3 gap-2 font-mono-code text-[11px]">
-        <div className="bg-black/70 border border-[var(--line)] p-2">
-          <span className="block text-[var(--muted)] font-black uppercase font-grotesk">Victorias</span>
-          <strong className={`font-display text-2xl ${isCaptain ? 'text-[var(--accent-ink)]' : 'text-[var(--ink)]'}`}>{row.matchesWon}</strong>
+      <div className="player-stats relative mt-4 font-mono-code">
+        <div className="player-stat">
+          <span className="player-stat-label">Victorias</span>
+          <strong className="player-stat-value font-display">{row.matchesWon}</strong>
         </div>
-        <div className="bg-black/70 border border-[var(--line)] p-2">
-          <span className="block text-[var(--muted)] font-black uppercase font-grotesk">Sets</span>
-          <strong className={row.setsDiff >= 0 ? 'text-[var(--positive)]' : 'text-[var(--negative)]'}>{formatSigned(row.setsDiff)}</strong>
+        <div className="player-stat">
+          <span className="player-stat-label">Dif. sets</span>
+          <strong className="player-stat-value font-display">{formatSigned(row.setsDiff)}</strong>
         </div>
-        <div className="bg-black/70 border border-[var(--line)] p-2">
-          <span className="block text-[var(--muted)] font-black uppercase font-grotesk">Juegos</span>
-          <strong className={row.gamesDiff >= 0 ? 'text-[var(--positive)]' : 'text-[var(--negative)]'}>{formatSigned(row.gamesDiff)}</strong>
+        <div className="player-stat">
+          <span className="player-stat-label">Dif. juegos</span>
+          <strong className="player-stat-value font-display">{formatSigned(row.gamesDiff)}</strong>
         </div>
       </div>
     </article>

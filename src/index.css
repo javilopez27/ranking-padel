@@ -50,7 +50,7 @@
   }
 }
 
-/* Maximalist Typography & Styles */
+/* Opening logo fades away to reveal the already-mounted page. */
 .logo-intro {
   position: fixed;
   inset: 0;
