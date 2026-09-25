@@ -313,6 +313,35 @@
 .match-set-summary { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
 .match-set { padding: 2px 8px; color: var(--ink); }
 .match-set + .match-set { border-left: 1px solid var(--line); }
+
+.player-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 12px 0;
+  border-block: 1px solid var(--line);
+}
+.player-stat {
+  min-width: 0;
+  padding: 2px 6px;
+  text-align: center;
+}
+.player-stat + .player-stat { border-left: 1px solid var(--line); }
+.player-stat-label {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+.player-stat-value {
+  display: block;
+  margin-top: 5px;
+  color: var(--ink);
+  font-size: 28px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
 @container (min-width: 380px) {
   .match-score-layout { gap: 16px; }
   .match-avatar > div { width: 40px; height: 40px; font-size: 20px; }

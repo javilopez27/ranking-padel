@@ -147,28 +147,18 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                 )}
               </div>
 
-              <div className="grid grid-cols-3 gap-2 bg-[var(--surface-soft)] p-2.5 border border-[var(--line)] text-center font-mono-code">
-                <div>
-                  <span className="font-display text-xl font-black text-[var(--accent-ink)] block leading-none">
-                    {playerStats.matchesWon}
-                  </span>
-                  <span className="text-[9px] text-[var(--muted)] uppercase">Victorias</span>
+              <div className="player-stats font-mono-code" aria-label={`Victorias: ${playerStats.matchesWon}; diferencia de sets: ${formatSigned(playerStats.setsDiff)}; diferencia de juegos: ${formatSigned(playerStats.gamesDiff)}`}>
+                <div className="player-stat">
+                  <span className="player-stat-label">Victorias</span>
+                  <strong className="player-stat-value font-display">{playerStats.matchesWon}</strong>
                 </div>
-                <div>
-                  <span className={`font-display text-xl font-black block leading-none ${
-                    playerStats.setsDiff > 0 ? 'text-[var(--positive)]' : playerStats.setsDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--ink)]'
-                  }`}>
-                    {formatSigned(playerStats.setsDiff)}
-                  </span>
-                  <span className="text-[9px] text-[var(--muted)] uppercase">Sets</span>
+                <div className="player-stat">
+                  <span className="player-stat-label">Dif. sets</span>
+                  <strong className="player-stat-value font-display">{formatSigned(playerStats.setsDiff)}</strong>
                 </div>
-                <div>
-                  <span className={`font-display text-xl font-black block leading-none ${
-                    playerStats.gamesDiff > 0 ? 'text-[var(--positive)]' : playerStats.gamesDiff < 0 ? 'text-[var(--negative)]' : 'text-[var(--ink)]'
-                  }`}>
-                    {formatSigned(playerStats.gamesDiff)}
-                  </span>
-                  <span className="text-[9px] text-[var(--muted)] uppercase">Juegos</span>
+                <div className="player-stat">
+                  <span className="player-stat-label">Dif. juegos</span>
+                  <strong className="player-stat-value font-display">{formatSigned(playerStats.gamesDiff)}</strong>
                 </div>
               </div>
 
