@@ -51,6 +51,41 @@
 }
 
 /* Maximalist Typography & Styles */
+.logo-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: var(--page);
+  animation: logo-intro-leave 900ms ease-in-out 800ms both;
+}
+
+.logo-intro-image {
+  width: clamp(132px, 32vw, 180px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 16px 60px rgb(0 0 0 / 16%);
+  animation: logo-intro-enter 500ms ease-out both;
+}
+
+@keyframes logo-intro-enter {
+  from { opacity: 0; transform: scale(.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes logo-intro-leave {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-intro, .logo-intro-image { animation-duration: 1ms; animation-delay: 0ms; }
+}
+
+/* Maximalist Typography & Styles */
 .font-display {
   font-family: 'Bebas Neue', 'Impact', sans-serif;
   letter-spacing: 0.04em;
