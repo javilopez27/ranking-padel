@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
+import { PlayerStatsStrip } from './PlayerStatsStrip';
 import { PlayerComparePanel } from './PlayerComparePanel';
 import { getRankingMovement } from '../utils/rankingInsights';
 
@@ -13,7 +14,6 @@ interface JugadoresTabProps {
   onOpenPhoto: (player: Player) => void;
 }
 
-const formatSigned = (value: number) => value > 0 ? `+${value}` : `${value}`;
 
 export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, stats, onSelectPlayer, onOpenPhoto }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -147,20 +147,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
                 )}
               </div>
 
-              <div className="player-stats font-mono-code" aria-label={`Victorias: ${playerStats.matchesWon}; diferencia de sets: ${formatSigned(playerStats.setsDiff)}; diferencia de juegos: ${formatSigned(playerStats.gamesDiff)}`}>
-                <div className="player-stat">
-                  <span className="player-stat-label">Victorias</span>
-                  <strong className="player-stat-value font-display">{playerStats.matchesWon}</strong>
-                </div>
-                <div className="player-stat">
-                  <span className="player-stat-label">Dif. sets</span>
-                  <strong className="player-stat-value font-display">{formatSigned(playerStats.setsDiff)}</strong>
-                </div>
-                <div className="player-stat">
-                  <span className="player-stat-label">Dif. juegos</span>
-                  <strong className="player-stat-value font-display">{formatSigned(playerStats.gamesDiff)}</strong>
-                </div>
-              </div>
+              <PlayerStatsStrip stats={playerStats} />
 
               <div className="mt-4 flex items-center gap-2">
                 <button

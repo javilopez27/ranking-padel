@@ -1,6 +1,7 @@
 import { Trophy } from 'lucide-react';
 import type { Match, Player, PlayerStats } from '../types';
 import type { LeagueData } from '../services/leagueSchema';
+import { PlayerStatsStrip } from './PlayerStatsStrip';
 import { PlayerAvatar } from './PlayerAvatar';
 import { getRankingMovement } from '../utils/rankingInsights';
 import { formatMatchScore } from '../utils/scoreFormat';
@@ -90,20 +91,7 @@ function RankCard({ row, position, movement, variant }: RankCardProps) {
         </span>
       </div>
 
-      <div className="player-stats relative mt-4 font-mono-code">
-        <div className="player-stat">
-          <span className="player-stat-label">Victorias</span>
-          <strong className="player-stat-value font-display">{row.matchesWon}</strong>
-        </div>
-        <div className="player-stat">
-          <span className="player-stat-label">Dif. sets</span>
-          <strong className="player-stat-value font-display">{formatSigned(row.setsDiff)}</strong>
-        </div>
-        <div className="player-stat">
-          <span className="player-stat-label">Dif. juegos</span>
-          <strong className="player-stat-value font-display">{formatSigned(row.gamesDiff)}</strong>
-        </div>
-      </div>
+      <PlayerStatsStrip stats={row} className="relative mt-4" />
     </article>
   );
 }

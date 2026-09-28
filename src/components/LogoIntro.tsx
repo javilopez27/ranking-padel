@@ -1,9 +1,16 @@
 import { useEffect, useState, type ReactNode } from 'react';
 
 export function LogoIntro({ children }: { children: ReactNode }) {
-  const [visible, setVisible] = useState(() =>
-    !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
+  const [visible, setVisible] = useState(() => {
+    try {
+      if (sessionStorage.getItem('ranking-padel-intro-seen')) return false;
+    } catch { /* The intro still works when session storage is unavailable. */ }
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
+
+  useEffect(() => {
+    try { sessionStorage.setItem('ranking-padel-intro-seen', '1'); } catch { /* Optional preference. */ }
+  }, []);
 
   useEffect(() => {
     if (!visible) return;

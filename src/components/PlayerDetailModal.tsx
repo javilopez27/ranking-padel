@@ -2,6 +2,8 @@ import { useModalFocus } from '../hooks/useModalFocus';
 import React from 'react';
 import { X } from 'lucide-react';
 import { Player, Match, PlayerStats } from '../types';
+import { PlayerStatsStrip } from './PlayerStatsStrip';
+import { whatsappLink } from '../utils/navigation';
 import { PlayerAvatar } from './PlayerAvatar';
 import { PlayerEvolution } from './PlayerEvolution';
 import { PlayerRecords } from './PlayerRecords';
@@ -100,37 +102,16 @@ export const PlayerDetailModal: React.FC<PlayerDetailModalProps> = ({
 
         {/* Modal Scroll Content */}
         <div className="p-4 sm:p-6 overflow-y-auto space-y-5 font-mono-code text-xs">
-          {/* Quick Stats Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-            <div className="bg-[var(--surface-raised)] border-2 border-[var(--accent)] p-3 text-center">
-              <span className="text-[10px] text-[var(--muted)] uppercase block font-grotesk">VICTORIAS</span>
-              <span className="font-display text-3xl font-black text-[var(--accent-ink)] leading-none mt-1 block">
-                {stats?.matchesWon || 0}
-              </span>
-            </div>
-            <div className="bg-[var(--surface-raised)] border-2 border-[var(--line)] p-3 text-center">
-              <span className="text-[10px] text-[var(--muted)] uppercase block font-grotesk">VICTORIAS / DERROTAS</span>
-              <span className="font-display text-3xl font-black text-[var(--ink)] leading-none mt-1 block">
-                {stats?.matchesWon || 0}V - {stats?.matchesLost || 0}D
-              </span>
-            </div>
-            <div className="bg-[var(--surface-raised)] border-2 border-[var(--line)] p-3 text-center">
-              <span className="text-[10px] text-[var(--muted)] uppercase block font-grotesk">DIFERENCIA SETS</span>
-              <span className={`font-display text-3xl font-black leading-none mt-1 block ${
-                (stats?.setsDiff || 0) > 0 ? 'text-[var(--positive)]' : 'text-[var(--ink)]'
-              }`}>
-                {(stats?.setsDiff || 0) > 0 ? `+${stats?.setsDiff}` : stats?.setsDiff || 0}
-              </span>
-            </div>
-            <div className="bg-[var(--surface-raised)] border-2 border-[var(--copper)] p-3 text-center">
-              <span className="text-[10px] text-[var(--muted)] uppercase block font-grotesk">DIFERENCIA JUEGOS</span>
-              <span className={`font-display text-3xl font-black leading-none mt-1 block ${
-                (stats?.gamesDiff || 0) > 0 ? 'text-[var(--copper-ink)]' : 'text-[var(--ink)]'
-              }`}>
-                {(stats?.gamesDiff || 0) > 0 ? `+${stats?.gamesDiff}` : stats?.gamesDiff || 0}
-              </span>
-            </div>
-          </div>
+          <PlayerStatsStrip stats={stats} />
+          <p className="text-[var(--muted)]">Balance: {stats?.matchesWon ?? 0} victorias y {stats?.matchesLost ?? 0} derrotas</p>
+          <a
+            href={whatsappLink({ tab: 'jugadores', playerId: player.id }, `Ficha de ${player.name}:`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex border border-[var(--line)] bg-[var(--surface-raised)] px-3 py-2 font-grotesk font-bold text-[var(--ink)]"
+          >
+            Compartir ficha por WhatsApp
+          </a>
 
           <div className="space-y-3">
             <PlayerEvolution history={positionHistory.points} totalPlayers={players.length} />

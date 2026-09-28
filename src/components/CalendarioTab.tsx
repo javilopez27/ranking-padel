@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AlertTriangle, Filter } from 'lucide-react';
 import { Player, Match, RoundInfo } from '../types';
 import { RoundSimulator } from './RoundSimulator';
 import { MatchScoreboard } from './MatchScoreboard';
+import { whatsappLink } from '../utils/navigation';
 
 interface CalendarioTabProps {
   roundInfos: RoundInfo[];
   matches: Match[];
   players: Player[];
+  selectedRound: number;
+  selectedMatchId?: string;
+  onSelectRound: (roundNumber: number) => void;
 }
 
 export const CalendarioTab: React.FC<CalendarioTabProps> = ({
   roundInfos,
   matches,
   players,
+  selectedRound,
+  selectedMatchId,
+  onSelectRound,
 }) => {
-  const [selectedRound, setSelectedRound] = useState<number>(1);
+  const activeRoundRef = useRef<HTMLButtonElement>(null);
   const [playerFilter, setPlayerFilter] = useState<number | 'all'>('all');
   const [showPostponedView, setShowPostponedView] = useState<boolean>(false);
+
+  useEffect(() => setShowPostponedView(false), [selectedRound, selectedMatchId]);
+
+  useEffect(() => {
+    activeRoundRef.current?.scrollIntoView({ block: 'nearest', inline: 'center' });
+  }, [selectedRound]);
+
+  useEffect(() => {
+    if (!selectedMatchId) return;
+    const frame = requestAnimationFrame(() => {
+      document.getElementById(`match-${selectedMatchId}`)?.scrollIntoView({ block: 'center' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [selectedMatchId, selectedRound]);
 
 
   // Postponed matches across all rounds
@@ -87,6 +108,11 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
 
       {/* Round Selector Bar */}
       <div className="bg-[var(--surface)] border-2 border-[var(--line)] p-2 sm:p-3 shadow-sm">
+        <div className="mb-2 flex items-center justify-between gap-2 font-grotesk text-xs font-bold uppercase">
+          <button type="button" disabled={selectedRound <= 1} onClick={() => { onSelectRound(selectedRound - 1); setShowPostponedView(false); }} className="px-2 py-1 text-[var(--ink)] disabled:opacity-40">← Anterior</button>
+          <span className="text-[var(--muted)]">Jornada {selectedRound} de {roundInfos.length}</span>
+          <button type="button" disabled={selectedRound >= roundInfos.length} onClick={() => { onSelectRound(selectedRound + 1); setShowPostponedView(false); }} className="px-2 py-1 text-[var(--ink)] disabled:opacity-40">Siguiente →</button>
+        </div>
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-thin">
           {roundInfos.map((r) => {
             const isSelected = selectedRound === r.roundNumber && !showPostponedView;
@@ -95,9 +121,11 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
 
             return (
               <button
+                ref={isSelected ? activeRoundRef : undefined}
+                aria-current={isSelected ? 'page' : undefined}
                 key={r.roundNumber}
                 onClick={() => {
-                  setSelectedRound(r.roundNumber);
+                  onSelectRound(r.roundNumber);
                   setShowPostponedView(false);
                 }}
                 className={`flex-shrink-0 px-3 py-2 font-grotesk text-xs uppercase font-black transition-all border-2 ${
@@ -147,6 +175,7 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
           <span className="text-[var(--muted)] font-bold">
             {completedInCurrentRound} de 3 Partidos Completados
           </span>
+          <a href={whatsappLink({ tab: 'calendario', roundNumber: selectedRound }, `Jornada ${selectedRound} del Ranking Padel:`)} target="_blank" rel="noopener noreferrer" className="font-bold text-[var(--accent-ink)] underline underline-offset-2">Compartir jornada</a>
         </div>
       ) : (
         <div className="bg-[var(--surface-raised)] border-2 border-[var(--copper)] p-4 text-xs font-mono-code text-[var(--ink)] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
@@ -176,7 +205,9 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
             return (
               <div
                 key={match.id}
-                className={`bg-[var(--surface)] border-2 transition-all ${
+                id={`match-${match.id}`}
+                style={{ scrollMarginTop: '6rem' }}
+                className={`bg-[var(--surface)] border-2 transition-all ${match.id === selectedMatchId ? 'ring-2 ring-[var(--accent-ink)]' : ''} ${
                   isCompleted
                     ? 'border-[var(--line)] shadow-sm'
                     : isPostponed
@@ -199,6 +230,14 @@ export const CalendarioTab: React.FC<CalendarioTabProps> = ({
                   </div>
 
                   <div>
+                    <a
+                      href={whatsappLink({ tab: 'calendario', roundNumber: match.roundNumber, matchId: match.id }, `Partido de la jornada ${match.roundNumber}:`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mr-2 inline-block text-[10px] font-black uppercase text-[var(--accent-ink)] underline underline-offset-2"
+                    >
+                      Compartir
+                    </a>
                     {isCompleted ? (
                       <span className="bg-[var(--accent)] text-black font-black text-[10px] px-2 py-0.5 font-grotesk uppercase">
                         ✓ FINALIZADO
