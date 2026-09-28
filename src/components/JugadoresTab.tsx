@@ -12,10 +12,11 @@ interface JugadoresTabProps {
   stats: PlayerStats[];
   onSelectPlayer: (player: Player) => void;
   onOpenPhoto: (player: Player) => void;
+  onOpenMatch: (match: Match) => void;
 }
 
 
-export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, stats, onSelectPlayer, onOpenPhoto }) => {
+export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, stats, onSelectPlayer, onOpenPhoto, onOpenMatch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [compareIds, setCompareIds] = useState<number[]>([]);
   const normalizedSearch = searchTerm.toLowerCase();
@@ -72,6 +73,7 @@ export const JugadoresTab: React.FC<JugadoresTabProps> = ({ players, matches, st
           stats={stats}
           selectedIds={compareIds}
           onClear={() => setCompareIds([])}
+          onOpenMatch={onOpenMatch}
         />
       )}
 

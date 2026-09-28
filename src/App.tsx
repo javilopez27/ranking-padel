@@ -70,6 +70,7 @@ export default function App() {
             players={players}
             onSelectPlayer={(player) => navigate({ tab: 'jugadores', playerId: player.id })}
             onOpenPhoto={(player) => setPhotoPlayer(player)}
+            onOpenMatch={(match) => navigate({ tab: 'calendario', roundNumber: match.roundNumber, matchId: match.id })}
           />
         )}
 
@@ -91,6 +92,7 @@ export default function App() {
             stats={stats}
             onSelectPlayer={(player) => navigate({ tab: 'jugadores', playerId: player.id })}
             onOpenPhoto={(player) => setPhotoPlayer(player)}
+            onOpenMatch={(match) => navigate({ tab: 'calendario', roundNumber: match.roundNumber, matchId: match.id })}
           />
         )}
 

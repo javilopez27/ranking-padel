@@ -12,6 +12,7 @@ interface ClasificacionTabProps {
   players: Player[];
   onSelectPlayer: (player: Player) => void;
   onOpenPhoto: (player: Player) => void;
+  onOpenMatch: (match: Match) => void;
 }
 
 const formatSigned = (value: number) => value > 0 ? `+${value}` : `${value}`;
@@ -25,6 +26,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
   players,
   onSelectPlayer,
   onOpenPhoto,
+  onOpenMatch,
 }) => {
   const [showTiebreakExplainer, setShowTiebreakExplainer] = useState(false);
   const [compareMode, setCompareMode] = useState(false);
@@ -200,6 +202,7 @@ export const ClasificacionTab: React.FC<ClasificacionTabProps> = ({
           stats={visibleStats}
           selectedIds={compareIds}
           onClear={() => setCompareIds([])}
+          onOpenMatch={onOpenMatch}
         />
       )}
 

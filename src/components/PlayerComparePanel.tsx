@@ -3,6 +3,8 @@ import { Flame, Swords, X } from 'lucide-react';
 import type { Match, Player, PlayerStats } from '../types';
 import { PlayerAvatar } from './PlayerAvatar';
 import { getPlayerPositionHistory, getPlayerRecords } from '../utils/rankingInsights';
+import { getRivalHistory } from '../utils/headToHead';
+import { formatSetScore, getSetsWon } from '../utils/scoreFormat';
 
 interface PlayerComparePanelProps {
   players: Player[];
@@ -10,6 +12,7 @@ interface PlayerComparePanelProps {
   stats: PlayerStats[];
   selectedIds: number[];
   onClear: () => void;
+  onOpenMatch: (match: Match) => void;
 }
 
 const formatDiff = (value: number) => value > 0 ? `+${value}` : `${value}`;
@@ -162,6 +165,7 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
   stats,
   selectedIds,
   onClear,
+  onOpenMatch,
 }) => {
   const statMap = new Map(stats.map((stat) => [stat.playerId, stat]));
   const selected = selectedIds.map((id) => statMap.get(id)).filter((stat): stat is PlayerStats => Boolean(stat));
@@ -182,6 +186,8 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
 
   const [left, right] = selected;
   const h2h = getHeadToHead(matches, left.playerId, right.playerId);
+  const rivalHistory = getRivalHistory(matches, left.playerId, right.playerId);
+  const playerName = (id: number) => players.find((player) => player.id === id)?.name ?? `Jugador ${id}`;
   const rows = [
     { label: 'Victorias', left: `${left.matchesWon}`, right: `${right.matchesWon}`, loud: true },
     { label: 'Dif sets', left: formatDiff(left.setsDiff), right: formatDiff(right.setsDiff) },
@@ -305,6 +311,53 @@ export const PlayerComparePanel: React.FC<PlayerComparePanelProps> = ({
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="relative z-10 mt-5 border-t-2 border-[var(--line)] pt-5">
+        <h3 className="font-display text-2xl sm:text-3xl font-black text-[var(--ink)] uppercase">Historial de enfrentamientos</h3>
+        <p className="mt-1 mb-4 text-xs font-mono-code text-[var(--muted)]">
+          Partidos terminados en los que {left.player.name} y {right.player.name} jugaron como rivales.
+        </p>
+        {rivalHistory.length === 0 ? (
+          <p className="border border-[var(--line)] bg-[var(--surface-soft)] p-4 text-sm text-[var(--muted)]">
+            Todavía no hay enfrentamientos con resultado publicado.
+          </p>
+        ) : (
+          <ol className="grid gap-3 sm:grid-cols-2">
+            {rivalHistory.map(({ match, leftTeam, winnerId }) => {
+              const leftPartner = (leftTeam === 1 ? match.team1 : match.team2).find((id) => id !== left.playerId);
+              const rightPartner = (leftTeam === 1 ? match.team2 : match.team1).find((id) => id !== right.playerId);
+              const setsWon = getSetsWon(match.sets);
+              const leftSets = leftTeam === 1 ? setsWon.team1 : setsWon.team2;
+              const rightSets = leftTeam === 1 ? setsWon.team2 : setsWon.team1;
+              return (
+                <li key={match.id} className="min-w-0 border-2 border-[var(--line)] bg-[var(--surface-soft)] p-3 sm:p-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold font-mono-code text-[var(--muted)]">
+                    <span>Jornada {match.roundNumber} · Partido {match.matchNumberInRound}</span>
+                    {match.playedDate && <span>{match.playedDate}</span>}
+                  </div>
+                  <div className="mt-3 grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 text-[var(--ink)]">
+                    <div className="min-w-0 text-right">
+                      <strong className="block font-display text-lg leading-tight break-words">{left.player.name}</strong>
+                      <span className="block text-xs text-[var(--muted)] break-words">con {playerName(leftPartner ?? 0)}</span>
+                    </div>
+                    <strong className="font-display text-2xl sm:text-3xl whitespace-nowrap" aria-label={`${leftSets} sets a ${rightSets}`}>
+                      {leftSets} : {rightSets}
+                    </strong>
+                    <div className="min-w-0">
+                      <strong className="block font-display text-lg leading-tight break-words">{right.player.name}</strong>
+                      <span className="block text-xs text-[var(--muted)] break-words">con {playerName(rightPartner ?? 0)}</span>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs font-mono-code">
+                    <span className="text-[var(--ink)]">Ganó {playerName(winnerId)} · Sets: {match.sets.map((set) => formatSetScore(leftTeam === 1 ? set : { ...set, games1: set.games2, games2: set.games1, tieBreak1: set.tieBreak2, tieBreak2: set.tieBreak1 })).join(' / ')}</span>
+                    <button type="button" onClick={() => onOpenMatch(match)} className="font-bold text-[var(--accent-ink)] underline underline-offset-2">Ver partido</button>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        )}
       </div>
     </section>
   );
