@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-30T19:08:14.176Z",
+  "updatedAt": "2026-09-30T19:30:07.597Z",
   "players": [
     {
       "id": 1,
@@ -286,7 +286,7 @@
         },
         {
           "games1": 6,
-          "games2": 2
+          "games2": 3
         }
       ],
       "status": "completed",
