@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-09-23T19:18:22.501Z",
+  "updatedAt": "2026-09-30T18:34:41.935Z",
   "players": [
     {
       "id": 1,
@@ -311,9 +311,18 @@
         10,
         11
       ],
-      "sets": [],
-      "status": "pending",
-      "court": "Pista 3"
+      "sets": [
+        {
+          "games1": 6,
+          "games2": 2
+        },
+        {
+          "games1": 6,
+          "games2": 0
+        }
+      ],
+      "status": "completed",
+      "winnerTeam": 1
     },
     {
       "id": "m_4_1",
