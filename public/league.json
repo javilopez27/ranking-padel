@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-02T11:26:49.748Z",
+  "updatedAt": "2026-11-02T11:27:16.283Z",
   "players": [
     {
       "id": 1,
@@ -612,7 +612,7 @@
         4
       ],
       "sets": [],
-      "status": "pending"
+      "status": "postponed"
     },
     {
       "id": "m_8_1",
