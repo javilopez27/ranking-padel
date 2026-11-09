@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-02T11:28:02.628Z",
+  "updatedAt": "2026-11-09T20:34:01.381Z",
   "players": [
     {
       "id": 1,
@@ -304,8 +304,18 @@
         3,
         5
       ],
-      "sets": [],
-      "status": "postponed"
+      "sets": [
+        {
+          "games1": 3,
+          "games2": 6
+        },
+        {
+          "games1": 3,
+          "games2": 6
+        }
+      ],
+      "status": "completed",
+      "winnerTeam": 2
     },
     {
       "id": "m_3_3",
