@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-11-16T21:45:29.951Z",
+  "updatedAt": "2026-11-16T21:48:51.953Z",
   "players": [
     {
       "id": 1,
@@ -752,18 +752,18 @@
       ],
       "sets": [
         {
-          "games1": 2,
-          "games2": 6
+          "games1": 6,
+          "games2": 2
         },
         {
-          "games1": 6,
-          "games2": 7,
-          "tieBreak1": 3,
-          "tieBreak2": 7
+          "games1": 7,
+          "games2": 6,
+          "tieBreak1": 7,
+          "tieBreak2": 3
         }
       ],
       "status": "completed",
-      "winnerTeam": 2
+      "winnerTeam": 1
     },
     {
       "id": "m_10_2",
